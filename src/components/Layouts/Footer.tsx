@@ -1,12 +1,13 @@
 import Image from "next/image"
 import Link from "next/link"
+import { brand } from "../../config/brand"
 export default function Footer() {
     const quickLink = [
         { title: "Home", href: "/" },
         { title: "About", href: "#aboutPage" },
         { title: "Assets", href: "#assetPage" },
         { title: "How It Works", href: "#how-it-works" },
-        { title: "Why Nexora", href: "#why-nexora" },
+        { title: "Why Zetta", href: "#why-zetta" },
 
     ]
 
@@ -27,13 +28,13 @@ export default function Footer() {
                     {/* Brand + Tagline */}
                     <div className="flex-1 space-y-2">
                         <Image
-                            src="/favicon/nexoraIcon.png"
-                            alt="Icon Nexora"
+                            src="/favicon/zettaIcon.png"
+                            alt={`Icon ${brand.name}`}
                             width={500}
                             height={500}
                             className="w-20 h-auto scale-145 ml-2"
                         />
-                        <p className="font-medium text-sm tracking-wide max-w-sm">Build faster with curated digital assets for modern creators.</p>
+                        <p className="font-medium text-sm tracking-wide max-w-sm">{brand.slogan}</p>
                     </div>
 
                     <div className="flex-1 flex flex-row items-start justify-between gap-4">
@@ -87,7 +88,7 @@ export default function Footer() {
                 <p
                     className="text-sm text-(--text-gray) text-center mt-10">
                     &copy; {new Date().getFullYear()}
-                    Nexora Store. <a href="/syarat-ketentuan">All rights reserved</a>.
+                    {brand.name} Store. <a href="/syarat-ketentuan">All rights reserved</a>.
                 </p>
             </footer>
         </>

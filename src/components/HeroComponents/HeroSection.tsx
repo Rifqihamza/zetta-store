@@ -2,6 +2,7 @@
 
 import OrbComponent from "../ui/OrbComponent"
 import Link from "next/link"
+import { brand } from "../../config/brand"
 
 export default function HeroSection() {
     return (
@@ -13,19 +14,15 @@ export default function HeroSection() {
             <section className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-center">
                 <div className="flex flex-col items-center gap-3">
                     <span className="text-xs tracking-wider text-(--text-gray) bg-(--accent)/10 backdrop-blur-xl border border-(--secondary)/30 px-4 py-1 rounded-full">
-                        NEXORA
+                        {brand.name.toUpperCase()}
                     </span>
 
                     <h1 className="text-2xl md:text-4xl font-semibold tracking-tight">
-                        Build What`s Next.
+                        {brand.slogan}
                     </h1>
 
                     <p className="text-md text-(--text-gray) max-w-xl">
-                        Premium digital assets designed to help <br />
-                        <span className="text-white font-medium">
-                            creators & developers
-                        </span>{" "}
-                        build faster and smarter.
+                        {brand.description}
                     </p>
                 </div>
 

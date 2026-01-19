@@ -1,11 +1,11 @@
-# Nexora Store 🌟
+# Zetta — Build Less, Create More 🌟
 
 ![Next.js](https://img.shields.io/badge/Next.js-000000?style=for-the-badge&logo=next.js&logoColor=white)
 ![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white)
 ![TailwindCSS](https://img.shields.io/badge/TailwindCSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)
 ![Sanity](https://img.shields.io/badge/Sanity-F03E2F?style=for-the-badge&logo=sanity&logoColor=white)
 
-A premium digital marketplace built with Next.js, designed to empower creators and developers with high-quality assets. Featuring a modern, responsive design and powered by Sanity CMS for seamless content management.
+Premium digital assets and templates for modern builders. Featuring a modern, responsive design and powered by Sanity CMS for seamless content management.
 
 ## ✨ Features
 
@@ -37,8 +37,8 @@ A premium digital marketplace built with Next.js, designed to empower creators a
 1. Clone the repository:
 
    ```bash
-   git clone https://github.com/your-username/nexora-store.git
-   cd nexora-store
+   git clone https://github.com/your-username/zetta-store.git
+   cd zetta-store
    ```
 
 2. Install dependencies:
@@ -75,7 +75,7 @@ A premium digital marketplace built with Next.js, designed to empower creators a
 ## 📁 Project Structure
 
 ```
-nexora-store/
+zetta-store/
 ├── src/
 │   ├── app/
 │   │   ├── AboutPage/
@@ -107,7 +107,7 @@ nexora-store/
 │   │   ├── image.ts
 │   │   ├── query.ts
 │   │   └── sanity.ts
-│   ├── nexora-asset-cms/
+│   ├── zetta-asset-cms/
 │   │   ├── schemaTypes/
 │   │   │   ├── index.ts
 │   │   │   └── schemeProduct.ts

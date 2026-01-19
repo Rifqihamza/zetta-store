@@ -2,8 +2,9 @@
 
 import { Sparkles, Layers, Zap, CheckCircle2 } from "lucide-react"
 import SpotlightCard from "../ui/SpotlightCard"
+import { brand } from "../../config/brand"
 
-const WhatIsNexora = () => {
+const WhatIsZetta = () => {
     const features = [
         {
             icon: <Layers size={20} />,
@@ -24,7 +25,7 @@ const WhatIsNexora = () => {
 
     return (
         <section
-            id="what-nexora"
+            id="what-zetta"
             className="relative py-15 px-6 max-w-7xl mx-auto"
         >
             {/* subtle background glow */}
@@ -38,11 +39,11 @@ const WhatIsNexora = () => {
             {/* heading */}
             <div className="text-center max-w-2xl mx-auto mb-20">
                 <h2 className="text-3xl md:text-4xl font-semibold mb-4">
-                    What is Nexora?
+                    What is {brand.name}?
                 </h2>
 
                 <p className="text-(--text-gray) leading-relaxed">
-                    Nexora is a premium digital assets platform built to help creators and
+                    {brand.name} is a premium digital assets platform built to help creators and
                     developers turn ideas into real projects—faster, cleaner, and smarter.
                 </p>
             </div>
@@ -73,7 +74,7 @@ const WhatIsNexora = () => {
     )
 }
 
-const WhyIsNexora = () => {
+const WhyIsZetta = () => {
     const reasons = [
         "Curated assets for real-world projects",
         "Clean structure, easy to integrate",
@@ -84,7 +85,7 @@ const WhyIsNexora = () => {
 
     return (
         <section
-            id="why-nexora"
+            id="why-zetta"
             className="relative py-16 px-6 max-w-7xl mx-auto"
         >
             {/* background accent */}
@@ -98,12 +99,12 @@ const WhyIsNexora = () => {
             <div className="grid md:grid-cols-2 gap-16 items-center">
                 {/* left copy */}
                 <div>
-                    <span className="text-sm tracking-wider 
-            text-(--accent) 
-            bg-(--accent)/10 backdrop-blur-xl 
-            border border-(--secondary)/60 
+                    <span className="text-sm tracking-wider
+            text-(--accent)
+            bg-(--accent)/10 backdrop-blur-xl
+            border border-(--secondary)/60
             px-4 py-1 rounded-full uppercase">
-                        Why Nexora?
+                        Why {brand.name}?
                     </span>
                     <h2 className="text-3xl md:text-4xl font-semibold mt-4 mb-6">
                         Designed to help you build faster,
@@ -112,7 +113,7 @@ const WhyIsNexora = () => {
                     </h2>
 
                     <p className="text-(--text-gray) leading-relaxed max-w-md">
-                        Nexora is built with a clear focus on efficiency and quality,
+                        {brand.name} is built with a clear focus on efficiency and quality,
                         providing assets that fit seamlessly into modern workflows.
                     </p>
                 </div>
@@ -148,16 +149,16 @@ const WhyIsNexora = () => {
 export default function AboutSection() {
     return (
         <main className="w-full flex flex-col items-center justify-center">
-            <span className="text-xs tracking-wider 
-            text-(--text-gray) 
-            bg-(--accent)/10 backdrop-blur-xl 
-            border border-(--secondary)/30 
+            <span className="text-xs tracking-wider
+            text-(--text-gray)
+            bg-(--accent)/10 backdrop-blur-xl
+            border border-(--secondary)/30
             px-4 py-1 rounded-full uppercase">
-                About Nexora
+                About {brand.name}
             </span>
 
-            <WhatIsNexora />
-            <WhyIsNexora />
+            <WhatIsZetta />
+            <WhyIsZetta />
         </main>
     )
 }

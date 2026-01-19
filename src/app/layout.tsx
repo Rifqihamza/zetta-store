@@ -3,13 +3,14 @@ import "./globals.css";
 import Navbar from "@/components/Layouts/Navbar";
 import { Geist, Geist_Mono } from "next/font/google";
 import Footer from "@/components/Layouts/Footer";
+import { brand } from "@/config/brand";
 
 export const metadata: Metadata = {
   title: {
-    default: "Nexora Store | Premium Digital Assets & Templates",
-    template: "%s | Nexora Store"
+    default: `${brand.name} — ${brand.slogan}`,
+    template: `%s | ${brand.name}`
   },
-  description: "Premium digital assets and website templates designed to help creators and developers build faster and smarter. Explore our curated collection of high-quality assets.",
+  description: brand.description,
   keywords: ["digital assets", "website templates", "UI components", "design resources", "developer tools", "Sanity CMS"],
   authors: [{ name: "CodersProject" }],
   creator: "CodersProject",
@@ -17,15 +18,15 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "en_US",
-    url: "https://nexora-store.vercel.app",
-    title: "Nexora Store | Premium Digital Assets & Templates",
-    description: "Premium digital assets and website templates for creators and developers",
-    siteName: "Nexora Store",
+    url: "https://zetta-store.vercel.app",
+    title: `${brand.name} — ${brand.slogan}`,
+    description: brand.description,
+    siteName: brand.name,
   },
   twitter: {
     card: "summary_large_image",
-    title: "Nexora Store | Premium Digital Assets & Templates",
-    description: "Premium digital assets and website templates for creators and developers",
+    title: `${brand.name} — ${brand.slogan}`,
+    description: brand.description,
     creator: "@codersproject",
   },
   robots: {
