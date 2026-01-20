@@ -67,7 +67,7 @@ export default async function AssetDetailPage({
                 <Section
                     title="What You Will Get"
                     icon={<Package />}
-                    items={PRODUCT_CONTENT.whatYouGet} />
+                    items={PRODUCT_CONTENT.whatYouGet(product.productType)} />
                 <Section
                     title="License Information"
                     icon={<Info />}

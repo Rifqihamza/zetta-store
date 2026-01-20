@@ -73,12 +73,17 @@ export const PRODUCT_CONTENT = {
         productType?: ProductType;
     }) => generateProductIntro(product),
 
-    whatYouGet: [
-        "File digital siap pakai",
-        "Akses instan setelah pembelian",
-        "Lisensi sesuai pilihan",
-        "Panduan penggunaan",
-    ],
+    whatYouGet: (productType?: ProductType) => {
+        if (productType && CATEGORY_CONTENT[productType]) {
+            return CATEGORY_CONTENT[productType];
+        }
+        return [
+            "File digital siap pakai",
+            "Akses instan setelah pembelian",
+            "Lisensi sesuai pilihan",
+            "Panduan penggunaan",
+        ];
+    },
 
     howToOrder: [
         "Pilih produk yang kamu inginkan",

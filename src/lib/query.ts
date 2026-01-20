@@ -24,6 +24,7 @@ export const PRODUCT_BY_SLUG_QUERY = groq`
     price,
     isFree,
     licenseType,
+    productType,
     checkoutUrl
   }
 `
