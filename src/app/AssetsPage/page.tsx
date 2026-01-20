@@ -66,9 +66,16 @@ export default async function AssetsPage() {
                                         <div className="flex flex-col flex-1 space-y-2 pt-4">
                                             <hr className="border-(--text-gray)/30" />
 
-                                            <p className="text-xs uppercase tracking-wider text-(--accent)">
-                                                {product.category}
-                                            </p>
+                                            <div className="flex flex-wrap gap-1">
+                                                {product.categories?.map((category, i) => (
+                                                    <span
+                                                        key={i}
+                                                        className="text-xs uppercase tracking-wider text-(--accent) bg-(--primary)/20 px-2 py-0.5 rounded"
+                                                    >
+                                                        {category}
+                                                    </span>
+                                                ))}
+                                            </div>
 
                                             <h3 className="font-medium leading-snug line-clamp-2">
                                                 {product.title}

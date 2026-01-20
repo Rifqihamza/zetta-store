@@ -6,7 +6,7 @@ export interface Product {
     title: string
     slug: { current: string }
     thumbnail: ImageAsset
-    category: "ui-kit" | "icon-set" | "template" | "bundling-pack"
+    categories: string[]
     price: number
     isFree: boolean
     licenseType: LicenseType
