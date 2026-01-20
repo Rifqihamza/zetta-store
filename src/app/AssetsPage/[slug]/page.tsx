@@ -1,11 +1,11 @@
 import Image from "next/image"
 import { getProductBySlug } from "@/lib/getProductBySlug"
 import { urlFor } from "@/lib/image"
-import { PRODUCT_CONTENT } from "@/config/productContent"
 import { rupiahFormat } from "@/lib/currencyFormat"
 import { notFound } from "next/navigation"
 import { CheckoutButton, CopyLinkButton, ShareButton, GoBackButton, ViewAllAssetsButton } from "@/hooks"
 import { ArrowLeftCircle, Info, Package, CircleQuestionMark } from "lucide-react"
+import { PRODUCT_CONTENT, LICENSE_INFO } from "@/constants/product-content"
 
 export default async function AssetDetailPage({
     params,
@@ -15,11 +15,6 @@ export default async function AssetDetailPage({
     const { slug } = await params
     const product = await getProductBySlug(slug)
     if (!product) return notFound()
-
-    const licenseContent =
-        PRODUCT_CONTENT.licenseInfo[product.licenseType] ??
-        PRODUCT_CONTENT.licenseInfo.personal;
-
 
     return (
         <section className="py-28 px-6 max-w-6xl mx-auto space-y-10 relative">
@@ -45,7 +40,10 @@ export default async function AssetDetailPage({
                     <h1 className="text-3xl font-semibold mt-3">{product.title}</h1>
 
                     <p className="text-sm text-(--text-gray)">
-                        {PRODUCT_CONTENT.intro(product.title)}
+                        {PRODUCT_CONTENT.intro({
+                            title: product.title,
+                            productType: product.productType
+                        })}
                     </p>
 
                     <p className="text-2xl font-semibold text-(--primary)">
@@ -73,7 +71,7 @@ export default async function AssetDetailPage({
                 <Section
                     title="License Information"
                     icon={<Info />}
-                    items={licenseContent}
+                    items={LICENSE_INFO[product.licenseType]}
                 />
                 <Section
                     title="How To Order"

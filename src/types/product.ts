@@ -6,10 +6,11 @@ export interface Product {
     title: string
     slug: { current: string }
     thumbnail: ImageAsset
-    categories: string[]
     price: number
     isFree: boolean
+    categories: string[]
     licenseType: LicenseType
+    productType: ProductType
     highlights?: string[]
 }
 
@@ -30,3 +31,15 @@ export type LicenseType =
     | "commercial"
     | "plr"
     | "u-plr";
+
+export type ProductType =
+    | "assets"
+    | "canva"
+    | "ecourse"
+    | "design"
+    | "template"
+    | "video"
+    | "ebook"
+    | "powerpoint"
+    | "elementor"
+    | "mockups"

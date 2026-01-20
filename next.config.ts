@@ -61,10 +61,8 @@ const nextConfig = {
       },
     ]
   },
-  // Experimental features for security
-  experimental: {
-    serverComponentsExternalPackages: []
-  },
+  // External packages for server components
+  serverExternalPackages: [],
   // Disable x-powered-by header
   poweredByHeader: false,
 }
