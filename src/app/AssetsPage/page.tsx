@@ -40,33 +40,37 @@ export default async function AssetsPage() {
                             </p>
                         </div>
                     ) : (
-                        <div className="grid sm:grid-cols-2 md:grid-cols-4 gap-8">
+                        <div className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 items-start">
                             {products.map((product: Product) => (
                                 <Link
                                     key={product._id}
                                     href={`/AssetsPage/${product.slug.current}`}
+                                    className="h-full"
                                 >
                                     <SpotlightCard
-                                        className="custom-spotlight-card bg-(--primary)/10 group hover:border hover:border-(--primary) duration-300"
+                                        className=" h-full flex flex-col bg-(--primary)/10 border border-(--primary)/40 group hover:border-(--primary) transition-all duration-300"
                                         spotlightColor="rgb(93, 14, 215, 0.2)"
                                     >
-                                        <div className="relative aspect-square overflow-hidden">
+                                        {/* IMAGE */}
+                                        <div className="relative aspect-square overflow-hidden rounded-lg">
                                             <Image
                                                 src={urlFor(product.thumbnail).width(600).url()}
                                                 alt={product.title}
-                                                width={200}
-                                                height={200}
-                                                className="mx-auto object-contain group-hover:scale-105 duration-300"
+                                                width={300}
+                                                height={300}
+                                                className=" mx-auto object-contain transition-transform duration-300 group-hover:scale-105"
                                             />
                                         </div>
 
-                                        <div className="space-y-2">
-                                            <hr className="text-(--text-gray)/40" />
+                                        {/* CONTENT */}
+                                        <div className="flex flex-col flex-1 space-y-2 pt-4">
+                                            <hr className="border-(--text-gray)/30" />
+
                                             <p className="text-xs uppercase tracking-wider text-(--accent)">
                                                 {product.category}
                                             </p>
 
-                                            <h3 className="font-medium">
+                                            <h3 className="font-medium leading-snug line-clamp-2">
                                                 {product.title}
                                             </h3>
 
@@ -74,16 +78,18 @@ export default async function AssetsPage() {
                                                 {product.licenseType.toUpperCase()}
                                             </p>
 
-                                            <ul className="text-xs text-(--text-gray)">
+                                            <ul className="text-xs text-(--text-gray) space-y-1 line-clamp-3">
                                                 {product.highlights?.slice(0, 3).map((item, i) => (
                                                     <li key={i}>• {item}</li>
                                                 ))}
                                             </ul>
 
-                                            <p className="text-md text-(--accent)">
-                                                {product.isFree ? "Free" : rupiahFormat(product.price)}
-                                            </p>
-
+                                            {/* PRICE (SELALU DI BAWAH) */}
+                                            <div className="pt-3 mt-auto">
+                                                <p className="text-md font-medium text-(--accent)">
+                                                    {product.isFree ? "Free" : rupiahFormat(product.price)}
+                                                </p>
+                                            </div>
                                         </div>
                                     </SpotlightCard>
                                 </Link>
