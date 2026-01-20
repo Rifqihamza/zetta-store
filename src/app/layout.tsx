@@ -4,6 +4,7 @@ import Navbar from "@/components/Layouts/Navbar";
 import { Geist, Geist_Mono } from "next/font/google";
 import Footer from "@/components/Layouts/Footer";
 import { brand } from "@/config/brand";
+import { ToastProvider } from "@/components/ui/ToastProvider";
 
 export const metadata: Metadata = {
   title: {
@@ -62,9 +63,11 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <Navbar />
-        {children}
-        <Footer />
+        <ToastProvider>
+          <Navbar />
+          {children}
+          <Footer />
+        </ToastProvider>
       </body>
     </html>
   );

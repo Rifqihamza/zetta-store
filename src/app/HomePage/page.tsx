@@ -1,9 +1,9 @@
-import HeroSection from "@/components/HeroComponents/HeroSection"
+import HeroSection from "@/components/SectionComponents/HeroSection"
 
 export default function HomePage() {
     return (
         <>
-            <section id="homePage" className="relative w-full max-w-7xl mx-auto min-h-screen">
+            <section id="homePage" className="relative min-h-screen">
                 <HeroSection />
             </section>
         </>

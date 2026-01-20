@@ -153,6 +153,40 @@ Run ESLint to check code quality:
 npm run lint
 ```
 
+## 🔒 Security Best Practices
+
+This application implements several security measures. See [SECURITY.md](SECURITY.md) for detailed security policies.
+
+### Quick Security Checklist
+
+Before deployment:
+
+- [ ] Run `npm audit` regularly to check for vulnerabilities
+- [ ] Ensure all environment variables are set in production
+- [ ] Verify HTTPS is enabled on your hosting platform
+- [ ] Test that sensitive routes are properly protected
+- [ ] Confirm security headers are working (use browser dev tools)
+
+### Environment Variables
+
+Copy `.env.example` to `.env.local` and configure:
+
+```env
+NEXT_PUBLIC_SANITY_PROJECT_ID=your_project_id
+NEXT_PUBLIC_SANITY_DATASET=production
+NEXT_PUBLIC_SANITY_API_VERSION=2024-01-01
+NEXT_PUBLIC_SANITY_USE_CDN=true
+```
+
+### Vercel Deployment Security
+
+For Vercel deployments, ensure:
+
+1. **Environment Variables**: Set all required variables in Vercel dashboard
+2. **Domain Configuration**: Use custom domain with HTTPS
+3. **Headers**: Security headers are automatically applied via `next.config.ts`
+4. **Analytics**: Consider enabling Vercel Analytics for monitoring
+
 ## 🤝 Contributing
 
 We welcome contributions! Please follow these steps:
@@ -168,5 +202,3 @@ We welcome contributions! Please follow these steps:
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 ---
-
-Built with ❤️ using Next.js and Sanity

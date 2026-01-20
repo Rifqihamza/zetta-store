@@ -8,9 +8,12 @@ export const PRODUCTS_QUERY = groq`
     thumbnail,
     category,
     price,
-    isFree
+    isFree,
+    licenseType,
+    highlights
   }
 `
+
 export const PRODUCT_BY_SLUG_QUERY = groq`
   *[_type == "product" && slug.current == $slug][0]{
     _id,
@@ -18,14 +21,9 @@ export const PRODUCT_BY_SLUG_QUERY = groq`
     slug,
     thumbnail,
     category,
-    originalPrice,
-    isDiscounted,
     price,
     isFree,
-    intro,
-    whatYouGet,
-    whyMustHave,
-    bonus,
-    howToOrder
+    licenseType,
+    checkoutUrl
   }
 `

@@ -1,23 +1,34 @@
 import Image from "next/image"
-import Link from "next/link"
-import { PortableText } from "@portabletext/react"
-import { PortableTextBlock } from "next-sanity"
 import { getProductBySlug } from "@/lib/getProductBySlug"
 import { urlFor } from "@/lib/image"
+import { PRODUCT_CONTENT } from "@/config/productContent"
 import { rupiahFormat } from "@/lib/currencyFormat"
 import { notFound } from "next/navigation"
+import { CheckoutButton, CopyLinkButton, ShareButton, GoBackButton, ViewAllAssetsButton } from "@/hooks"
+import { ArrowLeftCircle, Info, Package, CircleQuestionMark } from "lucide-react"
 
-export default async function AssetDetailPage({ params }: { params: Promise<{ slug: string }> }) {
+export default async function AssetDetailPage({
+    params,
+}: {
+    params: Promise<{ slug: string }>
+}) {
     const { slug } = await params
     const product = await getProductBySlug(slug)
     if (!product) return notFound()
 
+    const licenseContent =
+        PRODUCT_CONTENT.licenseInfo[product.licenseType] ??
+        PRODUCT_CONTENT.licenseInfo.personal;
+
+
     return (
-        <section className="py-32 px-6 max-w-6xl mx-auto space-y-24">
-            {/* TOP */}
-            <div className="grid md:grid-cols-2 gap-16 items-start">
-                {/* IMAGE */}
-                <div className="relative aspect-4/3 rounded-2xl overflow-hidden border border-(--secondary)/20">
+        <section className="py-28 px-6 max-w-6xl mx-auto space-y-10 relative">
+            <GoBackButton className="flex flex-row items-center gap-2 border-none">
+                <ArrowLeftCircle />
+                Go Back
+            </GoBackButton>
+            <div className="grid md:grid-cols-2 gap-16">
+                <div className="relative aspect-4/3 w-full h-auto mx-auto overflow-hidden">
                     <Image
                         src={urlFor(product.thumbnail).width(900).url()}
                         alt={product.title}
@@ -26,100 +37,67 @@ export default async function AssetDetailPage({ params }: { params: Promise<{ sl
                     />
                 </div>
 
-                {/* INFO */}
                 <div className="space-y-4">
-                    <span className="text-xs uppercase tracking-widest text-(--accent) bg-(--primary)/20 border border-(--primary) px-3 py-1 rounded-full">
-                        {product.category}
+                    <span className="text-xs uppercase text-(--accent) bg-(--accent)/20 px-3 py-1 rounded-full border border-(--accent)">
+                        {product.licenseType.toUpperCase()} LICENSE
                     </span>
 
-                    <h1 className="text-3xl font-semibold mt-4">
-                        {product.title}
-                    </h1>
+                    <h1 className="text-3xl font-semibold mt-3">{product.title}</h1>
 
-                    {/* INTRO */}
-                    {product.intro && (
-                        <article className="prose prose-neutral max-w-none leading-relaxed text-justify">
-                            <PortableText value={product.intro} />
-                        </article>
-                    )}
+                    <p className="text-sm text-(--text-gray)">
+                        {PRODUCT_CONTENT.intro(product.title)}
+                    </p>
 
-                    <div className="space-y-1">
-                        {product.isDiscounted && (
-                            <p className="text-sm line-through text-gray-400">
-                                {rupiahFormat(product.originalPrice)}
-                            </p>
-                        )}
+                    <p className="text-2xl font-semibold text-(--primary)">
+                        {product.isFree ? "Free" : rupiahFormat(product.price)}
+                    </p>
 
-                        <p className="text-2xl font-semibold text-(--primary)">
-                            {product.isFree ? "Free" : rupiahFormat(product.price)}
-                        </p>
+                    <CheckoutButton product={product} />
+
+                    <p className="text-xs text-gray-400">
+                        You will be redirected to our official partner
+                    </p>
+                    <div className="flex flex-row items-center gap-4 mt-4">
+                        <ShareButton product={product} />
+                        <CopyLinkButton product={product} />
+                        <ViewAllAssetsButton />
                     </div>
-
-
-                    <Link href="" className="mt-4 px-6 py-3 rounded-full bg-(--primary) text-white">
-                        {product.isFree ? "Download" : "Buy Now"}
-                    </Link>
                 </div>
             </div>
 
-            {/* CONTENT SECTIONS */}
-            <div className="mx-auto space-y-4">
-                <AccordionSection
-                    title="What You Will Get?"
-                    groupName="product-detail"
-                    value={product.whatYouGet}
+            <div className="space-y-4">
+                <Section
+                    title="What You Will Get"
+                    icon={<Package />}
+                    items={PRODUCT_CONTENT.whatYouGet} />
+                <Section
+                    title="License Information"
+                    icon={<Info />}
+                    items={licenseContent}
                 />
-
-                <AccordionSection
-                    title="Why You Must Have This?"
-                    groupName="product-detail"
-                    value={product.whyMustHave}
-                />
-
-                <AccordionSection
-                    title="Bonus!"
-                    groupName="product-detail"
-                    value={product.bonus}
-                />
-
-                <AccordionSection
-                    title="How To Order?"
-                    groupName="product-detail"
-                    value={product.howToOrder}
-                />
+                <Section
+                    title="How To Order"
+                    icon={<CircleQuestionMark />}
+                    items={PRODUCT_CONTENT.howToOrder} />
             </div>
         </section>
     )
 }
 
-function AccordionSection({
-    title,
-    value,
-    groupName,
-    defaultOpen = false,
-}: {
-    title: string
-    value?: PortableTextBlock[]
-    groupName: string
-    defaultOpen?: boolean
-}) {
-    if (!value || value.length === 0) return null
-
+function Section({ title, items, icon }: { title: string; items: string[]; icon: React.ReactNode }) {
     return (
-        <div className="collapse collapse-arrow bg-(--primary)/5 border border-(--secondary)/50 rounded-xl">
-            <input
-                type="radio"
-                name={groupName}
-                defaultChecked={defaultOpen}
-            />
-            <div className="collapse-title text-lg font-medium">
-                {title}
+        <div className="collapse collapse-arrow border border-(--primary) bg-(--primary)/10 backdrop-blur-xl">
+            <input type="radio" name="accordion" defaultChecked />
+            <div className="flex flex-row items-center gap-2 collapse-title">
+                <h1 className="font-semibold text-xl">{title}</h1>
+                <span>{icon}</span>
             </div>
-
-            <div className="collapse-content">
-                <article className="prose prose-neutral max-w-none text-sm">
-                    <PortableText value={value} />
-                </article>
+            <div className="collapse-content pl-10 space-y-2">
+                {items.map((item, i) => (
+                    <ul key={i} className="list-disc text-gray-300">
+                        <li >{item}</li>
+                    </ul>
+                ))}
             </div>
         </div>
     )

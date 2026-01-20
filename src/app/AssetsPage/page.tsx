@@ -1,10 +1,11 @@
 import Image from "next/image"
+import Link from "next/link"
 import SpotlightCard from "@/components/ui/SpotlightCard"
 import { urlFor } from "@/lib/image"
 import { getProducts } from "@/lib/getProduct"
 import { Product } from "@/types/product"
 import { rupiahFormat } from "@/lib/currencyFormat"
-import Link from "next/link"
+import { brand } from "@/config/brand"
 
 export default async function AssetsPage() {
     const products: Product[] = await getProducts()
@@ -16,58 +17,79 @@ export default async function AssetsPage() {
                     className="py-36 px-6 max-w-7xl mx-auto"
                 >
                     {/* heading */}
-                    <div className="mb-16">
-                        <span className="text-sm tracking-wider 
-            text-(--accent) 
-            bg-(--accent)/10 backdrop-blur-xl 
-            border border-(--secondary)/60 
-            px-4 py-1 rounded-full uppercase">
-                            Nexora Assets
+                    <div className="mb-16 w-full">
+                        <span className="text-sm tracking-wider text-(--text-color) bg-(--primary)/30 backdrop-blur-xl border border-(--accent) px-4 py-1 rounded-full">
+                            {brand.name.toUpperCase()} ASSETS
                         </span>
                         <h2 className="text-3xl md:text-4xl font-semibold mt-4">
-                            Crafted assets, ready for your next build.
+                            Ready-to-use digital assets for faster builds.
                         </h2>
                     </div>
 
                     {/* grid */}
-                    <div className="grid sm:grid-cols-2 md:grid-cols-4 gap-8">
-                        {products.map((product: Product) => (
-                            <Link
-                                key={product._id}
-                                href={`/AssetsPage/${product.slug.current}`}
-                            >
-                                <SpotlightCard
-                                    className="custom-spotlight-card bg-(--primary)/10 group hover:border hover:border-(--primary) duration-300"
-                                    spotlightColor="rgb(93, 14, 215, 0.2)"
+                    {products.length === 0 ? (
+                        <div className="text-center py-16">
+                            <div className="mb-4">
+                                <span className="text-6xl">📦</span>
+                            </div>
+                            <h3 className="text-2xl font-semibold mb-2 text-(--text-gray)">
+                                No Products Available
+                            </h3>
+                            <p className="text-(--text-gray)/70">
+                                We`re currently out of stock. Please check back later for new assets.
+                            </p>
+                        </div>
+                    ) : (
+                        <div className="grid sm:grid-cols-2 md:grid-cols-4 gap-8">
+                            {products.map((product: Product) => (
+                                <Link
+                                    key={product._id}
+                                    href={`/AssetsPage/${product.slug.current}`}
                                 >
-                                    <div className="relative aspect-square overflow-hidden">
-                                        <Image
-                                            src={urlFor(product.thumbnail).width(600).url()}
-                                            alt={product.title}
-                                            width={200}
-                                            height={200}
-                                            className="mx-auto object-contain group-hover:scale-105 duration-300"
-                                        />
-                                    </div>
+                                    <SpotlightCard
+                                        className="custom-spotlight-card bg-(--primary)/10 group hover:border hover:border-(--primary) duration-300"
+                                        spotlightColor="rgb(93, 14, 215, 0.2)"
+                                    >
+                                        <div className="relative aspect-square overflow-hidden">
+                                            <Image
+                                                src={urlFor(product.thumbnail).width(600).url()}
+                                                alt={product.title}
+                                                width={200}
+                                                height={200}
+                                                className="mx-auto object-contain group-hover:scale-105 duration-300"
+                                            />
+                                        </div>
 
-                                    <div className="space-y-2">
-                                        <hr className="text-(--text-gray)/40" />
-                                        <p className="text-xs uppercase tracking-wider text-(--accent)">
-                                            {product.category}
-                                        </p>
+                                        <div className="space-y-2">
+                                            <hr className="text-(--text-gray)/40" />
+                                            <p className="text-xs uppercase tracking-wider text-(--accent)">
+                                                {product.category}
+                                            </p>
 
-                                        <h3 className="font-medium">
-                                            {product.title}
-                                        </h3>
+                                            <h3 className="font-medium">
+                                                {product.title}
+                                            </h3>
 
-                                        <p className="text-md text-(--accent)">
-                                            {product.isFree ? "Free" : rupiahFormat(product.price)}
-                                        </p>
-                                    </div>
-                                </SpotlightCard>
-                            </Link>
-                        ))}
-                    </div>
+                                            <p className="text-xs uppercase text-(--accent)">
+                                                {product.licenseType.toUpperCase()}
+                                            </p>
+
+                                            <ul className="text-xs text-(--text-gray)">
+                                                {product.highlights?.slice(0, 3).map((item, i) => (
+                                                    <li key={i}>• {item}</li>
+                                                ))}
+                                            </ul>
+
+                                            <p className="text-md text-(--accent)">
+                                                {product.isFree ? "Free" : rupiahFormat(product.price)}
+                                            </p>
+
+                                        </div>
+                                    </SpotlightCard>
+                                </Link>
+                            ))}
+                        </div>
+                    )}
                 </section>
 
             </section>

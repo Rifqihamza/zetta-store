@@ -7,19 +7,19 @@ import { brand } from "../../config/brand"
 const WhatIsZetta = () => {
     const features = [
         {
-            icon: <Layers size={20} />,
-            title: "Curated Assets",
-            desc: "High-quality digital assets carefully selected for real-world projects.",
+            icon: <Layers size={24} />,
+            title: "Ready-to-Use Templates",
+            desc: "Pre-built digital templates and assets that you can customize and use instantly.",
         },
         {
-            icon: <Zap size={20} />,
-            title: "Built for Speed",
-            desc: "Save hours of work with ready-to-use templates and resources.",
+            icon: <Zap size={24} />,
+            title: "Work Faster",
+            desc: "Skip repetitive setup and launch projects faster with structured, reusable resources.",
         },
         {
-            icon: <Sparkles size={20} />,
-            title: "Modern Workflow",
-            desc: "Designed to fit modern creators and developers workflow.",
+            icon: <Sparkles size={24} />,
+            title: "Built for Modern Tools",
+            desc: "Optimized for modern workflows, tools, and platforms used by today’s creators.",
         },
     ]
 
@@ -30,10 +30,7 @@ const WhatIsZetta = () => {
         >
             {/* subtle background glow */}
             <div className="absolute inset-0 -z-10">
-                <div className="absolute top-1/2 left-1/2 
-          -translate-x-1/2 -translate-y-1/2 
-          w-150 h-150 
-          bg-(--accent)/10 blur-[120px] rounded-full" />
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-150 h-150 bg-(--accent)/10 blur-[120px] rounded-full" />
             </div>
 
             {/* heading */}
@@ -43,30 +40,33 @@ const WhatIsZetta = () => {
                 </h2>
 
                 <p className="text-(--text-gray) leading-relaxed">
-                    {brand.name} is a premium digital assets platform built to help creators and
-                    developers turn ideas into real projects—faster, cleaner, and smarter.
+                    <span className="text-(--text-color)">{brand.name}</span> provides ready-made digital templates and assets
+                    designed to speed up your workflow - so you can focus on building,
+                    not rebuilding.
                 </p>
+
             </div>
 
             {/* cards */}
             <div className="grid md:grid-cols-3 gap-6">
                 {features.map((item, idx) => (
                     <SpotlightCard key={idx}
-                        className="custom-spotlight-card bg-(--primary)/10 border border-(--secondary)"
+                        className="custom-spotlight-card"
                         spotlightColor="rgb(93, 14, 255, 1)">
-                        {/* icon */}
-                        <div className="flex flex-row items-center gap-2 mb-4">
-                            <div className="w-10 h-10 flex items-center justify-center rounded-full bg-(--accent)/15 text-(--accent)">
+                        <div className="flex flex-col gap-3">
+                            {/* icon */}
+                            <div className="w-12 h-12 flex items-center justify-center rounded-full bg-(--primary)/50 text-(--accent)">
                                 {item.icon}
                             </div>
-                            <h3 className="text-lg font-medium">
-                                {item.title}
-                            </h3>
+                            <div className="flex flex-col gap-1">
+                                <h3 className="text-lg font-semibold">
+                                    {item.title}
+                                </h3>
+                                <p className="text-sm text-(--text-gray)">
+                                    {item.desc}
+                                </p>
+                            </div>
                         </div>
-
-                        <p className="text-sm text-(--text-gray)">
-                            {item.desc}
-                        </p>
                     </SpotlightCard>
                 ))}
             </div>
@@ -76,11 +76,11 @@ const WhatIsZetta = () => {
 
 const WhyIsZetta = () => {
     const reasons = [
-        "Curated assets for real-world projects",
-        "Clean structure, easy to integrate",
+        "Ready-to-use digital templates",
+        "Structured & easy to customize",
+        "No setup from scratch",
         "Built for creators & developers",
-        "No repetitive work, save your time",
-        "Scalable for personal & commercial use",
+        "Save hours on every project",
     ]
 
     return (
@@ -90,32 +90,30 @@ const WhyIsZetta = () => {
         >
             {/* background accent */}
             <div className="absolute inset-0 -z-10">
-                <div className="absolute right-0 top-1/2 
-          -translate-y-1/2 
-          w-125 h-125 
-          bg-(--accent)/10 blur-[120px] rounded-full" />
+                <div className="absolute right-0 top-1/2 -translate-y-1/2 w-125 h-125 bg-(--accent)/10 blur-[120px] rounded-full" />
             </div>
 
-            <div className="grid md:grid-cols-2 gap-16 items-center">
+            <div className="grid md:grid-cols-2 gap-16 items-start">
                 {/* left copy */}
                 <div>
-                    <span className="text-sm tracking-wider
-            text-(--accent)
-            bg-(--accent)/10 backdrop-blur-xl
-            border border-(--secondary)/60
-            px-4 py-1 rounded-full uppercase">
+                    <span className="text-sm tracking-wider text-(--accent) bg-(--accent)/10 backdrop-blur-xl border border-(--secondary)/60 px-4 py-1 rounded-full uppercase">
                         Why {brand.name}?
                     </span>
                     <h2 className="text-3xl md:text-4xl font-semibold mt-4 mb-6">
-                        Designed to help you build faster,
+                        Everything you need to build faster,
                         <br />
-                        without compromising quality.
+                        without starting from zero.
                     </h2>
 
                     <p className="text-(--text-gray) leading-relaxed max-w-md">
-                        {brand.name} is built with a clear focus on efficiency and quality,
-                        providing assets that fit seamlessly into modern workflows.
+                        <span className="text-(--text-color)">{brand.name}</span> is designed for creators who value speed and clarity.
+                        Every product is structured, documented, and ready to use -
+                        so you can ship faster with confidence.
                     </p>
+                    <p className="text-sm text-(--text-color) mt-2">
+                        Pick a template. Customize it. Launch faster.
+                    </p>
+
                 </div>
 
                 {/* right list */}
@@ -148,15 +146,7 @@ const WhyIsZetta = () => {
 
 export default function AboutSection() {
     return (
-        <main className="w-full flex flex-col items-center justify-center">
-            <span className="text-xs tracking-wider
-            text-(--text-gray)
-            bg-(--accent)/10 backdrop-blur-xl
-            border border-(--secondary)/30
-            px-4 py-1 rounded-full uppercase">
-                About {brand.name}
-            </span>
-
+        <main className="">
             <WhatIsZetta />
             <WhyIsZetta />
         </main>
