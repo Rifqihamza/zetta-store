@@ -26,7 +26,7 @@ export default function Footer() {
             <hr className="translate-y-5 w-full max-w-7xl mx-auto text-(--primary)/40" />
             <div className="max-w-7xl mx-auto px-6 py-18">
                 {/* Top */}
-                <div className="flex flex-col md:flex-row items-start">
+                <div className="flex flex-col md:flex-row items-start gap-6">
                     {/* Brand */}
                     <div className="w-full">
                         <h2 className="text-xl md:text-3xl font-semibold tracking-wider uppercase">
@@ -41,7 +41,7 @@ export default function Footer() {
                         </p>
                     </div>
 
-                    <div className="w-full flex flex-row items-start justify-between">
+                    <div className="w-full flex flex-col md:flex-row items-start justify-between gap-4">
                         {/* Quick Links */}
                         <div>
                             <h3 className="text-(--accent) font-medium text-lg mb-4">

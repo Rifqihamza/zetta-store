@@ -2,8 +2,8 @@
 
 import { useEffect, useState } from "react"
 import Link from "next/link"
-import { brand } from "@/config/brand"
 import { Menu, X } from "lucide-react"
+import { brand } from "@/config/brand"
 
 export default function Navbar() {
     const [open, setOpen] = useState(false)
@@ -26,19 +26,25 @@ export default function Navbar() {
     ]
 
     return (
-        <header className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ease-out 
-            ${isScrolled
-                ? "bg-(--primary)/5 backdrop-blur-xl shadow-lg shadow-black/40 py-3"
-                : "py-2"}
-            `}>
-            <nav className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+        <header
+            className={`fixed top-0 left-0 z-50 w-full overflow-x-hidden transition-all duration-300
+        ${isScrolled
+                    ? "bg-(--primary)/5 backdrop-blur-xl shadow-lg shadow-black/40"
+                    : "bg-transparent"}
+      `}
+        >
+            {/* ===== NAV BAR ===== */}
+            <nav className="mx-auto flex max-w-7xl items-center justify-between py-4 px-6">
                 {/* Brand */}
-                <Link href="/" className="text-xl font-semibold tracking-wider uppercase">
+                <Link
+                    href="/"
+                    className="text-lg font-semibold uppercase tracking-wider"
+                >
                     {brand.name}
                 </Link>
 
                 {/* Desktop Menu */}
-                <ul className="hidden md:flex items-center gap-6">
+                <ul className="hidden items-center gap-6 md:flex">
                     {navLinks.map((item) => (
                         <li key={item.title}>
                             <NavItem href={item.href}>{item.title}</NavItem>
@@ -48,7 +54,7 @@ export default function Navbar() {
                     <li>
                         <Link
                             href="#assetPage"
-                            className="rounded-full bg-(--primary) px-5 py-2 text-sm font-medium text-white hover:bg-(--secondary) transition-colors"
+                            className="rounded-full bg-(--primary) px-5 py-2 text-sm font-medium text-white transition-colors hover:bg-(--secondary)"
                         >
                             Get Access
                         </Link>
@@ -58,23 +64,23 @@ export default function Navbar() {
                 {/* Mobile Toggle */}
                 <button
                     onClick={() => setOpen(!open)}
-                    className="md:hidden text-white"
+                    className="inline-flex items-center justify-center md:hidden"
                     aria-label="Toggle Menu"
                 >
                     {open ? <X size={24} /> : <Menu size={24} />}
                 </button>
             </nav>
 
-            {/* Mobile Menu */}
+            {/* ===== MOBILE MENU ===== */}
             {open && (
-                <div className="md:hidden bg-black/95 backdrop-blur-xl border-t border-(--accent)/20">
+                <div className="md:hidden w-full max-w-full overflow-x-hidden border-t border-(--accent)/20 bg-black/95 backdrop-blur-xl">
                     <ul className="flex flex-col gap-6 px-6 py-8">
                         {navLinks.map((item) => (
                             <li key={item.title}>
                                 <Link
                                     href={item.href}
                                     onClick={() => setOpen(false)}
-                                    className="block text-lg text-(--text-gray) hover:text-white transition-colors"
+                                    className="block text-lg text-(--text-gray) transition-colors hover:text-white"
                                 >
                                     {item.title}
                                 </Link>
@@ -85,7 +91,7 @@ export default function Navbar() {
                             <Link
                                 href="#assetPage"
                                 onClick={() => setOpen(false)}
-                                className="inline-flex items-center justify-center w-full rounded-full bg-(--primary) px-6 py-3 text-sm font-medium text-white hover:bg-(--secondary) transition-colors"
+                                className="inline-flex w-full items-center justify-center rounded-full bg-(--primary) px-6 py-3 text-sm font-medium text-white transition-colors hover:bg-(--secondary)"
                             >
                                 Get Access
                             </Link>
@@ -97,7 +103,7 @@ export default function Navbar() {
     )
 }
 
-/* ---------- Desktop Nav Item ---------- */
+/* ===== DESKTOP NAV ITEM ===== */
 function NavItem({
     href,
     children,
@@ -108,7 +114,7 @@ function NavItem({
     return (
         <Link
             href={href}
-            className="relative text-sm text-(--text-gray) hover:text-white transition-colors group"
+            className="group relative text-sm text-(--text-gray) transition-colors hover:text-white"
         >
             {children}
             <span className="absolute -bottom-1 left-0 h-0.5 w-0 bg-(--accent) transition-all duration-300 group-hover:w-full" />

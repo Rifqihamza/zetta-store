@@ -95,7 +95,7 @@ const WhyIsZetta = () => {
 
             <div className="grid md:grid-cols-2 gap-16 items-start">
                 {/* left copy */}
-                <div>
+                <div className="text-center md:text-left">
                     <span className="text-sm tracking-wider text-(--accent) bg-(--accent)/10 backdrop-blur-xl border border-(--secondary)/60 px-4 py-1 rounded-full uppercase">
                         Why {brand.name}?
                     </span>
