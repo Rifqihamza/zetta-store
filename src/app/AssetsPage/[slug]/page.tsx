@@ -38,13 +38,13 @@ export default async function AssetDetailPage({
                         {product.categories?.map((cat, i) => (
                             <span
                                 key={i}
-                                className="text-xs uppercase tracking-wider text-(--accent) bg-(--primary)/20 px-2 py-0.5 rounded-full border border-(--accent)"
+                                className="text-[8px] md:text-xs uppercase tracking-wider text-(--accent) bg-(--primary)/20 px-2 py-0.5 rounded-full border border-(--accent)"
                             >
                                 {cat}
                             </span>
                         ))}
                         <span
-                            className="text-xs uppercase tracking-wider text-(--accent) bg-(--primary)/20 px-2 py-0.5 rounded-full border border-(--accent)"
+                            className="text-[8px] md:text-xs uppercase tracking-wider text-(--accent) bg-(--primary)/20 px-2 py-0.5 rounded-full border border-(--accent)"
                         >
                             {product.licenseType.toUpperCase()} LICENSE
                         </span>
@@ -76,7 +76,7 @@ export default async function AssetDetailPage({
                 </div>
             </div>
 
-            <div className="space-y-4">
+            <div className="space-y-4 py-16">
                 <Section
                     title="What You Will Get"
                     icon={<Package />}

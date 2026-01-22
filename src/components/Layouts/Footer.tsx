@@ -24,7 +24,7 @@ export default function Footer() {
     return (
         <footer className="w-full">
             <hr className="translate-y-5 w-full max-w-7xl mx-auto text-(--primary)/40" />
-            <div className="max-w-7xl mx-auto px-6 py-18">
+            <div className="max-w-7xl mx-auto px-6 py-10">
                 {/* Top */}
                 <div className="flex flex-col md:flex-row items-start gap-6">
                     {/* Brand */}
@@ -87,7 +87,7 @@ export default function Footer() {
                 </div>
 
                 {/* Bottom */}
-                <div className="text-center pt-8">
+                <div className="text-center pt-20">
                     <p className="text-sm text-(--text-gray)">
                         © {new Date().getFullYear()} {brand.name}. All rights reserved.
                     </p>

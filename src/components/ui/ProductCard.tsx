@@ -23,7 +23,7 @@ export default function ProductCard({ product }: ProductCardProps) {
                     {product.categories?.map((category, i) => (
                         <span
                             key={i}
-                            className="text-xs uppercase tracking-wider text-(--accent) bg-(--primary)/20 px-2 py-0.5 rounded"
+                            className="text-[8px] md:text-xs uppercase tracking-wider text-(--accent) bg-(--primary)/20 px-2 py-0.5 rounded-full border border-(--accent)"
                         >
                             {category}
                         </span>
@@ -37,7 +37,7 @@ export default function ProductCard({ product }: ProductCardProps) {
                         alt={product.title}
                         width={300}
                         height={300}
-                        className="mx-auto object-contain transition-transform duration-300 group-hover:scale-105"
+                        className="mx-auto object-contain transition-transform duration-300 group-hover:scale-105 p-8"
                     />
                 </div>
 

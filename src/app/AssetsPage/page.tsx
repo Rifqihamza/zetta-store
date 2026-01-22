@@ -6,7 +6,7 @@ export default function AssetsPage() {
         <section id="assetPage" className="relative w-full max-w-7xl mx-auto min-h-screen">
             <section
                 id="assetPage"
-                className="py-36 px-6 max-w-7xl mx-auto"
+                className="py-36 px-2 max-w-7xl mx-auto"
             >
                 {/* heading */}
                 <div className="mb-16 w-full">

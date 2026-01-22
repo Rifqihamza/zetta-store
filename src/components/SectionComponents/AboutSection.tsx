@@ -26,7 +26,7 @@ const WhatIsZetta = () => {
     return (
         <section
             id="what-zetta"
-            className="relative py-15 px-6 max-w-7xl mx-auto"
+            className="relative py-32 px-2 max-w-7xl mx-auto"
         >
             {/* subtle background glow */}
             <div className="absolute inset-0 -z-10">
@@ -86,7 +86,7 @@ const WhyIsZetta = () => {
     return (
         <section
             id="why-zetta"
-            className="relative py-16 px-6 max-w-7xl mx-auto"
+            className="relative py-32 px-2 max-w-7xl mx-auto"
         >
             {/* background accent */}
             <div className="absolute inset-0 -z-10">
