@@ -17,8 +17,8 @@ export default function Footer() {
     ]
 
     const contacts = [
-        { title: "Instagram", href: "#" },
-        { title: "X (Twitter)", href: "#" },
+        { title: "Instagram", href: "https://www.instagram.com/zettaproject.id" },
+        { title: "Whatsapp", href: "wa.me/6282112782261" },
     ]
 
     return (
