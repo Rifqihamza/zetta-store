@@ -1,12 +1,9 @@
-import { sanityClient } from "./client"
-import { PRODUCT_BY_SLUG_QUERY } from "./query"
-import { ProductDetail } from "@/types/product"
+import { ProductService } from './sanity'
 
-export async function getProductBySlug(
-    slug: string
-): Promise<ProductDetail | null> {
-    return sanityClient.fetch<ProductDetail | null>(
-        PRODUCT_BY_SLUG_QUERY,
-        { slug }
-    )
+/**
+ * @deprecated Use ProductService.getProductBySlug() instead
+ * This function is kept for backward compatibility
+ */
+export async function getProductBySlug(slug: string): Promise<import('@/types/product').ProductDetail | null> {
+    return ProductService.getProductBySlug(slug)
 }

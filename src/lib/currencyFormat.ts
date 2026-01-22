@@ -5,3 +5,9 @@ export function rupiahFormat(value: number): string {
         minimumFractionDigits: 0,
     }).format(value)
 }
+
+export function formatPrice(isFree: boolean, price?: number): string {
+    if (isFree) return "Free"
+    if (price) return rupiahFormat(price)
+    return "Price not available"
+}

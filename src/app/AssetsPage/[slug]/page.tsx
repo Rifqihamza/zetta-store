@@ -1,7 +1,7 @@
 import Image from "next/image"
 import { getProductBySlug } from "@/lib/getProductBySlug"
 import { urlFor } from "@/lib/image"
-import { rupiahFormat } from "@/lib/currencyFormat"
+import { formatPrice } from "@/lib/currencyFormat"
 import { notFound } from "next/navigation"
 import { CheckoutButton, CopyLinkButton, ShareButton, GoBackButton, ViewAllAssetsButton } from "@/hooks"
 import { ArrowLeftCircle, Info, Package, CircleQuestionMark } from "lucide-react"
@@ -33,9 +33,22 @@ export default async function AssetDetailPage({
                 </div>
 
                 <div className="space-y-4">
-                    <span className="text-xs uppercase text-(--accent) bg-(--accent)/20 px-3 py-1 rounded-full border border-(--accent)">
-                        {product.licenseType.toUpperCase()} LICENSE
-                    </span>
+
+                    <div className="flex flex-wrap gap-2">
+                        {product.categories?.map((cat, i) => (
+                            <span
+                                key={i}
+                                className="text-xs uppercase tracking-wider text-(--accent) bg-(--primary)/20 px-2 py-0.5 rounded-full border border-(--accent)"
+                            >
+                                {cat}
+                            </span>
+                        ))}
+                        <span
+                            className="text-xs uppercase tracking-wider text-(--accent) bg-(--primary)/20 px-2 py-0.5 rounded-full border border-(--accent)"
+                        >
+                            {product.licenseType.toUpperCase()} LICENSE
+                        </span>
+                    </div>
 
                     <h1 className="text-3xl font-semibold mt-3">{product.title}</h1>
 
@@ -47,7 +60,7 @@ export default async function AssetDetailPage({
                     </p>
 
                     <p className="text-2xl font-semibold text-(--primary)">
-                        {product.isFree ? "Free" : rupiahFormat(product.price)}
+                        {formatPrice(product.isFree, product.price)}
                     </p>
 
                     <CheckoutButton product={product} />
@@ -55,7 +68,7 @@ export default async function AssetDetailPage({
                     <p className="text-xs text-gray-400">
                         You will be redirected to our official partner
                     </p>
-                    <div className="flex flex-row items-center gap-4 mt-4">
+                    <div className="flex flex-row items-center gap-8 mt-4">
                         <ShareButton product={product} />
                         <CopyLinkButton product={product} />
                         <ViewAllAssetsButton />

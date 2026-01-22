@@ -1,5 +1,6 @@
 export { useAssetNavigation } from './useAssetNavigation'
 export { useAssetActions } from './useAssetActions'
+export { useProducts } from './useProduct'
 
 // Individual components
 export { default as GoBackButton } from '@/components/ui/button/GoBackButton'

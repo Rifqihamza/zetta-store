@@ -1,14 +1,10 @@
-import { sanityClient } from "./client"
-import { PRODUCTS_QUERY } from "./query"
-import { Product } from "@/types/product"
+import { ProductService } from './sanity'
 
-export async function getProducts(): Promise<Product[]> {
-    return sanityClient.fetch<Product[]>(
-        PRODUCTS_QUERY,
-        {
-        },
-        {
-            next: { revalidate: 60 },
-        }
-    )
+/**
+ * @deprecated Use ProductService.getProducts() instead
+ * This function is kept for backward compatibility
+ */
+export async function getProducts(): Promise<import('@/types/product').Product[]> {
+    const result = await ProductService.getProducts()
+    return result.products
 }
