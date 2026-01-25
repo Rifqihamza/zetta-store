@@ -18,7 +18,7 @@ Premium digital assets and templates for modern builders. Featuring a modern, re
 
 ## 🛠 Tech Stack
 
-- **Framework**: Next.js 16
+- **Framework**: Next.js 16.1.3
 - **Language**: TypeScript
 - **Styling**: TailwindCSS, DaisyUI
 - **CMS**: Sanity
@@ -57,6 +57,8 @@ Premium digital assets and templates for modern builders. Featuring a modern, re
    ```env
    NEXT_PUBLIC_SANITY_PROJECT_ID=your_project_id
    NEXT_PUBLIC_SANITY_DATASET=production
+   NEXT_PUBLIC_SANITY_API_VERSION=2024-01-01
+   NEXT_PUBLIC_SANITY_USE_CDN=true
    SANITY_API_TOKEN=your_api_token
    ```
 
@@ -75,9 +77,6 @@ Premium digital assets and templates for modern builders. Featuring a modern, re
 ## 📁 Project Structure
 
 ```
-
-```
-
 zetta-store/
 ├── .gitignore
 ├── README.md
@@ -88,10 +87,11 @@ zetta-store/
 ├── package.json
 ├── postcss.config.mjs
 ├── public/
-│ └── favicon/
-│ ├── icon192.png
-│ ├── icon512.png
-│ └── zettaIcon.png
+│ ├── favicon/
+│ │ ├── icon192.png
+│ │ ├── icon512.png
+│ │ └── zettaIcon.png
+│ └── img/
 ├── src/
 │ ├── app/
 │ │ ├── AboutPage/
@@ -176,8 +176,6 @@ zetta-store/
 
 ```
 
-```
-
 ## 🎯 Usage
 
 - **Home Page**: Introduction and hero section with call-to-action buttons
@@ -224,7 +222,7 @@ Before deployment:
 
 ### Environment Variables
 
-Copy `.env.example` to `.env.local` and configure:
+Create a `.env.local` file and configure:
 
 ```env
 NEXT_PUBLIC_SANITY_PROJECT_ID=your_project_id
@@ -254,6 +252,6 @@ We welcome contributions! Please follow these steps:
 
 ## 📄 License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+This project is licensed under the MIT License - see the [license page](license/) for details.
 
 ---
