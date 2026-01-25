@@ -75,52 +75,107 @@ Premium digital assets and templates for modern builders. Featuring a modern, re
 ## 📁 Project Structure
 
 ```
+
+```
+
 zetta-store/
-├── src/
-│   ├── app/
-│   │   ├── AboutPage/
-│   │   ├── AssetsPage/
-│   │   │   └── [slug]/
-│   │   ├── HomePage/
-│   │   ├── StepProcessPage/
-│   │   ├── globals.css
-│   │   ├── layout.tsx
-│   │   └── page.tsx
-│   ├── components/
-│   │   ├── HeroComponents/
-│   │   │   └── HeroSection.tsx
-│   │   ├── Layouts/
-│   │   │   ├── Footer.tsx
-│   │   │   └── Navbar.tsx
-│   │   ├── SectionComponents/
-│   │   │   ├── AboutSection.tsx
-│   │   │   └── StepSection.tsx
-│   │   └── ui/
-│   │       ├── OrbComponent.tsx
-│   │       ├── SpotlightCard.tsx
-│   │       └── Stepper.tsx
-│   ├── lib/
-│   │   ├── client.ts
-│   │   ├── currencyFormat.ts
-│   │   ├── getProduct.ts
-│   │   ├── getProductBySlug.ts
-│   │   ├── image.ts
-│   │   ├── query.ts
-│   │   └── sanity.ts
-│   ├── zetta-asset-cms/
-│   │   ├── schemaTypes/
-│   │   │   ├── index.ts
-│   │   │   └── schemeProduct.ts
-│   │   └── sanity.config.ts
-│   └── types/
-│       └── product.ts
-├── public/
-│   ├── favicon/
-│   └── img/
-├── package.json
+├── .gitignore
+├── README.md
+├── SECURITY.md
+├── eslint.config.mjs
 ├── next.config.ts
-├── tailwind.config.ts
-└── README.md
+├── package-lock.json
+├── package.json
+├── postcss.config.mjs
+├── public/
+│ └── favicon/
+│ ├── icon192.png
+│ ├── icon512.png
+│ └── zettaIcon.png
+├── src/
+│ ├── app/
+│ │ ├── AboutPage/
+│ │ │ └── page.tsx
+│ │ ├── AssetsPage/
+│ │ │ ├── [slug]/
+│ │ │ │ └── page.tsx
+│ │ │ └── page.tsx
+│ │ ├── HomePage/
+│ │ │ └── page.tsx
+│ │ ├── StepProcessPage/
+│ │ │ └── page.tsx
+│ │ ├── api/
+│ │ │ └── products/
+│ │ │ └── route.ts
+│ │ ├── error.tsx
+│ │ ├── favicon.ico
+│ │ ├── globals.css
+│ │ ├── layout.tsx
+│ │ ├── license/
+│ │ │ └── page.tsx
+│ │ ├── not-found.tsx
+│ │ ├── page.tsx
+│ │ ├── privacy/
+│ │ │ └── page.tsx
+│ │ └── terms/
+│ │ └── page.tsx
+│ ├── components/
+│ │ ├── Layouts/
+│ │ │ ├── Footer.tsx
+│ │ │ └── Navbar.tsx
+│ │ ├── SectionComponents/
+│ │ │ ├── AboutSection.tsx
+│ │ │ ├── AssetsGrid.tsx
+│ │ │ ├── HeroSection.tsx
+│ │ │ └── StepSection.tsx
+│ │ └── ui/
+│ │ ├── Carousel.tsx
+│ │ ├── EmptyState.tsx
+│ │ ├── LoadingSpinner.tsx
+│ │ ├── OrbComponent.tsx
+│ │ ├── ProductCard.tsx
+│ │ ├── SpotlightCard.tsx
+│ │ ├── Stepper.tsx
+│ │ ├── ToastAlert.tsx
+│ │ ├── ToastProvider.tsx
+│ │ └── button/
+│ │ ├── CheckoutButton.tsx
+│ │ ├── CopyLinkButton.tsx
+│ │ ├── GoBackButton.tsx
+│ │ ├── ShareButton.tsx
+│ │ └── ViewAllAssetsButton.tsx
+│ ├── config/
+│ │ └── brand.ts
+│ ├── constants/
+│ │ ├── product-content.ts
+│ │ └── product-intro.ts
+│ ├── hooks/
+│ │ ├── index.ts
+│ │ ├── useAssetActions.ts
+│ │ ├── useAssetNavigation.ts
+│ │ └── useProduct.ts
+│ ├── lib/
+│ │ ├── currencyFormat.ts
+│ │ ├── image.ts
+│ │ ├── init.ts
+│ │ └── sanity/
+│ │ ├── client.ts
+│ │ ├── env.ts
+│ │ ├── errors.ts
+│ │ ├── index.ts
+│ │ ├── queries.ts
+│ │ ├── services/
+│ │ │ └── productService.ts
+│ │ └── utils.ts
+│ ├── middleware.ts
+│ ├── types/
+│ │ └── product.ts
+│ └── utils/
+│ └── generateProductIntro.ts
+└── tsconfig.json
+
+```
+
 ```
 
 ## 🎯 Usage
