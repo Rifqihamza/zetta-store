@@ -9,6 +9,7 @@ const requiredEnvVars = [
 ] as const
 
 export function validateSanityEnvironment(): void {
+    if (typeof window !== 'undefined') return
     const missingVars = requiredEnvVars.filter(varName => !process.env[varName])
 
     if (missingVars.length > 0) {

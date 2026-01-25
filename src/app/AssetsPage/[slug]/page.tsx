@@ -1,11 +1,10 @@
-import Image from "next/image"
-import { getProductBySlug } from "@/lib/getProductBySlug"
-import { urlFor } from "@/lib/image"
 import { formatPrice } from "@/lib/currencyFormat"
 import { notFound } from "next/navigation"
 import { CheckoutButton, CopyLinkButton, ShareButton, GoBackButton, ViewAllAssetsButton } from "@/hooks"
 import { ArrowLeftCircle, Info, Package, CircleQuestionMark } from "lucide-react"
 import { PRODUCT_CONTENT, LICENSE_INFO } from "@/constants/product-content"
+import { ProductService } from "@/lib/sanity"
+import Carousel from "@/components/ui/Carousel"
 
 export default async function AssetDetailPage({
     params,
@@ -13,7 +12,7 @@ export default async function AssetDetailPage({
     params: Promise<{ slug: string }>
 }) {
     const { slug } = await params
-    const product = await getProductBySlug(slug)
+    const product = await ProductService.getProductBySlug(slug)
     if (!product) return notFound()
 
     return (
@@ -23,17 +22,9 @@ export default async function AssetDetailPage({
                 Go Back
             </GoBackButton>
             <div className="grid md:grid-cols-2 gap-16">
-                <div className="relative aspect-4/3 w-full h-auto mx-auto overflow-hidden">
-                    <Image
-                        src={urlFor(product.thumbnail).width(900).url()}
-                        alt={product.title}
-                        fill
-                        className="object-contain p-5"
-                    />
-                </div>
+                <Carousel images={product.thumbnail} title={product.title} />
 
                 <div className="space-y-4">
-
                     <div className="flex flex-wrap gap-2">
                         {product.categories?.map((cat, i) => (
                             <span

@@ -5,7 +5,7 @@ export interface Product {
     _id: string
     title: string
     slug: { current: string }
-    thumbnail: ImageAsset
+    thumbnail: ImageAsset[]
     price: number
     isFree: boolean
     categories: string[]

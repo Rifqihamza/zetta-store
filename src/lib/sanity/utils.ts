@@ -1,5 +1,3 @@
-import { groq } from 'next-sanity'
-
 export interface QueryFilters {
     search?: string
     category?: string

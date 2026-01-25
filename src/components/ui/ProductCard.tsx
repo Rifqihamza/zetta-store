@@ -23,7 +23,7 @@ export default function ProductCard({ product }: ProductCardProps) {
                     {product.categories?.map((category, i) => (
                         <span
                             key={i}
-                            className="text-[8px] md:text-xs uppercase tracking-wider text-(--accent) bg-(--primary)/20 px-2 py-0.5 rounded-full border border-(--accent)"
+                            className="text-[8px] md:text-[10px] uppercase tracking-wider text-(--accent) bg-(--primary)/20 px-2 py-0.5 rounded-full border border-(--accent)"
                         >
                             {category}
                         </span>
@@ -32,13 +32,25 @@ export default function ProductCard({ product }: ProductCardProps) {
 
                 {/* IMAGE */}
                 <div className="relative aspect-square overflow-hidden rounded-lg">
-                    <Image
-                        src={urlFor(product.thumbnail).width(600).url()}
-                        alt={product.title}
-                        width={300}
-                        height={300}
-                        className="mx-auto object-contain transition-transform duration-300 group-hover:scale-105 p-8"
-                    />
+                    {product.thumbnail && product.thumbnail.length > 0 && (
+                        <>
+                            <Image
+                                src={urlFor(product.thumbnail[0]).width(600).url()}
+                                alt={product.title}
+                                width={300}
+                                height={300}
+                                className="mx-auto object-contain transition-transform duration-300 group-hover:scale-105 p-8"
+                            />
+                            {product.thumbnail.length > 1 && (
+                                <div className="absolute top-2 right-2 bg-black/60 text-white text-xs px-2 py-1 rounded-full flex items-center gap-1">
+                                    <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+                                        <path d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z" />
+                                    </svg>
+                                    {product.thumbnail.length}
+                                </div>
+                            )}
+                        </>
+                    )}
                 </div>
 
                 {/* CONTENT */}
