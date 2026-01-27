@@ -1,81 +1,66 @@
-"use client"
+"use client";
 
-import Image from "next/image"
-import { ChevronLeft, ChevronRight } from "lucide-react"
-import { urlFor } from "@/lib/image"
-import { ImageAsset } from "sanity"
+import Image from "next/image";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 
 interface CarouselProps {
-    images: ImageAsset[]
-    title: string
+    images: readonly string[];
+    title: string;
 }
 
 export default function Carousel({ images, title }: CarouselProps) {
-    const handlePrev = (currentIndex: number) => {
-        const prevIndex = currentIndex === 0 ? images.length - 1 : currentIndex - 1
-        document.getElementById(`slide${prevIndex}`)?.scrollIntoView({ behavior: 'smooth', block: 'nearest' })
-    }
+    if (!images || images.length === 0) return null;
 
-    const handleNext = (currentIndex: number) => {
-        const nextIndex = currentIndex === images.length - 1 ? 0 : currentIndex + 1
-        document.getElementById(`slide${nextIndex}`)?.scrollIntoView({ behavior: 'smooth', block: 'nearest' })
-    }
-
-    const handleSlideSelect = (index: number) => {
-        document.getElementById(`slide${index}`)?.scrollIntoView({ behavior: 'smooth', block: 'nearest' })
-    }
-
-    const safeImages = Array.isArray(images) ? images : []
+    const scrollTo = (i: number) => {
+        const el = document.getElementById(`slide-${i}`);
+        if (el) {
+            el.scrollIntoView({
+                behavior: "smooth",
+                block: "nearest",
+                inline: "center",
+            });
+        }
+    };
 
     return (
         <div className="relative">
-            <div className="carousel aspect-4/3 w-full h-auto mx-auto overflow-hidden rounded-lg">
-                {safeImages.map((img, index) => (
+            <div className="carousel aspect-4/3 rounded-lg overflow-hidden">
+                {images.map((src, i) => (
                     <div
-                        key={img._id || index}
-                        id={`slide${index}`}
+                        key={`${src}-${i}`} // lebih aman daripada hanya src
+                        id={`slide-${i}`}
                         className="carousel-item relative w-full"
                     >
                         <Image
-                            src={urlFor(img).width(900).url()}
-                            alt={`${title} - Image ${index + 1}`}
+                            src={src}
+                            alt={`${title} ${i + 1}`}
                             fill
+                            sizes="(max-width: 768px) 100vw, 50vw"
                             className="object-contain p-5"
+                            priority={i === 0} // gambar pertama diprioritaskan
                         />
-                        {safeImages.length > 1 && (
-                            <>
-                                <div className="absolute left-5 right-5 top-1/2 flex -translate-y-1/2 transform justify-between">
-                                    <button
-                                        onClick={() => handlePrev(index)}
-                                        className="btn btn-circle btn-ghost bg-white/20 hover:bg-white/40 border-none text-white"
-                                    >
-                                        <ChevronLeft />
-                                    </button>
-                                    <button
-                                        onClick={() => handleNext(index)}
-                                        className="btn btn-circle btn-ghost bg-white/20 hover:bg-white/40 border-none text-white"
-                                    >
-                                        <ChevronRight />
-                                    </button>
-                                </div>
-                            </>
+
+                        {images.length > 1 && (
+                            <div className="absolute left-5 right-5 top-1/2 flex justify-between -translate-y-1/2">
+                                <button
+                                    type="button"
+                                    aria-label="Previous image"
+                                    onClick={() => scrollTo(i === 0 ? images.length - 1 : i - 1)}
+                                >
+                                    <ChevronLeft />
+                                </button>
+                                <button
+                                    type="button"
+                                    aria-label="Next image"
+                                    onClick={() => scrollTo(i === images.length - 1 ? 0 : i + 1)}
+                                >
+                                    <ChevronRight />
+                                </button>
+                            </div>
                         )}
                     </div>
                 ))}
             </div>
-            {safeImages.length > 1 && (
-                <div className="flex justify-center w-full py-2 gap-2 absolute bottom-0 left-0">
-                    {safeImages.map((_, index) => (
-                        <button
-                            key={index}
-                            onClick={() => handleSlideSelect(index)}
-                            className="btn btn-xs btn-neutral"
-                        >
-                            {index + 1}
-                        </button>
-                    ))}
-                </div>
-            )}
         </div>
-    )
+    );
 }

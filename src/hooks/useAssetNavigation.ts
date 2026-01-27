@@ -1,34 +1,61 @@
-'use client'
+'use client';
 
-import { useRouter, usePathname, useSearchParams } from 'next/navigation'
+import { useRouter, usePathname, useSearchParams } from 'next/navigation';
 
 export function useAssetNavigation() {
-    const router = useRouter()
-    const pathname = usePathname()
-    const searchParams = useSearchParams()
+    const router = useRouter();
+    const pathname = usePathname();
+    const searchParams = useSearchParams();
 
+    /**
+     * Navigasi ke halaman detail asset berdasarkan slug
+     */
     const navigateToAsset = (slug: string) => {
-        router.push(`/AssetsPage/${slug}`)
-    }
+        if (!slug) return;
+        router.push(`/AssetsPage/${encodeURIComponent(slug)}`);
+    };
 
+    /**
+     * Navigasi ke halaman daftar asset
+     */
     const navigateToAssetsList = () => {
-        router.push('/#assetPage')
-    }
+        router.push('/#assetPage');
+    };
 
+    /**
+     * Kembali ke halaman sebelumnya
+     */
     const goBack = () => {
-        router.back()
-    }
+        router.back();
+    };
 
+    /**
+     * Navigasi ke halaman utama
+     */
     const navigateHome = () => {
-        router.push('/')
-    }
+        router.push('/');
+    };
 
+    /**
+     * Buka halaman checkout di tab baru
+     */
     const navigateToCheckout = (checkoutUrl: string) => {
-        window.open(checkoutUrl, '_blank', 'noopener,noreferrer')
-    }
+        if (!checkoutUrl) return;
+        window.open(checkoutUrl, '_blank', 'noopener,noreferrer');
+    };
 
-    const isAssetDetailPage = pathname?.startsWith('/AssetsPage/') && pathname !== '/AssetsPage'
-    const isAssetsListPage = pathname === '/AssetsPage'
+    /**
+     * Flag untuk cek apakah sedang di halaman detail asset
+     */
+    const isAssetDetailPage =
+        typeof pathname === 'string' &&
+        pathname.startsWith('/AssetsPage/') &&
+        pathname !== '/AssetsPage';
+
+    /**
+     * Flag untuk cek apakah sedang di halaman daftar asset
+     */
+    const isAssetsListPage = pathname === '/AssetsPage';
 
     return {
         navigateToAsset,
@@ -39,6 +66,6 @@ export function useAssetNavigation() {
         isAssetDetailPage,
         isAssetsListPage,
         pathname,
-        searchParams
-    }
+        searchParams,
+    };
 }

@@ -1,60 +1,78 @@
-'use client'
+'use client';
 
-import { useState, useCallback } from 'react'
-import { useToast } from '@/components/ui/ToastProvider'
+import { useState, useCallback } from 'react';
+import { useToast } from '@/components/ui/ToastProvider';
 
 export function useAssetActions() {
-    const [isLoading] = useState(false)
-    const [error, setError] = useState<string | null>(null)
-    const { showToast } = useToast()
+    const [isLoading, setIsLoading] = useState<boolean>(false);
+    const [error, setError] = useState<string | null>(null);
+    const { showToast } = useToast();
 
-    const shareAsset = useCallback(async (title: string, slug: string) => {
-        if (navigator.share) {
+    /**
+     * Share asset via Web Share API (mobile) atau fallback copy link
+     */
+    const shareAsset = useCallback(
+        async (title: string, slug: string) => {
+            const url = `${window.location.origin}/AssetsPage/${encodeURIComponent(slug)}`;
+            setIsLoading(true);
+
             try {
-                await navigator.share({
-                    title: `Check out ${title}`,
-                    text: `Check out this amazing asset: ${title}`,
-                    url: `${window.location.origin}/AssetsPage/${slug}`
-                })
-                showToast('Asset shared successfully!', 'success')
+                if (navigator.share) {
+                    await navigator.share({
+                        title: `Check out ${title}`,
+                        text: `Check out this amazing asset: ${title}`,
+                        url,
+                    });
+                    showToast('Asset shared successfully!', 'success');
+                } else {
+                    await navigator.clipboard.writeText(url);
+                    showToast('Link copied to clipboard!', 'success');
+                }
             } catch (err) {
-                // User cancelled share or error occurred
-                console.log(err, 'Share cancelled or failed')
+                console.error('Share failed:', err);
+                setError('Failed to share asset');
+                showToast('Failed to share asset', 'error');
+            } finally {
+                setIsLoading(false);
             }
-        } else {
-            // Fallback: copy to clipboard
-            const url = `${window.location.origin}/AssetsPage/${slug}`
+        },
+        [showToast]
+    );
+
+    /**
+     * Copy asset link ke clipboard
+     */
+    const copyAssetLink = useCallback(
+        async (slug: string) => {
+            const url = `${window.location.origin}/AssetsPage/${encodeURIComponent(slug)}`;
+            setIsLoading(true);
+
             try {
-                await navigator.clipboard.writeText(url)
-                showToast('Link copied to clipboard!', 'success')
+                await navigator.clipboard.writeText(url);
+                showToast('Link copied to clipboard!', 'success');
             } catch (err) {
-                console.error('Failed to copy link:', err)
-                showToast('Failed to copy link', 'error')
+                console.error('Failed to copy link:', err);
+                setError('Failed to copy link');
+                showToast('Failed to copy link', 'error');
+            } finally {
+                setIsLoading(false);
             }
-        }
-    }, [showToast])
+        },
+        [showToast]
+    );
 
-    const copyAssetLink = useCallback(async (slug: string) => {
-        const url = `${window.location.origin}/AssetsPage/${slug}`
-        try {
-            await navigator.clipboard.writeText(url)
-            showToast('Link copied to clipboard!', 'success')
-        } catch (err) {
-            console.error('Failed to copy link:', err)
-            setError('Failed to copy link')
-            showToast('Failed to copy link', 'error')
-        }
-    }, [showToast])
-
+    /**
+     * Clear error state
+     */
     const clearError = useCallback(() => {
-        setError(null)
-    }, [])
+        setError(null);
+    }, []);
 
     return {
         isLoading,
         error,
         shareAsset,
         copyAssetLink,
-        clearError
-    }
+        clearError,
+    };
 }

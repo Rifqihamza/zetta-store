@@ -6,8 +6,6 @@ import Footer from "@/components/Layouts/Footer";
 import { brand } from "@/config/brand";
 import { ToastProvider } from "@/components/ui/ToastProvider";
 // Initialize app configuration
-import "@/lib/init";
-
 export const metadata: Metadata = {
   title: {
     default: `${brand.name} — ${brand.slogan}`,

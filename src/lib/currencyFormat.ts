@@ -1,13 +1,23 @@
-export function rupiahFormat(value: number): string {
-    return new Intl.NumberFormat("id-ID", {
-        style: "currency",
+// lib/currencyFormat.ts
+export function rupiahFormat(
+    value: number | null | undefined,
+    opts?: { showCurrency?: boolean; nullLabel?: string }
+): string {
+    const { showCurrency = true, nullLabel = "Price unavailable" } = opts ?? {};
+
+    if (value === null || value === undefined) return nullLabel;
+
+    // Pastikan nilai numeric valid
+    const n = Number(value);
+    if (!Number.isFinite(n)) return nullLabel;
+
+    const formatted = new Intl.NumberFormat("id-ID", {
+        style: showCurrency ? "currency" : "decimal",
         currency: "IDR",
         minimumFractionDigits: 0,
-    }).format(value)
-}
+        maximumFractionDigits: 0,
+    }).format(n);
 
-export function formatPrice(isFree: boolean, price?: number): string {
-    if (isFree) return "Free"
-    if (price) return rupiahFormat(price)
-    return "Price not available"
+    // Jika showCurrency=false, Intl akan mengembalikan "1.000" (tanpa "Rp")
+    return formatted;
 }

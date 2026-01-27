@@ -1,18 +1,20 @@
 'use client'
 
 import { useAssetActions } from '@/hooks'
-import { ProductDetail } from '@/types/product'
+import { Product } from '@/types/product'
 import { Copy } from 'lucide-react'
 
 interface CopyLinkButtonProps {
-    product: ProductDetail
+    product: Product
 }
 
 export default function CopyLinkButton({ product }: CopyLinkButtonProps) {
     const { copyAssetLink } = useAssetActions()
 
     const handleCopyLink = () => {
-        copyAssetLink(product.slug.current)
+        // Use product ID as fallback if slug is not available
+        const linkIdentifier = product.slug ?? product.id;
+        copyAssetLink(linkIdentifier);
     }
 
     return (

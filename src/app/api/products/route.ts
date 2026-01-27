@@ -1,41 +1,58 @@
-import { ProductService, QueryFilters } from '@/lib/sanity'
-import { NextRequest, NextResponse } from 'next/server'
+// src/app/api/products/route.ts
+import { NextRequest, NextResponse } from "next/server";
+import { getProductsSimplified } from "@/lib/productServiceSimplified";
+import { ApiError } from "@/lib/errors";
 
-export async function GET(request: NextRequest) {
+export async function GET(req: NextRequest) {
     try {
-        const { searchParams } = new URL(request.url)
+        const { searchParams } = new URL(req.url);
 
-        // Parse query parameters
-        const search = searchParams.get('search') || undefined
-        const category = searchParams.get('category') || undefined
-        const page = parseInt(searchParams.get('page') || '1')
-        const limit = parseInt(searchParams.get('limit') || '12')
+        const pageRaw = searchParams.get("page");
+        const limitRaw = searchParams.get("limit");
+        const search = searchParams.get("search") ?? "";
+        const category = searchParams.get("category") ?? "";
 
-        // Build filters object
-        const filters: QueryFilters = {}
-        if (search) filters.search = search
-        if (category) filters.category = category
+        // Parse and sanitize parameters
+        const page = Number(pageRaw ?? 1);
+        const limit = Number(limitRaw ?? 12);
 
-        // Fetch products with pagination
-        const result = await ProductService.getProducts(filters, { page, limit })
+        // Sanitize inputs
+        const safePage = Number.isFinite(page) && page > 0 ? Math.floor(page) : 1;
+        const safeLimit = Number.isFinite(limit) ? Math.min(100, Math.max(1, Math.floor(limit))) : 12;
 
-        if (!result.pagination) {
-            return NextResponse.json({
-                error: 'Pagination data not available'
-            }, { status: 500 })
+        // Use the simplified API service
+        const data = await getProductsSimplified({
+            page: safePage,
+            limit: safeLimit,
+            search: search.trim() || undefined,
+            category: category.trim() || undefined,
+        });
+
+        return NextResponse.json(data, { status: 200 });
+    } catch (err: unknown) {
+        // Log full error server-side for debugging
+        console.error("[PRODUCT_API_ERROR]", err);
+
+        // If it's an ApiError, surface a helpful message but keep originalError private
+        if (err instanceof ApiError) {
+            return NextResponse.json(
+                {
+                    products: [],
+                    pagination: null,
+                    error: err.message ?? "Failed to fetch products",
+                },
+                { status: err.status ?? 500 }
+            );
         }
 
-        return NextResponse.json({
-            products: result.products,
-            pagination: result.pagination
-        })
-
-    } catch (error) {
-        console.error('API Error:', error)
-
-        return NextResponse.json({
-            error: 'Internal server error',
-            message: error instanceof Error ? error.message : 'Unknown error'
-        }, { status: 500 })
+        // Generic fallback
+        return NextResponse.json(
+            {
+                products: [],
+                pagination: null,
+                error: "Failed to fetch products",
+            },
+            { status: 500 }
+        );
     }
 }
