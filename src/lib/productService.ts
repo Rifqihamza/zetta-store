@@ -33,7 +33,7 @@ export async function getProducts(params: { search?: string; category?: string; 
     if (params.page) query.append("page", String(params.page));
 
     const json = await scalevFetch(`/products/simplified?${query.toString()}`);
-    console.log("RAW SCALEV DATA:", JSON.stringify(json, null, 2)); // Tambahkan ini
+    // console.log("RAW SCALEV DATA:", JSON.stringify(json, null, 2));
     const validated = ScalevSimplifiedListResponseSchema.parse(json);
 
     let products = validated.data.results.map(mapScalevToProduct);
