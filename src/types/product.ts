@@ -5,31 +5,31 @@ import { Pagination } from "./query";
  */
 export interface Product {
     /** Unique identifier for the product */
-    readonly id: string;
+    id: string;
 
     /** Product title/name */
-    readonly title: string;
+    title: string;
 
     /** URL-friendly slug for the product (optional) */
-    readonly slug?: string;
+    slug?: string;
 
     /** Product description */
-    readonly desc: string;
+    desc: string;
 
     /** Array of image URLs for the product */
-    readonly images: readonly string[];
+    images: string[];
 
     /** Product price in the smallest currency unit (e.g., cents) */
-    readonly price: number;
+    price: number;
 
     /** Whether the product is free (price === 0) */
-    readonly isFree: boolean;
+    isFree: boolean;
 
     /** Categories/tags associated with the product */
-    readonly categories: readonly string[];
+    categories: string[];
 
     /** URL to checkout or download the product (optional) */
-    readonly checkoutUrl?: string;
+    checkoutUrl?: string;
 }
 
 /**
