@@ -1,38 +1,21 @@
-import { PaginationOptions, PaginationResult } from "@/types/query";
+import { Pagination } from "@/types/query"; // Gunakan interface yang baru kamu buat
 
-/**
- * Validasi input pagination agar selalu aman.
- * - page minimal 1
- * - limit minimal 1 dan maksimal 100
- */
-export function validatePagination(
-    page?: number,
-    limit?: number
-): PaginationOptions {
-    const validPage = Number.isFinite(page) ? Math.max(1, Math.floor(page!)) : 1;
-    const validLimit = Number.isFinite(limit)
-        ? Math.min(100, Math.max(1, Math.floor(limit!)))
-        : 12;
-
-    return {
-        page: validPage,
-        limit: validLimit,
-    };
-}
-
-/**
- * Buat hasil pagination lengkap dengan total halaman.
- */
 export function createPaginationResult(
     total: number,
     page: number,
-    limit: number
-): PaginationResult {
-    const safeLimit = limit > 0 ? limit : 1; // hindari pembagian dengan 0
+    limit: number,
+    hasNext: boolean = false,
+    lastId: number | null = null
+): Pagination {
+    const safeTotal = Math.max(0, total);
+    const safeLimit = Math.max(1, limit);
+
     return {
-        page,
+        page: Math.max(1, page),
         limit: safeLimit,
-        totalItems: Math.ceil(total),
-        totalPages: Math.ceil(total / safeLimit),
+        totalItems: safeTotal,
+        totalPages: Math.ceil(safeTotal / safeLimit),
+        hasNext: hasNext, // Diambil langsung dari data Scalev
+        lastId: lastId    // Sangat penting untuk fetch "Load More" berikutnya
     };
 }

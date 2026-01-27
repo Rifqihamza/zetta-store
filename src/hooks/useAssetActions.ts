@@ -8,12 +8,12 @@ export function useAssetActions() {
     const [error, setError] = useState<string | null>(null);
     const { showToast } = useToast();
 
-    /**
-     * Share asset via Web Share API (mobile) atau fallback copy link
-     */
+    const getAssetUrl = (slug: string) =>
+        `${window.location.origin}/AssetsPage/${encodeURIComponent(slug)}`;
+
     const shareAsset = useCallback(
         async (title: string, slug: string) => {
-            const url = `${window.location.origin}/AssetsPage/${encodeURIComponent(slug)}`;
+            const url = getAssetUrl(slug);
             setIsLoading(true);
 
             try {
@@ -29,7 +29,7 @@ export function useAssetActions() {
                     showToast('Link copied to clipboard!', 'success');
                 }
             } catch (err) {
-                console.error('Share failed:', err);
+                if (err instanceof Error && err.name === 'AbortError') return;
                 setError('Failed to share asset');
                 showToast('Failed to share asset', 'error');
             } finally {
@@ -39,19 +39,14 @@ export function useAssetActions() {
         [showToast]
     );
 
-    /**
-     * Copy asset link ke clipboard
-     */
     const copyAssetLink = useCallback(
         async (slug: string) => {
-            const url = `${window.location.origin}/AssetsPage/${encodeURIComponent(slug)}`;
             setIsLoading(true);
-
             try {
-                await navigator.clipboard.writeText(url);
+                await navigator.clipboard.writeText(getAssetUrl(slug));
                 showToast('Link copied to clipboard!', 'success');
             } catch (err) {
-                console.error('Failed to copy link:', err);
+                console.log(err)
                 setError('Failed to copy link');
                 showToast('Failed to copy link', 'error');
             } finally {
@@ -61,18 +56,7 @@ export function useAssetActions() {
         [showToast]
     );
 
-    /**
-     * Clear error state
-     */
-    const clearError = useCallback(() => {
-        setError(null);
-    }, []);
+    const clearError = useCallback(() => setError(null), []);
 
-    return {
-        isLoading,
-        error,
-        shareAsset,
-        copyAssetLink,
-        clearError,
-    };
+    return { isLoading, error, shareAsset, copyAssetLink, clearError };
 }

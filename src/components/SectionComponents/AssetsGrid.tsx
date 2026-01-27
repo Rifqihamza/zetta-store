@@ -1,118 +1,44 @@
-// components/AssetsGrid.tsx
-'use client';
+"use client";
 
-import ProductCard from '@/components/ui/ProductCard';
-import LoadingSpinner from '@/components/ui/LoadingSpinner';
-import EmptyState from '@/components/ui/EmptyState';
-import { Search, ChevronLeft, ChevronDown, ChevronRight } from 'lucide-react';
-import { useProducts } from '@/hooks';
-import { Product } from '@/types/product';
+import { useProducts } from "@/hooks/useProduct";
+import ProductCard from "@/components/ui/ProductCard";
+import { LoadingSpinner, EmptyState } from "@/components/ui/CommonStates";
 
 export default function AssetsGrid() {
-    const {
-        products,
-        categories,
-        pagination,
-        loading,
-        search,
-        setSearch,
-        selectedCategory,
-        setSelectedCategory,
-        currentPage,
-        setCurrentPage,
-    } = useProducts(); // pastikan hook mengembalikan Product[]
+    const { products, loading, search, setSearch, selectedCategory, setSelectedCategory, categories } = useProducts();
 
     return (
-        <>
-            {/* Search & Category */}
-            <div className="mb-6 flex flex-col md:flex-row gap-2 w-full">
-                {/* Search Input */}
-                <div className="relative w-full grow">
-                    <span className="absolute top-3 left-3">
-                        <Search size={20} />
-                    </span>
-                    <input
-                        value={search}
-                        onChange={(e) => setSearch(e.target.value)}
-                        placeholder="Search Assets"
-                        className="px-4 py-2 pl-10 outline-none rounded-xl bg-(--primary)/20 border border-(--secondary)/40 focus:border-(--accent) duration-300 w-full"
-                    />
-                </div>
-
-                {/* Category Dropdown */}
-                <div className="dropdown dropdown-bottom flex-1">
-                    <label
-                        tabIndex={0}
-                        className="px-4 py-2 flex flex-row items-center justify-between rounded-xl bg-(--primary)/20 border border-(--secondary)/40 focus:border-(--accent) duration-300 w-full cursor-pointer"
-                    >
-                        <span>{selectedCategory || 'All Categories'}</span>
-                        <ChevronDown size={20} />
-                    </label>
-
-                    <ul
-                        tabIndex={0}
-                        className="dropdown-content z-10 menu p-2 shadow bg-base-100 rounded-xl w-52 max-h-72 overflow-y-auto"
-                    >
-                        <li>
-                            <button className={!selectedCategory ? 'active' : ''} onClick={() => setSelectedCategory('')}>
-                                All Categories
-                            </button>
-                        </li>
-
-                        {categories.map((cat) => (
-                            <li key={cat}>
-                                <button className={selectedCategory === cat ? 'active' : ''} onClick={() => setSelectedCategory(cat)}>
-                                    {cat}
-                                </button>
-                            </li>
-                        ))}
-                    </ul>
-                </div>
+        <div className="space-y-8">
+            <div className="flex flex-col md:flex-row gap-4 justify-between items-center">
+                <input
+                    type="text"
+                    placeholder="Search assets..."
+                    className="w-full md:max-w-xs bg-(--primary)/10 border border-(--primary)/40 rounded-lg px-4 py-2 focus:border-(--accent) outline-none"
+                    value={search}
+                    onChange={(e) => setSearch(e.target.value)}
+                />
+                <select
+                    className="w-full md:w-auto bg-(--primary)/10 border border-(--primary)/40 rounded-lg px-4 py-2 outline-none"
+                    value={selectedCategory}
+                    onChange={(e) => setSelectedCategory(e.target.value)}
+                >
+                    <option value="">All Categories</option>
+                    {categories.map(cat => <option key={cat} value={cat}>{cat}</option>)}
+                </select>
             </div>
 
-            {/* Loading State */}
-            {loading && <LoadingSpinner message="Loading assets..." />}
-
-            {/* Empty State */}
-            {!loading && products.length === 0 && (
+            {loading && !products.length ? (
+                <LoadingSpinner message="Fetching amazing assets..." />
+            ) : products.length > 0 ? (
+                <div className={`grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6 transition-opacity ${loading ? 'opacity-50' : 'opacity-100'}`}>
+                    {products.map((p) => <ProductCard key={p.id} product={p} />)}
+                </div>
+            ) : (
                 <EmptyState
-                    title="No Products Available"
-                    description={search || selectedCategory ? 'No products match your search.' : 'Please check back later.'}
+                    title="No assets found"
+                    description={`We couldn't find anything for "${search}". Try another keyword.`}
                 />
             )}
-
-            {/* Product Grid */}
-            {!loading && products.length > 0 && (
-                <>
-                    <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-8">
-                        {products.map((p: Product) => (
-                            <ProductCard key={p.id} product={p} />
-                        ))}
-                    </div>
-
-                    {/* Pagination */}
-                    {pagination?.totalPages && pagination.totalPages > 1 && (
-                        <div className="flex justify-center items-center gap-2 mt-8">
-                            <button type="button" disabled={currentPage === 1} onClick={() => setCurrentPage((p) => p - 1)} aria-label="Previous page">
-                                <ChevronLeft />
-                            </button>
-
-                            <span>
-                                {currentPage} / {pagination.totalPages}
-                            </span>
-
-                            <button
-                                type="button"
-                                disabled={currentPage === pagination.totalPages}
-                                onClick={() => setCurrentPage((p) => p + 1)}
-                                aria-label="Next page"
-                            >
-                                <ChevronRight />
-                            </button>
-                        </div>
-                    )}
-                </>
-            )}
-        </>
+        </div>
     );
 }
