@@ -27,17 +27,25 @@ async function scalevFetch(endpoint: string) {
     return response.json();
 }
 
-export async function getProducts(params: { search?: string; page?: number } = {}): Promise<ProductResponse> {
+export async function getProducts(params: { search?: string; category?: string; page?: number } = {}): Promise<ProductResponse> {
     const query = new URLSearchParams();
     if (params.search) query.append("search", params.search);
     if (params.page) query.append("page", String(params.page));
 
     const json = await scalevFetch(`/products/simplified?${query.toString()}`);
-    console.log("DATA ASLI DARI SCALEV:", JSON.stringify(json, null, 2));
+    console.log("RAW SCALEV DATA:", JSON.stringify(json, null, 2)); // Tambahkan ini
     const validated = ScalevSimplifiedListResponseSchema.parse(json);
 
+    let products = validated.data.results.map(mapScalevToProduct);
+
+    if (params.category) {
+        products = products.filter(p =>
+            p.categories.includes(params.category!)
+        );
+    }
+
     return {
-        products: validated.data.results.map(mapScalevToProduct),
+        products,
         pagination: {
             page: params.page ?? 1,
             limit: 20,

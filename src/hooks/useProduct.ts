@@ -15,18 +15,39 @@ export function useProducts(options?: { baseUrl?: string; defaultLimit?: number 
     const baseUrl = options?.baseUrl ?? '/api/products';
     const defaultLimit = options?.defaultLimit ?? 12;
 
+    // Data States
     const [products, setProducts] = useState<Product[]>([]);
     const [categories, setCategories] = useState<string[]>([]);
     const [pagination, setPagination] = useState<Pagination | null>(null);
+
+    // Status States
     const [loading, setLoading] = useState<boolean>(true);
+    const [categoriesLoading, setCategoriesLoading] = useState<boolean>(true);
     const [error, setError] = useState<string | null>(null);
 
+    // Filter States
     const [search, setSearch] = useState<string>('');
     const [selectedCategory, setSelectedCategory] = useState<string>('');
     const [currentPage, setCurrentPage] = useState<number>(1);
 
     const controllerRef = useRef<AbortController | null>(null);
 
+    // 1. Fungsi Fetch Categories (Hanya sekali saat mount)
+    const loadCategories = useCallback(async () => {
+        setCategoriesLoading(true);
+        try {
+            const res = await fetch('/api/categories');
+            if (!res.ok) throw new Error('Failed to fetch categories');
+            const data = await res.json();
+            setCategories(data.categories || []);
+        } catch (err) {
+            console.error('Error loading categories:', err);
+        } finally {
+            setCategoriesLoading(false);
+        }
+    }, []);
+
+    // 2. Fungsi Fetch Products (Setiap filter/page berubah)
     const loadProducts = useCallback(
         async (params: FetchParams) => {
             controllerRef.current?.abort();
@@ -53,15 +74,8 @@ export function useProducts(options?: { baseUrl?: string; defaultLimit?: number 
                 setProducts(data.products || []);
                 setPagination(data.pagination || null);
 
-                if (data.products) {
-                    const uniqueCats = Array.from(
-                        new Set(data.products.flatMap((p: Product) => p.categories))
-                    ).sort() as string[];
-                    setCategories(uniqueCats);
-                }
             } catch (err: unknown) {
                 if (err instanceof Error && err.name === 'AbortError') return;
-
                 const message = err instanceof Error ? err.message : 'An unexpected error occurred';
                 setError(message);
                 setProducts([]);
@@ -72,13 +86,19 @@ export function useProducts(options?: { baseUrl?: string; defaultLimit?: number 
         [baseUrl, defaultLimit]
     );
 
+    // Initial Load: Categories
+    useEffect(() => {
+        loadCategories();
+    }, [loadCategories]);
+
+    // Main Load Trigger: Products
     useEffect(() => {
         const fetchTrigger = () => {
             loadProducts({ search, category: selectedCategory, page: currentPage });
         };
 
         if (search) {
-            const timer = setTimeout(fetchTrigger, 500);
+            const timer = setTimeout(fetchTrigger, 500); // Debounce search
             return () => clearTimeout(timer);
         }
 
@@ -86,16 +106,21 @@ export function useProducts(options?: { baseUrl?: string; defaultLimit?: number 
         return () => controllerRef.current?.abort();
     }, [search, selectedCategory, currentPage, loadProducts]);
 
+    // Reset page when filtering
     useEffect(() => {
         setCurrentPage(1);
     }, [search, selectedCategory]);
 
     return {
+        // Data
         products,
         categories,
         pagination,
+        // Status
         loading,
+        categoriesLoading,
         error,
+        // Actions/States
         search,
         setSearch,
         selectedCategory,

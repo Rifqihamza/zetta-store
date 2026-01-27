@@ -1,19 +1,30 @@
-// src/lib/productMapper.ts
 import { rupiahFormat } from "./currencyFormat";
-import { Product } from "@/types/product";
+import { Product, Category } from "@/types/product"; // Pastikan import Category
 import { ScalevSimplifiedProduct } from "@/types/scalev";
 
 export function mapScalevToProduct(p: ScalevSimplifiedProduct): Product {
-    const primaryVariant = p.variants && p.variants.length > 0 ? p.variants[0] : null;
-
-    const productImages = Array.isArray(p.images) ? p.images : [];
-    const variantImages = primaryVariant && Array.isArray(primaryVariant.images)
-        ? primaryVariant.images
-        : [];
-
-    const combinedImages = Array.from(new Set([...productImages, ...variantImages]));
-
+    const primaryVariant = p.variants[0] || null;
+    const combinedImages = Array.from(
+        new Set([...p.images, ...(primaryVariant?.images ?? [])])
+    );
     const finalImages = combinedImages.length > 0 ? combinedImages : ["/placeholder.png"];
+    const price = primaryVariant?.price ?? 0;
+    const rawCategories: Category[] = p.labels.map((l, index) => {
+        if (typeof l === 'object' && l !== null) {
+            return {
+                id: String(l.id || index), // Fallback ke index jika ID tidak ada
+                name: l.name || "Uncategorized"
+            };
+        }
+        return {
+            id: String(index),
+            name: String(l)
+        };
+    });
+
+    const categories = rawCategories.length > 0
+        ? rawCategories.map(c => c.name)
+        : ["Digital Asset"];
 
     return {
         id: String(p.id),
@@ -24,8 +35,9 @@ export function mapScalevToProduct(p: ScalevSimplifiedProduct): Product {
         rich_description: p.rich_description || primaryVariant?.rich_description || "",
         imageUrl: finalImages[0],
         allImages: finalImages,
-        price: primaryVariant ? primaryVariant.price : 0,
-        displayPrice: rupiahFormat(primaryVariant ? primaryVariant.price : 0),
-        categories: []
+        price: price,
+        displayPrice: rupiahFormat(price),
+        categories: categories,
+        rawCategories: rawCategories,
     };
 }

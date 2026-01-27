@@ -51,7 +51,7 @@ function sanitizeInput(input: string): string {
         .trim()
 }
 
-export function middleware(request: NextRequest) {
+export function proxy(request: NextRequest) {
     const { pathname } = request.nextUrl
     const clientIP = getClientIP(request)
 

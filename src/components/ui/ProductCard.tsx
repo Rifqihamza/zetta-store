@@ -9,22 +9,17 @@ interface ProductCardProps {
 }
 
 export default function ProductCard({ product }: ProductCardProps) {
+
     return (
         <Link href={`/AssetsPage/${encodeURIComponent(product.id)}`} className="h-full">
             <SpotlightCard
                 className="relative h-full flex flex-col bg-(--primary)/10 border border-(--primary)/40 group hover:border-(--primary) transition-all duration-300"
                 spotlightColor="rgb(93, 14, 215, 0.2)"
             >
-                {product.categories?.length > 0 && (
-                    <div className="flex flex-wrap gap-2 absolute top-3 left-3 z-10">
-                        {product.categories.map((label) => (
-                            <span key={label} className="text-xs bg-(--secondary)/20 px-2 py-0.5 rounded backdrop-blur-md">
-                                {label}
-                            </span>
-                        ))}
-                    </div>
-                )}
-
+                <p className="text-[10px] md:text-xs px-2 py-0.5 text-(--accent) bg-(--primary)/10 backdrop-blur-xl rounded-lg border border-(--accent) font-medium w-fit absolute top-2 left-2 z-10">
+                    {product.categories[0] || "Assets"}
+                    {product.categories.length > 1 && ` +${product.categories.length - 1}`}
+                </p>
                 <div className="relative w-30 h-30 md:w-50 md:h-50 mx-auto overflow-hidden rounded-lg">
                     <Image
                         src={product.imageUrl}
@@ -46,9 +41,6 @@ export default function ProductCard({ product }: ProductCardProps) {
                     <hr className="border-(--text-gray)/30" />
                     <h3 className="font-medium leading-snug line-clamp-1">{product.title}</h3>
                     <div className="pt-3 mt-auto flex flex-row items-center justify-between">
-                        <p className="text-xs px-2 py-0.5 text-(--accent) bg-(--primary)/10 backdrop-blur-xl rounded-full border border-(--accent) font-medium">
-                            {product.categories.length > 0 ? product.categories[0] : "Digital Asset"}
-                        </p>
                         <p className="text-md font-medium text-(--accent)">
                             {product.displayPrice || rupiahFormat(product.price)}
                         </p>

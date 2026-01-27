@@ -11,10 +11,16 @@ export interface Product {
     price: number;
     displayPrice?: string;
     categories: string[];
+    rawCategories: Category[]
     variantId: string;
 }
 
 export interface ProductResponse {
     products: Product[];
     pagination: Pagination;
+}
+
+export interface Category {
+    id: string;
+    name: string;
 }

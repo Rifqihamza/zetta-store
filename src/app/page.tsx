@@ -5,7 +5,7 @@ import StepProcessPage from "./StepProcessPage/page";
 
 export default function Wrapper() {
   return (
-    <main className="relative overflow-x-hidden">
+    <main className="relative overflow-x-hidden px-4">
       <HomePage />
       <AboutPage />
       <AssetsPage />

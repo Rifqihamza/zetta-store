@@ -3,29 +3,58 @@
 import { useProducts } from "@/hooks/useProduct";
 import ProductCard from "@/components/ui/ProductCard";
 import { LoadingSpinner, EmptyState } from "@/components/ui/CommonStates";
+import { ChevronDown } from "lucide-react";
 
 export default function AssetsGrid() {
     const { products, loading, search, setSearch, selectedCategory, setSelectedCategory, categories } = useProducts();
 
     return (
         <div className="space-y-8">
-            <div className="flex flex-col md:flex-row gap-4 justify-between items-center">
+            <div className="flex flex-col md:flex-row gap-4 justify-between">
                 <input
                     type="text"
                     placeholder="Search assets..."
-                    className="w-full md:max-w-xs bg-(--primary)/10 border border-(--primary)/40 rounded-lg px-4 py-2 focus:border-(--accent) outline-none"
+                    className="w-full bg-(--primary)/10 border border-(--primary)/40 rounded-lg px-4 py-2 focus:border-(--accent) outline-none transition-colors"
                     value={search}
                     onChange={(e) => setSearch(e.target.value)}
                 />
-                <select
-                    className="w-full md:w-auto bg-(--primary)/10 border border-(--primary)/40 rounded-lg px-4 py-2 outline-none"
-                    value={selectedCategory}
-                    onChange={(e) => setSelectedCategory(e.target.value)}
-                >
-                    <option value="">All Categories</option>
-                    {categories.map(cat => <option key={cat} value={cat}>{cat}</option>)}
-                </select>
-            </div>
+                <div className="dropdown dropdown-bottom">
+                    {/* Tombol yang terlihat seperti Select */}
+                    <div
+                        tabIndex={0}
+                        role="button"
+                        className="w-full md:w-auto bg-(--primary)/10 border border-(--primary)/40 rounded-lg px-4 py-2 focus:border-(--accent) outline-none transition-colors flex flex-row items-center justify-between gap-4 cursor-pointer hover:bg-(--primary)/20 whitespace-nowrap"
+                    >
+                        {selectedCategory || "Categories"}
+                        <ChevronDown size={24} />
+                    </div>
+
+                    {/* Opsi yang bisa di-styling sesuka hati */}
+                    <ul
+                        tabIndex={0}
+                        className="dropdown-content z-1 menu px-2 py-3 shadow-lg bg-base-100 backdrop-blur-xl border border-(--accent) rounded-lg mt-2 w-full space-y-2"
+                    >
+                        <li>
+                            <button
+                                onClick={() => setSelectedCategory("")}
+                                className={`rounded-md ${!selectedCategory ? "w-full bg-(--primary) font-semibold" : "w-full hover:bg-(--primary)/30 backdrop-blur-xl "}`}
+                            >
+                                Categories
+                            </button>
+                        </li>
+                        {categories.map((cat) => (
+                            <li key={cat}>
+                                <button
+                                    onClick={() => setSelectedCategory(cat)}
+                                    className={`rounded-md ${selectedCategory === cat ? "w-full bg-(--primary) font-semibold" : "w-full hover:bg-(--primary)/30 backdrop-blur-xl "}`}
+                                >
+                                    {cat}
+                                </button>
+                            </li>
+                        ))}
+                    </ul>
+                </div>
+            </div >
 
             {loading && !products.length ? (
                 <LoadingSpinner message="Fetching amazing assets..." />
@@ -38,7 +67,8 @@ export default function AssetsGrid() {
                     title="No assets found"
                     description={`We couldn't find anything for "${search}". Try another keyword.`}
                 />
-            )}
-        </div>
+            )
+            }
+        </div >
     );
 }
