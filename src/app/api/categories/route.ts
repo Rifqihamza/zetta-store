@@ -7,15 +7,15 @@ export async function GET() {
         const { products } = await getProducts({ page: 100 });
 
         // Ambil kategori unik, bersihkan dari null/undefined, dan sortir
-        const categories = Array.from(
-            new Set(products.flatMap((p) => p.categories || []))
+        const itemType = Array.from(
+            new Set(products.flatMap((p) => p.item_types || []))
         )
             .filter(Boolean)
             .sort();
 
-        return NextResponse.json({ categories });
+        return NextResponse.json({ itemType });
     } catch (error) {
         console.error('Category Fetch Error:', error);
-        return NextResponse.json({ categories: [] }, { status: 500 });
+        return NextResponse.json({ item_types: [] }, { status: 500 });
     }
 }

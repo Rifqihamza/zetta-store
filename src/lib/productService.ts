@@ -27,20 +27,19 @@ async function scalevFetch(endpoint: string) {
     return response.json();
 }
 
-export async function getProducts(params: { search?: string; category?: string; page?: number } = {}): Promise<ProductResponse> {
+export async function getProducts(params: { search?: string; item_type?: string; page?: number } = {}): Promise<ProductResponse> {
     const query = new URLSearchParams();
     if (params.search) query.append("search", params.search);
     if (params.page) query.append("page", String(params.page));
 
     const json = await scalevFetch(`/products/simplified?${query.toString()}`);
-    // console.log("RAW SCALEV DATA:", JSON.stringify(json, null, 2));
     const validated = ScalevSimplifiedListResponseSchema.parse(json);
 
     let products = validated.data.results.map(mapScalevToProduct);
 
-    if (params.category) {
+    if (params.item_type) {
         products = products.filter(p =>
-            p.categories.includes(params.category!)
+            p.item_types.includes(params.item_type!)
         );
     }
 
@@ -59,7 +58,6 @@ export async function getProducts(params: { search?: string; category?: string; 
 
 export async function getProductById(id: string): Promise<Product | null> {
     try {
-        // Hapus '/simplified' untuk mengambil data detail yang lengkap (termasuk rich_description)
         const json = await scalevFetch(`/products/${id}`);
         const validated = ScalevSimplifiedSingleResponseSchema.parse(json);
         return mapScalevToProduct(validated.data);

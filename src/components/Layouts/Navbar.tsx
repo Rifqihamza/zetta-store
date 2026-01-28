@@ -21,8 +21,8 @@ export default function Navbar() {
         { title: "Home", href: "/" },
         { title: "About", href: "#aboutPage" },
         { title: "Assets", href: "#assetPage" },
-        { title: "Why Zetta?", href: "#why-zetta" },
         { title: "How It Works?", href: "#how-it-works" },
+        { title: "FAQ", href: "#faqPage" },
     ]
 
     return (
@@ -34,7 +34,7 @@ export default function Navbar() {
       `}
         >
             {/* ===== NAV BAR ===== */}
-            <nav className="mx-auto flex max-w-7xl items-center justify-between py-4 px-6">
+            <nav className="mx-auto flex max-w-7xl items-center justify-between py-5 px-6">
                 {/* Brand */}
                 <Link
                     href="/"

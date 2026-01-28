@@ -10,17 +10,12 @@ export interface Product {
     allImages: string[];
     price: number;
     displayPrice?: string;
-    categories: string[];
-    rawCategories: Category[]
+    item_types: string;
+    labels: string[];
     variantId: string;
 }
 
 export interface ProductResponse {
     products: Product[];
     pagination: Pagination;
-}
-
-export interface Category {
-    id: string;
-    name: string;
 }

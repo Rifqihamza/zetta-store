@@ -8,10 +8,10 @@ export function buildProductQueryParams(
     const params = new URLSearchParams();
 
     const search = filters.search?.trim();
-    const category = filters.category?.trim();
+    const typeProduct = filters.item_type?.trim();
 
     if (search) params.set("search", search);
-    if (category) params.set("category", category);
+    if (typeProduct) params.set("category", typeProduct);
 
     if (pagination) {
         const page = Math.max(1, Math.floor(Number(pagination.page || 1)));

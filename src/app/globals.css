@@ -9,7 +9,7 @@ html {
   --secondary: oklch(51.1% 0.262 276.966); /* Indigo 500 */
   --accent: oklch(67.3% 0.182 276.935); /* Indigo 400 */
 
-  --background: #000000; /* Slate 950 */
+  --background: oklch(14.5% 0 0); /* Slate 950 */
   --muted: #0f172a; /* Slate 900 */
 
   --text-color: #ffffff;

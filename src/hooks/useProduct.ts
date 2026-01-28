@@ -7,7 +7,7 @@ import { Pagination } from '@/types/query';
 
 interface FetchParams {
     search: string;
-    category: string;
+    item_type: string;
     page: number;
 }
 
@@ -17,33 +17,33 @@ export function useProducts(options?: { baseUrl?: string; defaultLimit?: number 
 
     // Data States
     const [products, setProducts] = useState<Product[]>([]);
-    const [categories, setCategories] = useState<string[]>([]);
+    const [itemType, setItemType] = useState<string[]>([]);
     const [pagination, setPagination] = useState<Pagination | null>(null);
 
     // Status States
     const [loading, setLoading] = useState<boolean>(true);
-    const [categoriesLoading, setCategoriesLoading] = useState<boolean>(true);
+    const [itemTypeLoading, setItemTypeLoading] = useState<boolean>(true);
     const [error, setError] = useState<string | null>(null);
 
     // Filter States
     const [search, setSearch] = useState<string>('');
-    const [selectedCategory, setSelectedCategory] = useState<string>('');
+    const [selectedItemType, setSelectedItemType] = useState<string>('');
     const [currentPage, setCurrentPage] = useState<number>(1);
 
     const controllerRef = useRef<AbortController | null>(null);
 
     // 1. Fungsi Fetch Categories (Hanya sekali saat mount)
-    const loadCategories = useCallback(async () => {
-        setCategoriesLoading(true);
+    const loadItemType = useCallback(async () => {
+        setItemTypeLoading(true);
         try {
             const res = await fetch('/api/categories');
             if (!res.ok) throw new Error('Failed to fetch categories');
             const data = await res.json();
-            setCategories(data.categories || []);
+            setItemType(data.categories || []);
         } catch (err) {
             console.error('Error loading categories:', err);
         } finally {
-            setCategoriesLoading(false);
+            setItemTypeLoading(false);
         }
     }, []);
 
@@ -60,7 +60,7 @@ export function useProducts(options?: { baseUrl?: string; defaultLimit?: number 
             try {
                 const query = new URLSearchParams();
                 if (params.search.trim()) query.set('search', params.search.trim());
-                if (params.category.trim()) query.set('category', params.category.trim());
+                if (params.item_type.trim()) query.set('item_type', params.item_type.trim());
                 query.set('page', String(params.page));
                 query.set('limit', String(defaultLimit));
 
@@ -88,13 +88,13 @@ export function useProducts(options?: { baseUrl?: string; defaultLimit?: number 
 
     // Initial Load: Categories
     useEffect(() => {
-        loadCategories();
-    }, [loadCategories]);
+        loadItemType();
+    }, [loadItemType]);
 
     // Main Load Trigger: Products
     useEffect(() => {
         const fetchTrigger = () => {
-            loadProducts({ search, category: selectedCategory, page: currentPage });
+            loadProducts({ search, item_type: selectedItemType, page: currentPage });
         };
 
         if (search) {
@@ -104,27 +104,27 @@ export function useProducts(options?: { baseUrl?: string; defaultLimit?: number 
 
         fetchTrigger();
         return () => controllerRef.current?.abort();
-    }, [search, selectedCategory, currentPage, loadProducts]);
+    }, [search, selectedItemType, currentPage, loadProducts]);
 
     // Reset page when filtering
     useEffect(() => {
         setCurrentPage(1);
-    }, [search, selectedCategory]);
+    }, [search, selectedItemType]);
 
     return {
         // Data
         products,
-        categories,
+        itemType,
         pagination,
         // Status
         loading,
-        categoriesLoading,
+        itemTypeLoading,
         error,
         // Actions/States
         search,
         setSearch,
-        selectedCategory,
-        setSelectedCategory,
+        selectedItemType,
+        setSelectedItemType,
         currentPage,
         setCurrentPage,
     } as const;

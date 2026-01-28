@@ -9,6 +9,6 @@ export interface Pagination {
 
 export interface QueryFilters {
     search?: string;
-    category?: string;
+    item_type?: string;
     page?: number;
 }

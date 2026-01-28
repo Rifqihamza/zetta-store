@@ -22,7 +22,7 @@ export default function Footer() {
     ]
 
     return (
-        <footer className="w-full">
+        <footer className="w-full transition-all duration-500">
             <hr className="translate-y-5 w-full max-w-7xl mx-auto text-(--primary)/40" />
             <div className="max-w-7xl mx-auto px-6 py-10">
                 {/* Top */}

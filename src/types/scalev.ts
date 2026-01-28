@@ -15,9 +15,18 @@ export const ScalevSimplifiedProductSchema = z.object({
     id: z.number(),
     name: z.string().default("Untitled Product"),
     slug: z.string().nullish().transform(val => val ?? ""),
+    item_type: z.string().nullish().transform(val => val ?? ""),
     rich_description: z.string().nullish().transform(val => val ?? ""),
+    description: z.string().nullish().transform(val => val ?? ""),
     images: z.array(z.string()).default([]),
-    labels: z.array(z.any()).default([]),
+    labels: z.array(
+        z.union([
+            z.string(),
+            z.object({ name: z.string() })
+        ])
+    )
+        .default([])
+        .transform((val) => val.map(item => typeof item === 'string' ? item : item.name)),
     variants: z.array(ScalevVariantSchema).default([]),
 });
 
