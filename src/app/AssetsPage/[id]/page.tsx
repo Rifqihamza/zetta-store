@@ -33,23 +33,10 @@ export default async function AssetDetailPage({ params }: { params: Promise<{ id
                 <div className="flex flex-col justify-between w-full">
                     <div className="space-y-4 relative z-10">
 
-                        <div className="flex flex-wrap items-center gap-2 relative z-10">
-                            {/* 1. Render Item Type (Utama) */}
-                            <div className="inline-flex items-center gap-2 text-[10px] uppercase tracking-[0.2em] text-(--accent) bg-(--accent)/15 px-3 py-1.5 rounded-full border border-(--accent)/30 font-bold">
-                                <Sparkles size={12} className="animate-pulse" />
-                                {product.item_types || "Asset"}
-                            </div>
-
-                            {/* 2. Render Labels (Tambahan) */}
-                            {product.labels.map((label) => (
-                                <div
-                                    key={label}
-                                    className="inline-flex items-center gap-1.5 text-[10px] uppercase tracking-[0.15em] text-gray-400 bg-white/5 px-3 py-1.5 rounded-full border border-white/10 font-semibold hover:border-(--accent)/50 hover:text-white transition-all duration-300"
-                                >
-                                    <div className="w-1 h-1 rounded-full bg-(--accent)/50" />
-                                    {label}
-                                </div>
-                            ))}
+                        {/* 1. Render Item Type (Utama) */}
+                        <div className="inline-flex items-center gap-2 text-[10px] uppercase tracking-[0.2em] text-(--accent) bg-(--accent)/15 px-3 py-1.5 rounded-full border border-(--accent)/30 font-bold">
+                            <Sparkles size={12} className="animate-pulse" />
+                            {product.item_types || "Asset"}
                         </div>
 
                         <div className="space-y-3">
