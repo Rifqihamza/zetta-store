@@ -31,14 +31,14 @@ export default function Navbar() {
         ${isScrolled
                     ? "bg-(--primary)/5 backdrop-blur-xl shadow-lg shadow-black/40"
                     : "bg-transparent"}
-      `}
+        `}
         >
             {/* ===== NAV BAR ===== */}
             <nav className="mx-auto flex max-w-7xl items-center justify-between py-5 px-6">
                 {/* Brand */}
                 <Link
                     href="/"
-                    className="text-lg font-semibold uppercase tracking-wider"
+                    className="text-3xl text-(--accent) font-semibold tracking-wider font-(family-name:--font-bodoni-moda)"
                 >
                     {brand.name}
                 </Link>

@@ -7,7 +7,7 @@ export default function Footer() {
         { title: "About", href: "#aboutPage" },
         { title: "Assets", href: "#assetPage" },
         { title: "How It Works", href: "#how-it-works" },
-        { title: "Why Zetta", href: "#why-zetta" },
+        { title: "FAQ", href: "#faqPage" },
     ]
 
     const legalLinks = [
@@ -29,7 +29,7 @@ export default function Footer() {
                 <div className="flex flex-col md:flex-row items-start gap-6">
                     {/* Brand */}
                     <div className="w-full">
-                        <h2 className="text-xl md:text-3xl font-semibold tracking-wider uppercase">
+                        <h2 className="text-xl md:text-3xl font-semibold font-(family-name:--font-bodoni-moda) text-(--accent)">
                             {brand.name}
                         </h2>
                         <p className="text-md md:text-lg font-medium">

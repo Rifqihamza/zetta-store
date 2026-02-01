@@ -44,7 +44,7 @@ const WhatIsZetta = () => {
                         </span>
                     </div>
                     <h2 className="text-3xl md:text-4xl font-semibold mb-4">
-                        What is {brand.name}?
+                        What is <span className="font-(family-name:--font-bodoni-moda)">{brand.name}</span>?
                     </h2>
                     <p className="text-(--text-gray) leading-relaxed">
                         <span className="text-(--text-color)">{brand.name}</span> provides ready-made digital templates and assets
@@ -55,11 +55,11 @@ const WhatIsZetta = () => {
             </FreesetsReveal>
 
             {/* cards */}
-            <div className="grid md:grid-cols-3 gap-6">
+            <div className="flex flex-row gap-6">
                 {features.map((item, idx) => (
                     <FreesetsReveal key={idx}>
                         <SpotlightCard
-                            className="custom-spotlight-card z-10"
+                            className="custom-spotlight-card z-10 h-full"
                             spotlightColor="rgb(93, 14, 255, 1)">
                             <div className="flex flex-col gap-3">
                                 {/* icon */}
@@ -100,7 +100,7 @@ const WhyIsZetta = () => {
             className="relative py-32 px-2 max-w-7xl mx-auto"
         >
             {/* background accent */}
-            <div className="absolute inset-0 z-10">
+            <div className="absolute inset-0">
                 <div className="absolute right-0 top-1/2 -translate-y-1/2 w-125 h-125 bg-(--accent)/10 blur-[120px] rounded-full" />
             </div>
 
@@ -109,7 +109,7 @@ const WhyIsZetta = () => {
                     {/* left copy */}
                     <div className="text-center md:text-left">
                         <span className="text-3xl md:text-4xl font-bold">
-                            Why {brand.name}?
+                            Why <span className="font-(family-name:--font-bodoni-moda)">{brand.name}</span>?
                         </span>
 
                         <h2 className="text-2xl md:text-3xl font-semibold mt-4 mb-6">
@@ -135,7 +135,7 @@ const WhyIsZetta = () => {
                             <div className="flex items-center gap-3 p-4 rounded-xl bg-(--primary)/5 border border-(--secondary)/50 backdrop-blur-xl">
                                 <CheckCircle2 size={20} className="text-(--accent)"
                                 />
-                                <p className="text-sm text-(--text-gray)">
+                                <p className="text-sm">
                                     {item}
                                 </p>
                             </div>

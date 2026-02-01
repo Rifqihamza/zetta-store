@@ -1,10 +1,11 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import Navbar from "@/components/Layouts/Navbar";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Geist, Geist_Mono, Bodoni_Moda } from "next/font/google";
 import Footer from "@/components/Layouts/Footer";
 import { brand } from "@/config/brand";
 import { ToastProvider } from "@/components/ui/ToastProvider";
+
 // Initialize app configuration
 export const metadata: Metadata = {
   title: {
@@ -53,6 +54,12 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+const bodoniModa = Bodoni_Moda({
+  variable: "--font-bodoni-moda",
+  subsets: ["latin"],
+});
+
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -61,7 +68,7 @@ export default function RootLayout({
   return (
     <html lang="en" >
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} ${bodoniModa.variable} antialiased`}
       >
         <ToastProvider>
           <Navbar />

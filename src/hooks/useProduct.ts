@@ -5,9 +5,10 @@ import { ApiError } from '@/lib/errors';
 import { Product } from '@/types/product';
 import { Pagination } from '@/types/query';
 
+// Interface untuk parameter fetch agar type-safe
 interface FetchParams {
     search: string;
-    item_type: string;
+    category: string;
     page: number;
 }
 
@@ -15,39 +16,34 @@ export function useProducts(options?: { baseUrl?: string; defaultLimit?: number 
     const baseUrl = options?.baseUrl ?? '/api/products';
     const defaultLimit = options?.defaultLimit ?? 12;
 
-    // Data States
     const [products, setProducts] = useState<Product[]>([]);
-    const [itemType, setItemType] = useState<string[]>([]);
+    const [categories, setCategories] = useState<string[]>([]); // Ganti nama dari labels ke categories
     const [pagination, setPagination] = useState<Pagination | null>(null);
 
-    // Status States
     const [loading, setLoading] = useState<boolean>(true);
-    const [itemTypeLoading, setItemTypeLoading] = useState<boolean>(true);
+    const [categoriesLoading, setCategoriesLoading] = useState<boolean>(true);
     const [error, setError] = useState<string | null>(null);
 
-    // Filter States
     const [search, setSearch] = useState<string>('');
-    const [selectedItemType, setSelectedItemType] = useState<string>('');
+    const [selectedCategory, setSelectedCategory] = useState<string>(''); // Ganti state name
     const [currentPage, setCurrentPage] = useState<number>(1);
 
     const controllerRef = useRef<AbortController | null>(null);
 
-    // 1. Fungsi Fetch Categories (Hanya sekali saat mount)
-    const loadItemType = useCallback(async () => {
-        setItemTypeLoading(true);
+    const loadCategories = useCallback(async () => {
+        setCategoriesLoading(true);
         try {
             const res = await fetch('/api/categories');
             if (!res.ok) throw new Error('Failed to fetch categories');
             const data = await res.json();
-            setItemType(data.categories || []);
+            setCategories(data.categories || []);
         } catch (err) {
             console.error('Error loading categories:', err);
         } finally {
-            setItemTypeLoading(false);
+            setCategoriesLoading(false);
         }
     }, []);
 
-    // 2. Fungsi Fetch Products (Setiap filter/page berubah)
     const loadProducts = useCallback(
         async (params: FetchParams) => {
             controllerRef.current?.abort();
@@ -60,7 +56,7 @@ export function useProducts(options?: { baseUrl?: string; defaultLimit?: number 
             try {
                 const query = new URLSearchParams();
                 if (params.search.trim()) query.set('search', params.search.trim());
-                if (params.item_type.trim()) query.set('item_type', params.item_type.trim());
+                if (params.category.trim()) query.set('category', params.category.trim()); // Konsisten 'category'
                 query.set('page', String(params.page));
                 query.set('limit', String(defaultLimit));
 
@@ -76,8 +72,7 @@ export function useProducts(options?: { baseUrl?: string; defaultLimit?: number 
 
             } catch (err: unknown) {
                 if (err instanceof Error && err.name === 'AbortError') return;
-                const message = err instanceof Error ? err.message : 'An unexpected error occurred';
-                setError(message);
+                setError(err instanceof Error ? err.message : 'An unexpected error occurred');
                 setProducts([]);
             } finally {
                 setLoading(false);
@@ -86,45 +81,38 @@ export function useProducts(options?: { baseUrl?: string; defaultLimit?: number 
         [baseUrl, defaultLimit]
     );
 
-    // Initial Load: Categories
     useEffect(() => {
-        loadItemType();
-    }, [loadItemType]);
+        loadCategories();
+    }, [loadCategories]);
 
-    // Main Load Trigger: Products
     useEffect(() => {
         const fetchTrigger = () => {
-            loadProducts({ search, item_type: selectedItemType, page: currentPage });
+            loadProducts({ search, category: selectedCategory, page: currentPage });
         };
 
-        if (search) {
-            const timer = setTimeout(fetchTrigger, 500); // Debounce search
-            return () => clearTimeout(timer);
-        }
+        const timer = setTimeout(fetchTrigger, search ? 500 : 0);
+        return () => {
+            clearTimeout(timer);
+            controllerRef.current?.abort();
+        };
+    }, [search, selectedCategory, currentPage, loadProducts]);
 
-        fetchTrigger();
-        return () => controllerRef.current?.abort();
-    }, [search, selectedItemType, currentPage, loadProducts]);
-
-    // Reset page when filtering
+    // Reset ke page 1 jika filter berubah
     useEffect(() => {
         setCurrentPage(1);
-    }, [search, selectedItemType]);
+    }, [search, selectedCategory]);
 
     return {
-        // Data
         products,
-        itemType,
+        categories,
         pagination,
-        // Status
         loading,
-        itemTypeLoading,
+        categoriesLoading,
         error,
-        // Actions/States
         search,
         setSearch,
-        selectedItemType,
-        setSelectedItemType,
+        selectedCategory,
+        setSelectedCategory,
         currentPage,
         setCurrentPage,
     } as const;

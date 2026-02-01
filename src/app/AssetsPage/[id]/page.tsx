@@ -58,6 +58,14 @@ export default async function AssetDetailPage({ params }: { params: Promise<{ id
                                 {product.title}
                             </h1>
                             <p className="leading-relaxed text-md md:text-lg">{product.description}</p>
+                            <div>
+                                <span className="mt-2">Product Labels</span>
+                                {product.labels.map((label) => (
+                                    <ul key={label} className="pl-6 list-disc">
+                                        <li className="text-sm text-(--text-gray)">{label}</li>
+                                    </ul>
+                                ))}
+                            </div>
 
                             {/* Product Price */}
                             <p className="text-2xl md:text-3xl font-black text-(--accent)">

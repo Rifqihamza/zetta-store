@@ -27,7 +27,7 @@ async function scalevFetch(endpoint: string) {
     return response.json();
 }
 
-export async function getProducts(params: { search?: string; item_type?: string; page?: number } = {}): Promise<ProductResponse> {
+export async function getProducts(params: { search?: string; category?: string; page?: number } = {}): Promise<ProductResponse> {
     const query = new URLSearchParams();
     if (params.search) query.append("search", params.search);
     if (params.page) query.append("page", String(params.page));
@@ -37,9 +37,10 @@ export async function getProducts(params: { search?: string; item_type?: string;
 
     let products = validated.data.results.map(mapScalevToProduct);
 
-    if (params.item_type) {
-        products = products.filter(p =>
-            p.item_types.includes(params.item_type!)
+    if (params.category && params.category !== "All Categories") {
+        const targetLabel = params.category.toLowerCase();
+        products = products.filter((p) =>
+            p.labels.some(label => label.toLowerCase() === targetLabel)
         );
     }
 
@@ -48,7 +49,7 @@ export async function getProducts(params: { search?: string; item_type?: string;
         pagination: {
             page: params.page ?? 1,
             limit: 20,
-            totalItems: 0,
+            totalItems: products.length,
             totalPages: 0,
             hasNext: validated.data.has_next,
             lastId: validated.data.last_id

@@ -12,16 +12,16 @@ export default function HeroSection() {
             </div>
 
             <section className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-center">
-                <div className="flex flex-col items-center gap-3">
-                    <span className="text-sm tracking-wider text-(--text-color) bg-(--primary)/30 backdrop-blur-xl border border-(--accent) px-4 py-1 rounded-full">
-                        {brand.name.toUpperCase()}
+                <div className="flex flex-col items-center">
+                    <span className="text-3xl text-(--text-color) font-(family-name:--font-bodoni-moda)">
+                        {brand.name}
                     </span>
 
-                    <h1 className="text-2xl md:text-4xl font-semibold tracking-tight">
+                    <h2 className="text-2xl md:text-4xl font-semibold tracking-tight">
                         {brand.slogan}
-                    </h1>
+                    </h2>
 
-                    <p className="text-md text-(--text-gray) max-w-xs">
+                    <p className="text-md text-(--text-gray) max-w-xs mt-4">
                         {brand.description} <br />
                         <span className="text-white font-medium">
                             without starting from scratch.

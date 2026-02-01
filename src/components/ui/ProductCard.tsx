@@ -37,27 +37,21 @@ export default function ProductCard({ product }: ProductCardProps) {
                 <div className="flex flex-col flex-1 pt-4 group">
                     {/* Divider dengan margin yang konsisten */}
                     <hr className="border-white/5 mb-4" />
-
-                    {/* Metadata: Labels & Type */}
-                    <div className="flex flex-wrap items-center gap-x-3 gap-y-2 mb-3">
-
-                        {product.labels.map((label) => (
-                            <div
-                                key={label}
-                                className="flex items-center gap-1.5"
-                            >
-                                <span className="text-[10px] font-bold uppercase tracking-widest text-gray-500 group-hover:text-gray-300 transition-colors">
-                                    {label}
-                                </span>
-                            </div>
-                        ))}
-
-                    </div>
-
                     {/* Title: Dibatasi 2 baris agar card tingginya seragam */}
                     <h3 className="font-semibold text-white leading-snug text-base md:text-lg group-hover:text-(--accent) transition-colors">
                         {product.title}
                     </h3>
+                    <div className="flex flex-col gap-2 mt-4">
+                        {/* Pastikan kita membuang label yang null/empty sebelum di-map */}
+                        {product.labels.filter(Boolean).map((label, index) => (
+                            <ul
+                                key={`${product.id}-${label}-${index}`}
+                                className="text-sm list-disc pl-6"
+                            >
+                                <li>{label}</li>
+                            </ul>
+                        ))}
+                    </div>
 
                     {/* Bottom Section: Price & Action */}
                     <div className="pt-5 mt-auto flex items-center justify-between border-t border-white/5">
