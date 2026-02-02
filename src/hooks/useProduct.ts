@@ -14,7 +14,7 @@ interface FetchParams {
 
 export function useProducts(options?: { baseUrl?: string; defaultLimit?: number }) {
     const baseUrl = options?.baseUrl ?? '/api/products';
-    const defaultLimit = options?.defaultLimit ?? 12;
+    const defaultLimit = options?.defaultLimit ?? 14;
 
     const [products, setProducts] = useState<Product[]>([]);
     const [categories, setCategories] = useState<string[]>([]); // Ganti nama dari labels ke categories

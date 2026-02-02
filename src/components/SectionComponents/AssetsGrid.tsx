@@ -8,15 +8,17 @@ import FreesetsReveal from "../ui/AnimationReveal";
 import ProductCard from "@/components/ui/ProductCard";
 
 export default function AssetsGrid() {
-    // Sesuaikan destructuring dengan nama baru dari hook
     const {
         products,
         loading,
         search,
         setSearch,
-        selectedCategory, // Sebelumnya selectedLabels
-        setSelectedCategory, // Sebelumnya setSelectedLabels
-        categories // Sebelumnya labels
+        selectedCategory,
+        setSelectedCategory,
+        categories,
+        currentPage,
+        pagination,
+        setCurrentPage
     } = useProducts();
 
     return (
@@ -97,6 +99,31 @@ export default function AssetsGrid() {
                     title="No assets found"
                     description={search ? `We couldn't find anything for "${search}".` : "No assets available in this category."}
                 />
+            )}
+
+            {/* Pagination Section */}
+            {pagination && (pagination.hasNext || currentPage > 1) && (
+                <div className="flex justify-center items-center gap-6 mt-12 pb-10">
+                    <button
+                        onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
+                        disabled={currentPage === 1 || loading}
+                        className="flex items-center gap-2 px-6 py-2 rounded-full bg-(--primary)/10 border border-(--primary)/40 hover:bg-(--primary)/20 disabled:opacity-30 disabled:cursor-not-allowed transition-all text-sm font-medium"
+                    >
+                        ← Previous
+                    </button>
+
+                    <span className="text-(--primary) bg-(--primary)/5 px-4 py-1 rounded-md border border-(--primary)/20 text-sm font-bold">
+                        Page {currentPage}
+                    </span>
+
+                    <button
+                        onClick={() => setCurrentPage((prev) => prev + 1)}
+                        disabled={!pagination.hasNext || loading}
+                        className="flex items-center gap-2 px-6 py-2 rounded-full bg-(--primary)/10 border border-(--primary)/40 hover:bg-(--primary)/20 disabled:opacity-30 disabled:cursor-not-allowed transition-all text-sm font-medium"
+                    >
+                        Next →
+                    </button>
+                </div>
             )}
         </div>
     );
