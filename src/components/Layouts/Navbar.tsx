@@ -38,7 +38,7 @@ export default function Navbar() {
                 {/* Brand */}
                 <Link
                     href="/"
-                    className="text-3xl text-(--accent) font-semibold tracking-wider font-(family-name:--font-bodoni-moda)"
+                    className="text-3xl text-white font-semibold tracking-wider font-(family-name:--font-bodoni-moda)"
                 >
                     {brand.name}
                 </Link>

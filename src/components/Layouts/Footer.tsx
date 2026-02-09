@@ -29,7 +29,7 @@ export default function Footer() {
                 <div className="flex flex-col md:flex-row items-start gap-6">
                     {/* Brand */}
                     <div className="w-full">
-                        <h2 className="text-xl md:text-3xl font-semibold font-(family-name:--font-bodoni-moda) text-(--accent)">
+                        <h2 className="text-xl md:text-3xl font-semibold font-(family-name:--font-bodoni-moda) text-white">
                             {brand.name}
                         </h2>
                         <p className="text-md md:text-lg font-medium">
