@@ -1,12 +1,13 @@
 import type { Metadata } from "next";
+import Script from "next/script"; // Tambahkan ini
 import "./globals.css";
 import Navbar from "@/components/Layouts/Navbar";
 import { Geist, Geist_Mono, Bodoni_Moda } from "next/font/google";
 import Footer from "@/components/Layouts/Footer";
 import { brand } from "@/config/brand";
 import { ToastProvider } from "@/components/ui/ToastProvider";
+import Image from "next/image";
 
-// Initialize app configuration
 export const metadata: Metadata = {
   title: {
     default: `${brand.name} — ${brand.slogan}`,
@@ -58,18 +59,41 @@ const bodoniModa = Bodoni_Moda({
   variable: "--font-bodoni-moda",
   subsets: ["latin"],
 });
-
-
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" >
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} ${bodoniModa.variable} antialiased`}
-      >
+    <html lang="en">
+      <head>
+        {/* Gunakan Next Script untuk performa & keamanan */}
+        <Script id="fb-pixel" strategy="afterInteractive">
+          {`
+            !function(f,b,e,v,n,t,s)
+            {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+            n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+            if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+            n.queue=[];t=b.createElement(e);t.async=!0;
+            t.src=v;s=b.getElementsByTagName(e)[0];
+            s.parentNode.insertBefore(t,s)}(window, document,'script',
+            'https://connect.facebook.net/en_US/fbevents.js');
+            fbq('init', '424018265674806');
+            fbq('track', 'PageView');
+          `}
+        </Script>
+      </head>
+      <body className={`${geistSans.variable} ${geistMono.variable} ${bodoniModa.variable} antialiased`}>
+        <noscript>
+          <Image
+            alt="Facebook"
+            height="1"
+            width="1"
+            style={{ display: 'none' }}
+            src="https://www.facebook.com/tr?id=424018265674806&ev=PageView&noscript=1"
+          />
+        </noscript>
+
         <ToastProvider>
           <Navbar />
           {children}
