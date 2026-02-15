@@ -82,6 +82,7 @@ export default function RootLayout({
             fbq('track', 'PageView');
           `}
         </Script>
+        <meta name="facebook-domain-verification" content="0mpib58r68xnzf5jfuvtxbpgm0szeu" />
       </head>
       <body className={`${geistSans.variable} ${geistMono.variable} ${bodoniModa.variable} antialiased`}>
         <noscript>
