@@ -29,7 +29,7 @@ export default async function AssetDetailPage({ params }: { params: Promise<{ id
             </div>
 
             {/* 2. Top Section: Hero Grid */}
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-0 border-4 border-black bg-white [box-shadow:16px_16px_0px_0px_rgba(0,0,0,1)] overflow-hidden mb-16">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-0 border-4 border-black bg-white [box-shadow:16px_16px_0px_0px_rgba(0,0,0,1)] overflow-hidden mb-16 px-5">
 
                 {/* Carousel Area - Diberi background grid halus */}
                 <div className="border-b-4 lg:border-b-0 lg:border-r-4 border-black p-6 bg-[#eeeeee] relative overflow-hidden">
@@ -38,7 +38,7 @@ export default async function AssetDetailPage({ params }: { params: Promise<{ id
                 </div>
 
                 {/* Info Area */}
-                <div className="flex flex-col p-10 bg-white">
+                <div className="flex flex-col p-10 bg-white px-5">
                     <div className="space-y-8 grow">
                         {/* Type Label - High Visibility */}
                         <div className="inline-flex items-center gap-2 bg-(--secondary) text-black border-2 border-black px-4 py-1 text-xs font-black uppercase tracking-[0.2em] [box-shadow:4px_4px_0px_0px_rgba(0,0,0,1)]">
@@ -103,7 +103,7 @@ export default async function AssetDetailPage({ params }: { params: Promise<{ id
             </div>
 
             {/* 3. Content Section */}
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start px-5">
 
                 {/* Documentation Block */}
                 <div className="lg:col-span-8 border-4 border-black bg-white p-10 [box-shadow:12px_12px_0px_0px_rgba(0,0,0,1)]">
@@ -123,7 +123,7 @@ export default async function AssetDetailPage({ params }: { params: Promise<{ id
                 </div>
 
                 {/* Sidebar Accordions */}
-                <div className="lg:col-span-4 space-y-8">
+                <div className="lg:col-span-4 space-y-8 px-5">
                     <AccordionSection
                         icon={<BoxIcon className="w-6 h-6" />}
                         title="Package_Contents"
