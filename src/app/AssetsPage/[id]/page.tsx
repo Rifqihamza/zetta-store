@@ -6,7 +6,7 @@ import {
     GoBackButton,
     ViewAllAssetsButton,
 } from "@/hooks";
-import { ArrowLeftCircle, BoxIcon, Sparkles, CreditCard, ShieldCheck, FileText } from "lucide-react";
+import { ArrowLeft, BoxIcon, Zap, CreditCard, FileText } from "lucide-react";
 import Carousel from "@/components/ui/Carousel";
 import { notFound } from "next/navigation";
 import { getProductById } from "@/lib/productService";
@@ -16,135 +16,166 @@ export default async function AssetDetailPage({ params }: { params: Promise<{ id
     const product = await getProductById(id);
 
     if (!product) return notFound();
-    return (
-        <section className="py-24 px-4 max-w-7xl mx-auto relative min-h-screen">
 
-            {/* 1. Navigasi Kembali */}
-            <div className="mb-10">
-                <GoBackButton className="flex flex-row items-center gap-2 border-none transition-colors hover:text-(--accent) text-gray-400 group">
-                    <ArrowLeftCircle className="w-5 h-5 group-hover:-translate-x-1 transition-transform" />
-                    Back to Catalog
+    return (
+        <section className="py-14 px-4 max-w-7xl mx-auto relative min-h-screen pb-40 text-black">
+
+            {/* 1. Navigasi Kembali - Floating Tag Style */}
+            <div className="mb-8">
+                <GoBackButton className="inline-flex items-center justify-center gap-2 bg-white p-3 border-4 border-black font-black uppercase text-xs tracking-tighter hover:bg-(--secondary) hover:-translate-y-1 transition-all [box-shadow:4px_4px_0px_0px_rgba(0,0,0,1)] active:shadow-none">
+                    <ArrowLeft className="w-4 h-4" strokeWidth={3} />
+                    <span>Return_To_Vault</span>
                 </GoBackButton>
             </div>
 
             {/* 2. Top Section: Hero Grid */}
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-stretch justify-center mb-10">
-                <Carousel images={product.allImages} title={product.title} />
-                <div className="flex flex-col justify-between w-full">
-                    <div className="space-y-4 relative z-10">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-0 border-4 border-black bg-white [box-shadow:16px_16px_0px_0px_rgba(0,0,0,1)] overflow-hidden mb-16">
 
-                        {/* 1. Render Item Type (Utama) */}
-                        <div className="inline-flex items-center gap-2 text-[10px] uppercase tracking-[0.2em] text-(--accent) bg-(--accent)/15 px-3 py-1.5 rounded-full border border-(--accent)/30 font-bold">
-                            <Sparkles size={12} className="animate-pulse" />
-                            {product.item_types || "Asset"}
+                {/* Carousel Area - Diberi background grid halus */}
+                <div className="border-b-4 lg:border-b-0 lg:border-r-4 border-black p-6 bg-[#eeeeee] relative overflow-hidden">
+                    <div className="absolute inset-0 opacity-10 pointer-events-none bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')]" />
+                    <Carousel images={product.allImages} title={product.title} />
+                </div>
+
+                {/* Info Area */}
+                <div className="flex flex-col p-10 bg-white">
+                    <div className="space-y-8 grow">
+                        {/* Type Label - High Visibility */}
+                        <div className="inline-flex items-center gap-2 bg-(--secondary) text-black border-2 border-black px-4 py-1 text-xs font-black uppercase tracking-[0.2em] [box-shadow:4px_4px_0px_0px_rgba(0,0,0,1)]">
+                            <Zap size={14} fill="currentColor" />
+                            {product.item_types || "Standard Asset"}
                         </div>
 
-                        <div className="space-y-3">
-                            {/* Product Title */}
-                            <h1 className="text-2xl md:text-4xl font-extrabold tracking-tight text-white leading-[1.1]">
-                                {product.title}
+                        <div className="space-y-6">
+                            <h1 className="text-xl md:text-3xl font-black uppercase tracking-tighter leading-[0.9] italic text-black">
+                                {product.title}<span className="text-(--primary) not-italic">.</span>
                             </h1>
-                            <p className="leading-relaxed text-md md:text-lg">{product.description}</p>
-                            <div>
-                                <span className="mt-2">Product Labels</span>
+
+                            {/* Tags/Labels - Pill Style Brutalist */}
+                            <div className="flex flex-wrap gap-2">
                                 {product.labels.map((label) => (
-                                    <ul key={label} className="pl-6 list-disc">
-                                        <li className="text-sm text-(--text-gray)">{label}</li>
-                                    </ul>
+                                    <span key={label} className="bg-black text-white px-3 py-1 text-[10px] font-black uppercase tracking-widest border-2 border-black">
+                                        {label}
+                                    </span>
                                 ))}
                             </div>
 
-                            {/* Product Price */}
-                            <p className="text-2xl md:text-3xl font-black text-(--accent)">
-                                {product.displayPrice || rupiahFormat(product.price)}
+                            <p className="text-lg font-bold leading-tight text-black/70 font-mono">
+                                {product.description}
                             </p>
+
+                            <div className="bg-(--primary)/5 p-5 border-l-8 border-(--primary) font-bold text-sm leading-relaxed">
+                                <span className="text-(--primary) font-black uppercase block mb-1">Architect Notes:</span>
+                                High-performance digital components optimized for modern development workflows.
+                            </div>
                         </div>
                     </div>
 
-                    {/* CTA Section */}
-                    <div className="space-y-4 relative">
-                        <div className="space-y-4">
-                            <div className="w-full transform transition-all hover:translate-y-0.5">
-                                <CheckoutButton product={product} />
+                    {/* Price & Action */}
+                    <div className="mt-12 pt-10 border-t-4 border-black space-y-8">
+                        <div className="flex items-center justify-between">
+                            <div className="flex flex-col">
+                                <span className="text-xs font-black uppercase text-black/40 tracking-widest mb-1">Current_Value</span>
+                                <p className="text-5xl font-black text-black tracking-tighter">
+                                    {product.displayPrice || rupiahFormat(product.price)}
+                                </p>
                             </div>
-                            <div className="flex items-center gap-2 text-[11px] text-gray-400 w-fit ">
-                                <ShieldCheck className="w-4 h-4 text-green-500" />
-                                Verified Secure Payment via Scalev
+                            <div className="hidden sm:block rotate-12">
+                                <div className="bg-green-400 border-4 border-black px-4 py-1 font-black text-xs uppercase [box-shadow:4px_4px_0px_0px_rgba(0,0,0,1)]">
+                                    Verified_Secure
+                                </div>
                             </div>
                         </div>
 
-                        <div className="flex flex-wrap items-center gap-4 border-t pt-4 pb-2 border-white/10">
-                            <ShareButton product={product} />
-                            <CopyLinkButton product={product} />
-                            <ViewAllAssetsButton />
+                        {/* Button Group - Layouted for impact */}
+                        <div className="grid grid-cols-1 gap-4">
+                            <div>
+                                <CheckoutButton product={product} />
+                            </div>
+                            <div className="flex gap-3 overflow-x-auto pb-2 no-scrollbar">
+                                <ShareButton product={product} />
+                                <CopyLinkButton product={product} />
+                                <ViewAllAssetsButton />
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
 
-            {/* 3. Middle Section: Description */}
-            <div className="group">
-                <div className="w-full bg-(--primary)/10 backdrop-blur-sm p-4 rounded-3xl border border-transparent group-hover:border group-hover:border-(--accent) transition-all duration-300">
-                    <div className="flex items-center gap-3 mb-4">
-                        <div className="rounded-full bg-(--primary)/10 border border-(--primary)/20 group-hover:bg-(--accent) group-hover:border-(--accent) transition-all duration-300 p-3">
-                            <FileText className="w-5 h-5" />
+            {/* 3. Content Section */}
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
+
+                {/* Documentation Block */}
+                <div className="lg:col-span-8 border-4 border-black bg-white p-10 [box-shadow:12px_12px_0px_0px_rgba(0,0,0,1)]">
+                    <div className="flex items-center gap-4 mb-10 border-b-8 border-black pb-6">
+                        <div className="bg-black p-2 text-white">
+                            <FileText className="w-8 h-8" />
                         </div>
-                        <h2 className="text-2xl font-bold text-white">Description</h2>
+                        <h2 className="text-3xl font-black uppercase tracking-tighter">Description</h2>
                     </div>
+
                     <div
-                        className="space-y-2 leading-relaxed text-justify text-gray-300"
+                        className="prose prose-xl max-w-none font-bold
+                                   prose-headings:uppercase prose-headings:font-black prose-headings:tracking-tighter prose-headings:italic
+                                   prose-strong:bg-(--secondary) prose-strong:px-1 prose-p:text-black/80 prose-li:text-black"
                         dangerouslySetInnerHTML={{ __html: product.rich_description }}
                     />
                 </div>
-            </div>
 
-            {/* 4. Bottom Section: Accordion */}
-            <div className="grid grid-cols-1 gap-6 mt-6">
-                <AccordionSection
-                    icon={<BoxIcon className="w-5 h-5" />}
-                    title="What's Included"
-                    items={[
-                        "High-resolution source files",
-                        "Commercial & personal use license",
-                        "Instant access via secure dashboard",
-                        "Lifetime updates & bug fixes"
-                    ]}
-                />
+                {/* Sidebar Accordions */}
+                <div className="lg:col-span-4 space-y-8">
+                    <AccordionSection
+                        icon={<BoxIcon className="w-6 h-6" />}
+                        title="Package_Contents"
+                        headerColor="bg-(--secondary)"
+                        color="text-(--text-alt)"
+                        items={[
+                            "High-resolution source files",
+                            "Commercial & personal license",
+                            "Instant dashboard access",
+                            "Lifetime updates"
+                        ]}
+                    />
 
-                <AccordionSection
-                    icon={<CreditCard className="w-5 h-5" />}
-                    title="Payment & Security"
-                    items={[
-                        "Encoded 256-bit SSL protection",
-                        "Multiple payment methods supported",
-                        "Automatic receipt & invoice delivery",
-                        "24/7 Priority customer assistance"
-                    ]}
-                />
+                    <AccordionSection
+                        icon={<CreditCard className="w-6 h-6" />}
+                        title="Security_Layer"
+                        headerColor="bg-(--primary)"
+                        color="text-(--text-alt)"
+                        items={[
+                            "256-bit SSL protection",
+                            "Automatic invoice",
+                            "24/7 Priority support"
+                        ]}
+                    />
+                </div>
             </div>
         </section>
     );
 }
 
-// Sub-component untuk Accordion
-function AccordionSection({ title, items, icon }: { title: string; items: string[]; icon: React.ReactNode }) {
+function AccordionSection({ title, items, icon, color, headerColor }: { title: string; items: string[]; icon: React.ReactNode; color: string; headerColor: string }) {
     return (
-        <div className="collapse collapse-arrow group overflow-hidden bg-(--primary)/10 backdrop-blur-sm rounded-3xl border border-transparent hover:border hover:border-(--accent) transition-all duration-300">
-            <input type="radio" name="asset-accordion" defaultChecked />
-            <div className="collapse-title flex items-center gap-4 text-lg font-semibold p-4">
-                <span className="rounded-full bg-(--primary)/10 border border-(--primary)/20 group-hover:bg-(--accent) group-hover:border-(--accent) transition-all duration-300 p-3">{icon}</span>
-                {title}
-            </div>
-            <div className="collapse-content">
-                <ul className="space-y-3 ml-12">
-                    {items.map((item, idx) => (
-                        <li key={idx} className="text-gray-400 text-sm flex items-center gap-2">
-                            <div className="w-1.5 h-1.5 rounded-full bg-(--accent)/50" />
-                            {item}
-                        </li>
-                    ))}
-                </ul>
-            </div>
+        <div className="border-4 border-black bg-white [box-shadow:8px_8px_0px_0px_var(--border-color)]">
+            <details className="group" open>
+                <summary className={headerColor + " list-none cursor-pointer flex items-center justify-between p-5 text-white font-black uppercase text-sm tracking-[0.2em]"}>
+                    <div className="flex items-center gap-4">
+                        <span className={color + " p-2"}>{icon}</span>
+                        {title}
+                    </div>
+                    <span className="group-open:rotate-180 transition-transform font-mono text-xl">↓</span>
+                </summary>
+                <div className="p-8 bg-white border-t-4 border-black">
+                    <ul className="space-y-4">
+                        {items.map((item, idx) => (
+                            <li key={idx} className="text-black font-black text-xs uppercase flex items-start gap-4 group/item">
+                                <div className={`w-3 h-3 mt-0.5 border-2 border-black shrink-0 transition-colors ${color}`} />
+                                <span className="opacity-80 group-hover/item:opacity-100">{item}</span>
+                            </li>
+                        ))}
+                    </ul>
+                </div>
+            </details>
         </div>
     );
 }

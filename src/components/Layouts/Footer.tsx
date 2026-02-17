@@ -11,43 +11,48 @@ export default function Footer() {
     ]
 
     const legalLinks = [
-        { title: "Terms of Service", href: "/terms" },
-        { title: "Privacy Policy", href: "/privacy" },
-        { title: "License & Usage Rights", href: "/license" },
+        { title: "Terms of Service", href: "/TermsServicePage" },
+        { title: "Privacy Policy", href: "/PrivacyPage" },
+        { title: "License Rights", href: "/LicensePage" },
     ]
 
     const contacts = [
         { title: "Instagram", href: "https://www.instagram.com/zettaproject.id" },
-        { title: "Whatsapp", href: "wa.me/6282112782261" },
+        { title: "Whatsapp", href: "https://wa.me/6285111600850" },
     ]
 
     return (
-        <footer className="w-full transition-all duration-500">
-            <hr className="translate-y-5 w-full max-w-7xl mx-auto text-(--primary)/40" />
-            <div className="max-w-7xl mx-auto px-6 py-10">
-                {/* Top */}
-                <div className="flex flex-col md:flex-row items-start gap-6">
-                    {/* Brand */}
-                    <div className="w-full">
-                        <h2 className="text-xl md:text-3xl font-semibold font-(family-name:--font-bodoni-moda) text-white">
-                            {brand.name}
+        // Menggunakan bg-black untuk kontras maksimal dengan section FAQ yang putih
+        <footer className="w-full bg-black text-white pt-24 pb-28 px-4 border-t-12 border-(--primary)">
+            <div className="max-w-7xl mx-auto">
+
+                {/* Main Footer Box dengan Border Putih Tebal */}
+                <div className="grid grid-cols-1 md:grid-cols-12 border-4 border-[rgba(251,107,162,1)]">
+
+                    {/* Brand Section */}
+                    <div className="md:col-span-5 p-10 border-b-4 md:border-b-0 md:border-r-4 border-[rgba(251,107,162,1)] bg-white/5">
+                        <h2 className="text-4xl md:text-6xl font-black uppercase tracking-tighter mb-6 italic leading-none">
+                            {brand.name}<span className="text-(--primary) not-italic">_</span>
                         </h2>
-                        <p className="text-md md:text-lg font-medium">
-                            {brand.slogan}
+                        <p className="font-bold text-sm md:text-base leading-relaxed opacity-70 max-w-sm uppercase tracking-tight">
+                            {brand.slogan}. Premium digital assets built for speed, designed for the <span className="text-(--secondary)">future frontier</span>.
                         </p>
-                        <p className="mt-2 text-sm md:text-md text-(--text-gray) max-w-xs leading-relaxed">
-                            Premium digital templates and assets designed to help creators
-                            build faster with confidence.
-                        </p>
+
+                        {/* Status Indicator - Neon Feel */}
+                        <div className="mt-10 inline-flex items-center gap-3 border-2 border-white px-4 py-2 font-mono text-xs uppercase tracking-[0.2em] bg-white text-black font-black">
+                            <span className="w-2 h-2 bg-green-500 rounded-full animate-ping" />
+                            System_Online
+                        </div>
                     </div>
 
-                    <div className="w-full flex flex-col md:flex-row items-start justify-between gap-4">
-                        {/* Quick Links */}
-                        <div>
-                            <h3 className="text-(--accent) font-medium text-lg mb-4">
-                                Quick Links
+                    {/* Links Sections */}
+                    <div className="md:col-span-7 grid grid-cols-1 sm:grid-cols-3">
+                        {/* Navigation */}
+                        <div className="p-10 border-b-4 sm:border-b-0 sm:border-r-4 border-[rgba(251,107,162,1)] group hover:bg-(--primary)/10 transition-colors">
+                            <h3 className="text-(--primary) font-black uppercase text-xs tracking-[0.3em] mb-8 border-b-2 border-(--primary) inline-block">
+                                Menu
                             </h3>
-                            <ul className="space-y-3">
+                            <ul className="space-y-5">
                                 {quickLinks.map((item) => (
                                     <li key={item.title}>
                                         <FooterLink href={item.href}>{item.title}</FooterLink>
@@ -57,11 +62,11 @@ export default function Footer() {
                         </div>
 
                         {/* Legal */}
-                        <div>
-                            <h3 className="text-(--accent) font-medium text-lg mb-4">
+                        <div className="p-10 border-b-4 sm:border-b-0 sm:border-r-4 border-[rgba(251,107,162,1)] group hover:bg-(--secondary)/10 transition-colors">
+                            <h3 className="text-(--secondary) font-black uppercase text-xs tracking-[0.3em] mb-8 border-b-2 border-(--secondary) inline-block">
                                 Legal
                             </h3>
-                            <ul className="space-y-3">
+                            <ul className="space-y-5">
                                 {legalLinks.map((item) => (
                                     <li key={item.title}>
                                         <FooterLink href={item.href}>{item.title}</FooterLink>
@@ -70,12 +75,12 @@ export default function Footer() {
                             </ul>
                         </div>
 
-                        {/* Contact */}
-                        <div>
-                            <h3 className="text-(--accent) font-medium text-lg mb-4">
-                                Contact
+                        {/* Social */}
+                        <div className="p-10 group hover:bg-white/10 transition-colors">
+                            <h3 className="text-white font-black uppercase text-xs tracking-[0.3em] mb-8 border-b-2 border-white inline-block">
+                                Social
                             </h3>
-                            <ul className="space-y-3">
+                            <ul className="space-y-5">
                                 {contacts.map((item) => (
                                     <li key={item.title}>
                                         <FooterLink href={item.href}>{item.title}</FooterLink>
@@ -86,32 +91,35 @@ export default function Footer() {
                     </div>
                 </div>
 
-                {/* Bottom */}
-                <div className="text-center pt-20">
-                    <p className="text-sm text-(--text-gray)">
-                        © {new Date().getFullYear()} {brand.name}. All rights reserved.
+                {/* Bottom Bar - Terminal Style */}
+                <div className="mt-12 flex flex-col md:flex-row justify-between items-center font-mono text-[11px] md:text-xs uppercase tracking-[0.2em] text-white/40 gap-4">
+                    <p className="hover:text-(--primary) transition-colors cursor-crosshair">
+                        © {new Date().getFullYear()} {brand.name}Project // ALL_RIGHTS_RESERVED
                     </p>
+                    <div className="flex gap-6">
+                        <span>LAT: -6.2410°</span>
+                        <span>LONG: 106.9924°</span>
+                        <span className="animate-pulse">LOC: BEKASI_ID</span>
+                    </div>
                 </div>
             </div>
         </footer>
     )
 }
 
-/* ---------- Reusable Footer Link ---------- */
-function FooterLink({
-    href,
-    children,
-}: {
-    href: string
-    children: React.ReactNode
-}) {
+function FooterLink({ href, children }: { href: string; children: React.ReactNode }) {
     return (
         <Link
             href={href}
-            className="relative inline-block text-(--text-gray) transition-colors duration-300 hover:text-white group"
+            className="group flex items-center gap-2 text-sm font-black uppercase tracking-tighter transition-all hover:text-white"
         >
-            {children}
-            <span className="absolute -bottom-1 left-0 h-0.5 w-0 bg-(--accent) transition-all duration-300 group-hover:w-full" />
+            {/* Indikator CMD Prompt */}
+            <span className="text-(--primary) group-hover:translate-x-1 transition-transform font-mono">
+                {'>'}
+            </span>
+            <span className="opacity-60 group-hover:opacity-100 group-hover:translate-x-1 transition-all">
+                {children}
+            </span>
         </Link>
     )
 }

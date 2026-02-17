@@ -10,14 +10,14 @@ import Image from "next/image";
 
 export const metadata: Metadata = {
   title: {
-    default: `${brand.name} — ${brand.slogan}`,
-    template: `%s | ${brand.name}`
+    default: `ZettaProject — ${brand.slogan}`,
+    template: `ZettaProject`
   },
   description: brand.description,
   keywords: ["digital assets", "website templates", "UI components", "design resources", "developer tools", "Sanity CMS"],
-  authors: [{ name: "CodersProject" }],
-  creator: "CodersProject",
-  publisher: "CodersProject",
+  authors: [{ name: "ZettaProject" }],
+  creator: "ZettaProject",
+  publisher: "ZettaProject",
   openGraph: {
     type: "website",
     locale: "en_US",
@@ -30,7 +30,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: `${brand.name} — ${brand.slogan}`,
     description: brand.description,
-    creator: "@codersproject",
+    creator: "@Zettaproject",
   },
   robots: {
     index: true,

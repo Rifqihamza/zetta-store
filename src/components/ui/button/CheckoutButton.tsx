@@ -16,9 +16,8 @@ export default function CheckoutButton({ product }: CheckoutButtonProps) {
     return (
         <Link
             href={checkoutUrl}
-            // WAJIB: Gunakan rel="noopener noreferrer" untuk keamanan navigasi eksternal
             rel="noopener noreferrer"
-            className="cursor-pointer flex flex-row items-center justify-center gap-2 w-fit mt-4 px-6 py-2 rounded-xl text-white bg-(--primary)/30 backdrop-blur-xl border border-(--accent) hover:bg-(--primary) hover:border-(--primary) transition"
+            className="flex items-center justify-center px-4 py-3 font-black uppercase text-xs tracking-tighter bg-(--primary) text-white border-4 border-black [box-shadow:6px_6px_0px_0px_rgba(0,0,0,1)] hover:[box-shadow:2px_2px_0px_0px_rgba(0,0,0,1)] hover:translate-x-1 hover:translate-y-1 transition-all"
         >
             <ShoppingBag size={18} />
             Buy Now

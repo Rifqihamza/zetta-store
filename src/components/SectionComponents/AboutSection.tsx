@@ -1,159 +1,150 @@
 'use client'
 
 import { Sparkles, Layers, Zap, CheckCircle2 } from "lucide-react"
-import SpotlightCard from "../ui/SpotlightCard"
 import { brand } from "../../config/brand"
 import FreesetsReveal from "../ui/AnimationReveal"
-
+import Image from "next/image"
 const WhatIsZetta = () => {
     const features = [
         {
             icon: <Layers size={24} />,
-            title: "Ready-to-Use Templates",
-            desc: "Pre-built digital templates and assets that you can customize and use instantly.",
+            title: "READY-TO-USE ASSETS",
+            desc: "Premium digital templates and pixel-perfect assets licensed for commercial use. Just drag, drop, and deploy.",
         },
         {
             icon: <Zap size={24} />,
-            title: "Work Faster",
-            desc: "Skip repetitive setup and launch projects faster with structured, reusable resources.",
+            title: "TURBO WORKFLOW",
+            desc: "Skip the boring setup. Launch your indie projects faster with our pre-structured, reusable resources.",
         },
         {
             icon: <Sparkles size={24} />,
-            title: "Built for Modern Tools",
-            desc: "Optimized for modern workflows, tools, and platforms used by today’s creators.",
+            title: "VERSATILE DIGITAL ASSETS",
+            desc: "From UI components to environment sprites. A diverse collection designed to fit seamlessly into any retro project.",
         },
     ]
 
     return (
-        <section
-            id="what-zetta"
-            className="relative py-32 px-2 max-w-7xl mx-auto"
-        >
-            {/* subtle background glow */}
-            <div className="absolute inset-0 z-1">
-                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-150 h-150 bg-(--accent)/10 blur-[120px] rounded-full" />
-            </div>
-
-
-            {/* heading */}
+        <section id="what-zetta" className="relative py-24 px-4 max-w-7xl mx-auto">
             <FreesetsReveal>
-                <div className="text-center max-w-2xl mx-auto mb-20">
-                    <div className="mb-3">
-                        <span className="text-sm tracking-wider text-(--accent) bg-(--accent)/10 backdrop-blur-xl border border-(--secondary)/60 px-4 py-1 rounded-full uppercase">
-                            {brand.name}
-                        </span>
-                    </div>
-                    <h2 className="text-3xl md:text-4xl font-semibold mb-4">
-                        What is <span className="font-(family-name:--font-bodoni-moda)">{brand.name}</span>?
+                <div className="text-center max-w-3xl mx-auto mb-20">
+                    {/* Badge Style - Dibuat lebih kontras */}
+                    <span className="inline-block px-3 py-1 bg-black text-(--background) text-[10px] md:text-xs mb-6 tracking-[0.2em] font-black uppercase">
+                        SYSTEM_OVERVIEW v1.0
+                    </span>
+                    <h2 className="text-4xl md:text-7xl mb-6 pixelTitle uppercase leading-tight text-black">
+                        What is {brand.name}?
                     </h2>
-                    <p className="text-(--text-gray) leading-relaxed">
-                        <span className="text-(--text-color)">{brand.name}</span> provides ready-made digital templates and assets
-                        designed to speed up your workflow - so you can focus on building,
-                        not rebuilding.
+                    <p className="text-lg md:text-2xl leading-relaxed font-bold text-black/80">
+                        {brand.name} is an <span className="bg-black text-white px-2 italic">elite vault</span> of
+                        ready-to-use digital assets. We build the foundation, so you can focus on the
+                        creative explosion.
                     </p>
                 </div>
             </FreesetsReveal>
 
-            {/* cards */}
-            <div className="flex flex-col md:flex-row gap-6">
+            {/* Cards - Menggunakan Putih agar kontras dengan Background Kuning/Pink */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 px-4">
                 {features.map((item, idx) => (
                     <FreesetsReveal key={idx}>
-                        <SpotlightCard
-                            className="custom-spotlight-card z-10 h-full"
-                            spotlightColor="rgb(93, 14, 255, 1)">
-                            <div className="flex flex-col gap-3">
-                                {/* icon */}
-                                <div className="w-12 h-12 flex items-center justify-center rounded-full bg-(--primary)/50 text-(--accent)">
+                        <div className="group h-full bg-white border-4 border-black p-8 [box-shadow:8px_8px_0px_0px_rgba(0,0,0,1)] hover:[box-shadow:4px_4px_0px_0px_rgba(0,0,0,1)] hover:translate-x-1 hover:translate-y-1 transition-all duration-200">
+                            <div className="flex flex-col gap-6">
+                                {/* Icon Box - Menggunakan Warna Secondary (Ungu) */}
+                                <div className="w-14 h-14 flex items-center justify-center border-4 border-black bg-(--background) group-hover:bg-(--primary) group-hover:text-white transition-colors shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
                                     {item.icon}
                                 </div>
-                                <div className="flex flex-col gap-1">
-                                    <h3 className="text-lg font-semibold">
+                                <div className="space-y-3">
+                                    <h3 className="text-xl md:text-2xl uppercase font-black italic tracking-tighter">
                                         {item.title}
                                     </h3>
-                                    <p className="text-sm text-(--text-gray)">
+                                    <p className="text-sm md:text-base leading-relaxed text-black/70 font-bold uppercase tracking-tight">
                                         {item.desc}
                                     </p>
                                 </div>
                             </div>
-                        </SpotlightCard>
+                        </div>
                     </FreesetsReveal>
                 ))}
             </div>
         </section>
-
     )
 }
 
 const WhyIsZetta = () => {
     const reasons = [
-        "Ready-to-use digital templates",
+        "Commercial-ready license included",
         "Structured & easy to customize",
-        "No setup from scratch",
-        "Built for creators & developers",
-        "Save hours on every project",
+        "Zero-setup architecture",
+        "Built for high-performance creators",
+        "Save 40+ hours per project",
     ]
 
     return (
-
-        <section
-            id="why-zetta"
-            className="relative py-32 px-2 max-w-7xl mx-auto"
-        >
-            {/* background accent */}
-            <div className="absolute inset-0">
-                <div className="absolute right-0 top-1/2 -translate-y-1/2 w-125 h-125 bg-(--accent)/10 blur-[120px] rounded-full" />
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-start">
-                <FreesetsReveal>
-                    {/* left copy */}
-                    <div className="text-center md:text-left">
-                        <span className="text-3xl md:text-4xl font-bold">
-                            Why <span className="font-(family-name:--font-bodoni-moda)">{brand.name}</span>?
-                        </span>
-
-                        <h2 className="text-2xl md:text-3xl font-semibold mt-4 mb-6">
-                            Everything you need to build faster,
-                            <br />
-                            without starting from zero.
-                        </h2>
-                        <p className="text-(--text-gray) leading-relaxed max-w-md">
-                            <span className="text-(--text-color)">{brand.name}</span> is designed for creators who value speed and clarity.
-                            Every product is structured, documented, and ready to use -
-                            so you can ship faster with confidence.
-                        </p>
-                        <p className="text-sm text-(--text-color) mt-2">
-                            Pick a template. Customize it. Launch faster.
-                        </p>
-                    </div>
-                </FreesetsReveal>
-
-                {/* right list */}
-                <div className="space-y-4">
-                    {reasons.map((item, idx) => (
-                        <FreesetsReveal key={idx}>
-                            <div className="flex items-center gap-3 p-4 rounded-xl bg-(--primary)/5 border border-(--secondary)/50 backdrop-blur-xl">
-                                <CheckCircle2 size={20} className="text-(--accent)"
-                                />
-                                <p className="text-sm">
-                                    {item}
-                                </p>
+        <section id="why-zetta" className="relative py-20 px-4 max-w-7xl mx-auto">
+            {/* Inner Container: Putih dengan border hitam tebal */}
+            <div className="bg-white border-4 border-black p-8 md:p-16">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
+                    <FreesetsReveal>
+                        <div className="text-center md:text-left">
+                            <h2 className="text-3xl md:text-6xl font-black uppercase mb-8 leading-[0.9] text-black">
+                                Why Choose <br />
+                                <span className="text-(--primary) italic">{brand.name}?</span>
+                            </h2>
+                            <p className="text-lg md:text-xl font-bold text-black/70 mb-8 uppercase tracking-tighter">
+                                Everything you need to ship faster, without compromising on quality or licensing headaches.
+                            </p>
+                            <div className="inline-flex items-center gap-3 px-4 py-2 bg-black text-white font-mono text-[10px] uppercase tracking-widest border-2 border-black">
+                                <span className="w-2 h-2 bg-green-400 animate-ping"></span>
+                                System: Ready for Deployment
                             </div>
-                        </FreesetsReveal>
-                    ))}
+                        </div>
+                    </FreesetsReveal>
+
+                    <div className="grid grid-cols-1 gap-4">
+                        {reasons.map((item, idx) => (
+                            <FreesetsReveal key={idx}>
+                                {/* List Item: Background Ungu (Secondary) ke Pink saat hover */}
+                                <div className="group flex items-center gap-4 p-5 bg-(--secondary) text-white border-4 border-black [box-shadow:6px_6px_0px_0px_rgba(0,0,0,1)] hover:bg-(--primary) hover:-translate-y-1 transition-all">
+                                    <CheckCircle2 size={24} className="text-(--background)" />
+                                    <p className="text-sm md:text-lg font-black uppercase tracking-tight">
+                                        {item}
+                                    </p>
+                                </div>
+                            </FreesetsReveal>
+                        ))}
+                    </div>
                 </div>
             </div>
-        </section >
+        </section>
     )
 }
 
-
-
 export default function AboutSection() {
     return (
-        <main className="">
-            <WhatIsZetta />
-            <WhyIsZetta />
+        <main className="relative bg-linear-to-t from-(--background) via-(--background) to-(--primary) overflow-hidden pb-20">
+            {/* Star Tiled Background - Dibuat lebih subtle agar tidak balapan dengan teks */}
+            <div
+                className="absolute inset-0 pointer-events-none mix-blend-multiply opacity-10"
+                style={{
+                    backgroundImage: "url('/assets/stars-2.png')",
+                    backgroundRepeat: 'repeat',
+                    backgroundSize: '400px',
+                }}
+            />
+
+            <div className="relative z-10">
+                <div className="pb-20">
+                    <WhatIsZetta />
+                    <WhyIsZetta />
+                </div>
+                <Image
+                    src='/assets/mount.png'
+                    alt="Mountains"
+                    width={1920}
+                    height={1080}
+                    priority
+                    className="pixelated absolute bottom-0 left-0 w-full h-32 object-cover object-bottom z-10"
+                />
+            </div>
         </main>
     )
 }

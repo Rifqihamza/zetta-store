@@ -1,74 +1,78 @@
 import Image from "next/image";
 import Link from "next/link";
-import SpotlightCard from "@/components/ui/SpotlightCard";
 import { rupiahFormat } from "@/lib/currencyFormat";
 import { Product } from "@/types/product";
-import { ShoppingBag } from "lucide-react";
+import { ShoppingBag, Camera } from "lucide-react";
 
 interface ProductCardProps {
     product: Product;
 }
 
 export default function ProductCard({ product }: ProductCardProps) {
-
     return (
-        <Link href={`/AssetsPage/${encodeURIComponent(product.id)}`} className="h-full">
-            <SpotlightCard
-                className="relative h-full flex flex-col bg-(--primary)/10 border border-(--primary)/40 group hover:border-(--primary) transition-all duration-300"
-                spotlightColor="rgb(93, 14, 215, 0.2)"
-            >
-                <div className="relative w-30 h-30 md:w-50 md:h-50 mx-auto overflow-hidden rounded-lg">
+        <Link href={`/AssetsPage/${encodeURIComponent(product.id)}`} className="group block h-full">
+            <div className="relative h-full flex flex-col bg-(--primary) border-4 border-black p-4 
+                            [box-shadow:8px_8px_0px_0px_rgba(0,0,0,1)] 
+                            group-hover:[box-shadow:2px_2px_0px_0px_rgba(0,0,0,1)] 
+                            group-hover:translate-x-1 group-hover:translate-y-1 
+                            transition-all duration-200">
+
+                {/* Image Container */}
+                <div className="relative aspect-square w-full bg-(--background) border-4 border-black overflow-hidden mb-4">
                     <Image
                         src={product.imageUrl}
                         alt={product.title}
                         fill
-                        sizes="500"
-                        className="object-contain transition-transform duration-300 group-hover:scale-105 p-4"
+                        sizes="(max-width: 768px) 100vw, 25vw"
+                        className="object-contain p-4 pixelated transition-transform duration-300 group-hover:scale-110"
                     />
 
+                    {/* Image Counter Badge (Retro Style) */}
                     {product.allImages.length > 1 && (
-                        <div className="absolute top-2 right-2 bg-black/60 text-white text-xs px-2 py-1 rounded-full flex items-center gap-1">
-                            <span className="w-3 h-3 text-[10px]">📷</span>
+                        <div className="absolute top-2 right-2 bg-black text-white text-[10px] font-mono px-2 py-1 border-2 border-white flex items-center gap-1">
+                            <Camera size={12} />
                             {product.allImages.length}
                         </div>
                     )}
                 </div>
 
-                <div className="flex flex-col flex-1 pt-4 group">
-                    {/* Divider dengan margin yang konsisten */}
-                    <hr className="border-white/5 mb-4" />
-                    {/* Title: Dibatasi 2 baris agar card tingginya seragam */}
-                    <h3 className="font-semibold text-white leading-snug text-base md:text-lg group-hover:text-(--accent) transition-colors">
+                {/* Content Section */}
+                <div className="flex flex-col flex-1">
+                    <h1 className="font-black italic leading-tight text-lg md:text-xl uppercase tracking-tighter group-hover:text-(--text-alt) transition-colors line-clamp-3">
                         {product.title}
-                    </h3>
-                    <div className="flex flex-col gap-2 mt-4">
-                        {/* Pastikan kita membuang label yang null/empty sebelum di-map */}
-                        {product.labels.filter(Boolean).map((label, index) => (
-                            <ul
-                                key={`${product.id}-${label}-${index}`}
-                                className="text-sm list-disc pl-6"
+                    </h1>
+
+                    {/* Tags/Labels */}
+                    <div className="flex flex-wrap gap-2 my-3">
+                        {product.labels.filter(Boolean).slice(0, 3).map((label, index) => (
+                            <span
+                                key={index}
+                                className="text-[10px] font-bold uppercase bg-black/5 border border-black px-2 py-0.5"
                             >
-                                <li>{label}</li>
-                            </ul>
+                                {label}
+                            </span>
                         ))}
                     </div>
 
                     {/* Bottom Section: Price & Action */}
-                    <div className="pt-5 mt-auto flex items-center justify-between border-t border-white/5">
+                    <div className="pt-4 mt-auto flex items-end justify-between border-t-2 border-black/10">
                         <div className="flex flex-col">
-                            <span className="text-[10px] text-gray-500 uppercase font-medium">Price</span>
-                            <p className="text-lg font-bold text-white tracking-tight">
+                            <span className="text-[10px] text-(--text-alt) uppercase font-black tracking-widest">Price</span>
+                            <p className="text-xl font-black tracking-tighter group-hover:text-(--text-alt) transition-colors">
                                 {product.displayPrice || rupiahFormat(product.price)}
                             </p>
                         </div>
 
-                        {/* Aksen hiasan atau tombol kecil */}
-                        <div className="h-12 w-12 rounded-full bg-(--primary)/10 flex items-center justify-center border border-(--primary)/20 group-hover:bg-(--accent) group-hover:border-(--accent) transition-all duration-300">
-                            <ShoppingBag size={20} />
+                        {/* Action Button (Retro Style) */}
+                        <div className="h-10 w-10 bg-(--primary) border-2 border-black flex items-center justify-center 
+                                        [box-shadow:3px_3px_0px_0px_rgba(0,0,0,1)] 
+                                        group-hover:[box-shadow:0px_0px_0px_0px_rgba(0,0,0,1)] 
+                                        group-hover:bg-(--accent) text-white transition-all">
+                            <ShoppingBag size={18} strokeWidth={3} />
                         </div>
                     </div>
                 </div>
-            </SpotlightCard>
+            </div>
         </Link>
     );
 }

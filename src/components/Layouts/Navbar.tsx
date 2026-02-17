@@ -1,123 +1,88 @@
 'use client'
 
-import { useEffect, useState } from "react"
+import { useState } from "react"
 import Link from "next/link"
-import { Menu, X } from "lucide-react"
+import { Menu, X, Home, Info, ShoppingBag, HelpCircle, Zap } from "lucide-react"
 import { brand } from "@/config/brand"
 
 export default function Navbar() {
     const [open, setOpen] = useState(false)
-    const [isScrolled, setIsScrolled] = useState(false)
-
-    useEffect(() => {
-        const handleScroll = () => {
-            setIsScrolled(window.scrollY > 32)
-        }
-        window.addEventListener("scroll", handleScroll)
-        return () => window.removeEventListener("scroll", handleScroll)
-    }, [])
 
     const navLinks = [
-        { title: "Home", href: "/" },
-        { title: "About", href: "#aboutPage" },
-        { title: "Assets", href: "#assetPage" },
-        { title: "How It Works?", href: "#how-it-works" },
-        { title: "FAQ", href: "#faqPage" },
+        { title: "Home", href: "/", icon: <Home size={18} /> },
+        { title: "About", href: "#aboutPage", icon: <Info size={18} /> },
+        { title: "Assets", href: "#assetPage", icon: <ShoppingBag size={18} /> },
+        { title: "Flow", href: "#how-it-works", icon: <Zap size={18} /> },
+        { title: "FAQ", href: "#faqPage", icon: <HelpCircle size={18} /> },
     ]
 
     return (
-        <header
-            className={`fixed top-0 left-0 z-50 w-full overflow-x-hidden transition-all duration-300
-        ${isScrolled
-                    ? "bg-(--primary)/5 backdrop-blur-xl shadow-lg shadow-black/40"
-                    : "bg-transparent"}
-        `}
-        >
-            {/* ===== NAV BAR ===== */}
-            <nav className="mx-auto flex max-w-7xl items-center justify-between py-5 px-6">
-                {/* Brand */}
+        <header className="fixed bottom-8 left-1/2 -translate-x-1/2 z-100 w-auto">
+            {/* ===== THE DOCK CONTAINER ===== */}
+            <nav className="relative flex items-center gap-2 bg-(--primary) border-4 border-black p-2">
+
+                {/* Brand / Logo (Mobile only or Icon) */}
                 <Link
                     href="/"
-                    className="text-3xl text-white font-semibold tracking-wider font-(family-name:--font-bodoni-moda)"
+                    className="hidden md:flex items-center justify-center px-4 py-2 bg-(--background) border-2 border-black font-black text-black text-sm uppercase mr-2"
                 >
                     {brand.name}
                 </Link>
 
-                {/* Desktop Menu */}
-                <ul className="hidden items-center gap-6 md:flex">
+                {/* Desktop Dock Items */}
+                <ul className="hidden items-center gap-1 md:flex">
                     {navLinks.map((item) => (
                         <li key={item.title}>
-                            <NavItem href={item.href}>{item.title}</NavItem>
+                            <Link
+                                href={item.href}
+                                className="flex items-center gap-2 px-4 py-2 text-white/70 hover:text-white hover:bg-white/10 transition-all font-mono text-xs uppercase font-bold"
+                            >
+                                {item.icon}
+                                {item.title}
+                            </Link>
                         </li>
                     ))}
 
-                    <li>
+                    {/* Action Button */}
+                    <li className="ml-2">
                         <Link
                             href="#assetPage"
-                            className="rounded-full bg-(--primary) px-5 py-2 text-sm font-medium text-white transition-colors hover:bg-(--secondary)"
+                            className="bg-(--secondary) border-2 border-black px-4 py-2 text-xs font-black text-white uppercase"
                         >
                             Get Access
                         </Link>
                     </li>
                 </ul>
 
-                {/* Mobile Toggle */}
+                {/* Mobile Toggle (Inside the floating dock) */}
                 <button
                     onClick={() => setOpen(!open)}
-                    className="inline-flex items-center justify-center md:hidden"
+                    className="flex items-center justify-center p-3 text-white md:hidden"
                     aria-label="Toggle Menu"
                 >
                     {open ? <X size={24} /> : <Menu size={24} />}
                 </button>
             </nav>
 
-            {/* ===== MOBILE MENU ===== */}
+            {/* ===== MOBILE MENU POPUP (Floating above dock) ===== */}
             {open && (
-                <div className="md:hidden w-full max-w-full overflow-x-hidden border-t border-(--accent)/20 bg-black/95 backdrop-blur-xl">
-                    <ul className="flex flex-col gap-6 px-6 py-8">
+                <div className="absolute bottom-20 left-1/2 -translate-x-1/2 w-64 bg-white border-4 border-black p-4 [box-shadow:8px_8px_0px_0px_rgba(0,0,0,1)] md:hidden">
+                    <ul className="flex flex-col gap-2">
                         {navLinks.map((item) => (
                             <li key={item.title}>
                                 <Link
                                     href={item.href}
                                     onClick={() => setOpen(false)}
-                                    className="block text-lg text-(--text-gray) transition-colors hover:text-white"
+                                    className="flex items-center gap-3 px-4 py-3 text-black font-black uppercase text-sm border-2 border-transparent hover:border-black hover:bg-(--background) transition-all"
                                 >
+                                    {item.icon}
                                     {item.title}
                                 </Link>
                             </li>
                         ))}
-
-                        <li className="pt-4">
-                            <Link
-                                href="#assetPage"
-                                onClick={() => setOpen(false)}
-                                className="inline-flex w-full items-center justify-center rounded-full bg-(--primary) px-6 py-3 text-sm font-medium text-white transition-colors hover:bg-(--secondary)"
-                            >
-                                Get Access
-                            </Link>
-                        </li>
                     </ul>
                 </div>
             )}
         </header>
-    )
-}
-
-/* ===== DESKTOP NAV ITEM ===== */
-function NavItem({
-    href,
-    children,
-}: {
-    href: string
-    children: React.ReactNode
-}) {
-    return (
-        <Link
-            href={href}
-            className="group relative text-sm text-(--text-gray) transition-colors hover:text-white"
-        >
-            {children}
-            <span className="absolute -bottom-1 left-0 h-0.5 w-0 bg-(--accent) transition-all duration-300 group-hover:w-full" />
-        </Link>
     )
 }

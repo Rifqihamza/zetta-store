@@ -20,10 +20,11 @@ export default function CopyLinkButton({ product }: CopyLinkButtonProps) {
     return (
         <button
             onClick={handleCopyLink}
-            className="flex flex-row items-center gap-2 border-none text-(--text-color) cursor-pointer hover:text-(--accent) transition"
+            className="cursor-pointer w-full flex items-center justify-center gap-2 font-medium p-2 bg-(--secondary) text-(--text-alt) border-3 border-(--border-color) hover:bg-(--primary) transition"
             title="Copy link"
         >
             <Copy size={18} />
+            Copy Link
         </button>
     )
 }

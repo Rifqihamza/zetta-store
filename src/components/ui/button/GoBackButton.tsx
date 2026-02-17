@@ -13,7 +13,7 @@ export default function GoBackButton({ className = "", children }: GoBackButtonP
     return (
         <button
             onClick={goBack}
-            className={`cursor-pointer px-3 py-1 rounded-lg border border-(--primary) text-(--accent) hover:text-white transition-colors ${className}`}
+            className={`cursor-pointer ${className}`}
         >
             {children || '← Go Back'}
         </button>

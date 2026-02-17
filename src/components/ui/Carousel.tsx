@@ -13,46 +13,64 @@ export default function Carousel({ images, title }: { images: string[]; title: s
     };
 
     return (
-        <div className="relative group w-full mx-auto">
-            {/* Box Utama dengan Aspect Ratio 4/3 */}
-            <div className="carousel overflow-hidden aspect-4/3 bg-(--primary)/10 backdrop-blur-sm rounded-3xl border border-transparent group-hover:border group-hover:border-(--accent) duration-300">
+        <div className="relative group w-full h-full">
+            {/* Carousel Core - Tanpa border/shadow sendiri */}
+            <div className="carousel overflow-hidden w-full h-full bg-transparent">
                 {images.map((src, i) => (
                     <div
                         key={`${src}-${i}`}
                         id={`slide-${i}`}
-                        className="carousel-item relative w-full h-full flex items-center justify-center"
+                        className="carousel-item relative w-full h-full flex items-center justify-center p-4"
                     >
-                        <div className="relative w-1/2 h-auto transition-transform duration-500 group-hover:scale-105">
+                        {/* Wrapper Gambar dengan efek zoom tipis saat hover group */}
+                        <div className="relative w-[60%] h-[60%] transition-transform duration-500 group-hover:scale-[1.02]">
                             <Image
                                 src={src}
                                 alt={`${title} ${i + 1}`}
-                                width={1024}
-                                height={768}
-                                className="object-contain rounded-2xl"
+                                fill
+                                className="object-contain"
                                 priority={i === 0}
+                                sizes="(max-width: 768px) 100vw, 50vw"
                             />
                         </div>
 
-                        {/* Tombol Navigasi */}
+                        {/* Metadata Tag - Tetap dipertahankan untuk Vibe Industrial */}
+                        <div className="absolute top-2 left-2 bg-black text-white px-2 py-0.5 font-mono text-[9px] font-black uppercase tracking-[0.2em] z-10">
+                            DATA_REF: 0{i + 1}
+                        </div>
+
+                        {/* Navigasi - Neo Brutalist Style */}
                         {images.length > 1 && (
-                            <div className="absolute inset-x-5 top-1/2 flex justify-between -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity z-20">
+                            <div className="absolute inset-x-2 top-1/2 flex justify-between -translate-y-1/2 z-20 pointer-events-none">
                                 <button
                                     onClick={(e) => scrollTo(e, i === 0 ? images.length - 1 : i - 1)}
-                                    className="bg-black/60 p-2.5 rounded-xl backdrop-blur-md hover:bg-(--accent) transition-colors text-white border border-white/10"
+                                    className="pointer-events-auto bg-(--primary) p-2 border-4 border-black text-white [box-shadow:4px_4px_0px_0px_rgba(0,0,0,1)] hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-none transition-all active:bg-black"
                                 >
-                                    <ChevronLeft size={22} />
+                                    <ChevronLeft size={20} strokeWidth={4} />
                                 </button>
                                 <button
                                     onClick={(e) => scrollTo(e, i === images.length - 1 ? 0 : i + 1)}
-                                    className="bg-black/60 p-2.5 rounded-xl backdrop-blur-md hover:bg-(--accent) transition-colors text-white border border-white/10"
+                                    className="pointer-events-auto bg-(--primary) p-2 border-4 border-black text-white [box-shadow:4px_4px_0px_0px_rgba(0,0,0,1)] hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-none transition-all active:bg-black"
                                 >
-                                    <ChevronRight size={22} />
+                                    <ChevronRight size={20} strokeWidth={4} />
                                 </button>
                             </div>
                         )}
                     </div>
                 ))}
             </div>
+
+            {/* Progress Dots - Nempel di bawah dalam container yang sama */}
+            {images.length > 1 && (
+                <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-1 z-10">
+                    {images.map((_, i) => (
+                        <div
+                            key={i}
+                            className="w-4 h-1 bg-black/20 border border-black group-hover:bg-black transition-colors"
+                        />
+                    ))}
+                </div>
+            )}
         </div>
     );
 }

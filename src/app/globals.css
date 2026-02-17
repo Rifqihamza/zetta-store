@@ -1,25 +1,60 @@
 @import "tailwindcss";
-@plugin "daisyui" {
-  themes:
-    light --default,
-    black --prefersdark;
-}
+@plugin "daisyui";
 
 @theme {
   --font-bodoni: var(--font-bodoni-moda), serif;
+}
+
+@font-face {
+  font-family: "BrickSans";
+  src: url("/assets/BrickSans-Bold.otf");
 }
 
 html {
   scroll-behavior: smooth;
 }
 :root {
-  --primary: oklch(43.2% 0.232 292.759); /* Indigo 600 */
-  --secondary: oklch(51.1% 0.262 276.966); /* Indigo 500 */
-  --accent: oklch(67.3% 0.182 276.935); /* Indigo 400 */
+  /* 1. Warna Identitas (Vibrant Pink) */
+  /* Diambil dari gradasi pink kamu agar sinkron */
+  --primary: #fb6ba2;
 
-  --background: oklch(14.5% 0 0); /* Slate 950 */
-  --muted: #0f172a; /* Slate 900 */
+  /* 2. Warna Aksen (Retro Purple) */
+  /* Cocok untuk elemen hover atau tombol sekunder seperti di screenshot terakhir */
+  --secondary: #7e22ce;
 
-  --text-color: #ffffff;
-  --text-gray: #94a3b8; /* Slate 400 */
+  /* 3. Background Utama (Cyber Yellow) */
+  --background: #f0cc4c;
+
+  /* 4. Warna Kontainer (Card & Sections) */
+  /* Putih bersih agar teks hitam di dalamnya maksimal keterbacaannya */
+  --card-bg: #ffffff;
+
+  /* 5. Warna Teks (Brutal Clarity) */
+  /* Wajib Hitam untuk elemen di atas kuning/putih */
+  --text-main: #000000;
+  /* Putih untuk teks di atas tombol pink/ungu */
+  --text-alt: #ffffff;
+  /* Abu-abu gelap untuk sub-text agar tidak terlalu kontras */
+  --text-muted: #374151;
+
+  /* 6. Border & Shadow (The "Brutal" Soul) */
+  --border-color: #000000;
+  --shadow-color: #000000;
+}
+
+.pixelTitle {
+  font-family: "BrickSans", sans-serif;
+  text-transform: uppercase;
+}
+
+body {
+  background-color: var(--background);
+  color: var(--text-main);
+  /* Supaya transisi antar section gradasi halus */
+  transition: background-color 0.3s ease;
+}
+
+.pixelated {
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
 }
