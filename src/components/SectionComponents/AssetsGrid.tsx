@@ -120,7 +120,7 @@ export default function AssetsGrid() {
             )}
 
             {/* Pagination Section - Neo-Brutal Style */}
-            {pagination && (pagination.hasNext || currentPage > 1) && (
+            {pagination && pagination.totalPages > 1 && (
                 <div className="flex justify-center items-center gap-6 mt-20">
                     {/* Previous Button */}
                     <button
@@ -157,6 +157,9 @@ export default function AssetsGrid() {
                     </button>
                 </div>
             )}
+            <div className="w-fit px-4 py-2 leading-snug mx-auto bg-(--text-alt) [box-shadow:-8px_0px_0px_0px_#000] text-center font-black italic">
+                <p>Tidak Melihat Produk Yang Kamu Cari?<br /><span className="text-(--text-alt) bg-black px-1">Ketik di Search Bar!</span></p>
+            </div>
         </div>
     );
 }

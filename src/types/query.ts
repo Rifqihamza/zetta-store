@@ -4,7 +4,7 @@ export interface Pagination {
     totalItems: number;
     totalPages: number;
     hasNext: boolean;
-    lastId?: number | null;
+    lastId?: string | number | null;
 }
 
 export interface QueryFilters {

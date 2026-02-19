@@ -10,7 +10,7 @@ export async function GET(req: NextRequest) {
             search: searchParams.get("search") || undefined,
             category: searchParams.get("category") || undefined, // Menangkap 'category' dari hook
             page: parseInt(searchParams.get("page") || "1", 10),
-            limit: parseInt(searchParams.get("limit") || "12", 12),
+            limit: parseInt(searchParams.get("limit") || "100", 10),
         };
 
         const data = await getProducts(params);

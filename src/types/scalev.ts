@@ -13,6 +13,7 @@ export const ScalevVariantSchema = z.object({
 
 export const ScalevSimplifiedProductSchema = z.object({
     id: z.number(),
+    last_id: z.union([z.string(), z.number()]).nullable().optional(),
     name: z.string().default("Untitled Product"),
     slug: z.string().nullish().transform(val => val ?? ""),
     item_type: z.string().nullish().transform(val => val ?? ""),
