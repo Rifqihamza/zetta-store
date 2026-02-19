@@ -42,6 +42,10 @@ html {
   --shadow-color: #000000;
 }
 
+::-webkit-scrollbar {
+  display: none;
+}
+
 .pixelTitle {
   font-family: "BrickSans", sans-serif;
   text-transform: uppercase;

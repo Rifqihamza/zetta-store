@@ -18,53 +18,54 @@ export default async function AssetDetailPage({ params }: { params: Promise<{ id
     if (!product) return notFound();
 
     return (
-        <section className="py-14 px-4 max-w-7xl mx-auto relative min-h-screen pb-40 text-black">
+        // Gunakan px-4 untuk mobile, lg:px-8 untuk desktop agar tidak terlalu mepet tembok
+        <section className="py-8 md:py-14 px-4 lg:px-8 max-w-7xl mx-auto relative min-h-screen pb-40 text-black">
 
-            {/* 1. Navigasi Kembali - Floating Tag Style */}
-            <div className="mb-8">
-                <GoBackButton className="inline-flex items-center justify-center gap-2 bg-white p-3 border-4 border-black font-black uppercase text-xs tracking-tighter hover:bg-(--secondary) hover:-translate-y-1 transition-all [box-shadow:4px_4px_0px_0px_rgba(0,0,0,1)] active:shadow-none">
-                    <ArrowLeft className="w-4 h-4" strokeWidth={3} />
+            {/* 1. Navigasi Kembali */}
+            <div className="mb-6 md:mb-10">
+                <GoBackButton className="inline-flex items-center justify-center gap-2 bg-white p-2.5 md:p-3 border-4 border-black font-black uppercase text-[10px] md:text-xs tracking-tighter hover:bg-(--secondary) hover:-translate-y-1 transition-all [box-shadow:4px_4px_0px_0px_rgba(0,0,0,1)] active:shadow-none">
+                    <ArrowLeft className="w-3.5 h-3.5 md:w-4 md:h-4" strokeWidth={3} />
                     <span>Return_To_Vault</span>
                 </GoBackButton>
             </div>
 
             {/* 2. Top Section: Hero Grid */}
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-0 border-4 border-black bg-white [box-shadow:16px_16px_0px_0px_rgba(0,0,0,1)] overflow-hidden mb-16 px-5">
+            {/* Shadow dikecilkan di mobile (8px) dan besar di desktop (16px) */}
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-0 border-4 border-black bg-white [box-shadow:8px_8px_0px_0px_rgba(0,0,0,1)] lg:[box-shadow:16px_16px_0px_0px_rgba(0,0,0,1)] overflow-hidden mb-12 md:mb-16">
 
-                {/* Carousel Area - Diberi background grid halus */}
-                <div className="border-b-4 lg:border-b-0 lg:border-r-4 border-black p-6 bg-[#eeeeee] relative overflow-hidden">
-                    <div className="absolute inset-0 opacity-10 pointer-events-none bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')]" />
+                {/* Carousel Area */}
+                <div className="border-b-4 lg:border-b-0 lg:border-r-4 border-black p-4 md:p-6 bg-[#eeeeee] overflow-hidden relative flex items-center">
+                    <div className="absolute inset-0 pointer-events-none opacity-10 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')]" />
                     <Carousel images={product.allImages} title={product.title} />
                 </div>
 
                 {/* Info Area */}
-                <div className="flex flex-col p-10 bg-white px-5">
-                    <div className="space-y-8 grow">
-                        {/* Type Label - High Visibility */}
-                        <div className="inline-flex items-center gap-2 bg-(--secondary) text-black border-2 border-black px-4 py-1 text-xs font-black uppercase tracking-[0.2em] [box-shadow:4px_4px_0px_0px_rgba(0,0,0,1)]">
-                            <Zap size={14} fill="currentColor" />
+                <div className="flex flex-col p-6 md:p-10 bg-white">
+                    <div className="space-y-6 md:space-y-8 grow">
+                        {/* Type Label */}
+                        <div className="inline-flex items-center gap-2 bg-(--secondary) text-black border-2 border-black px-3 py-1 text-[10px] md:text-xs font-black uppercase tracking-[0.2em] [box-shadow:3px_3px_0px_0px_rgba(0,0,0,1)]">
+                            <Zap size={12} fill="currentColor" />
                             {product.item_types || "Standard Asset"}
                         </div>
 
-                        <div className="space-y-6">
-                            <h1 className="text-xl md:text-3xl font-black uppercase tracking-tighter leading-[0.9] italic text-black">
+                        <div className="space-y-4 md:space-y-6">
+                            <h1 className="text-xl md:text-2xl lg:text-3xl font-black uppercase tracking-tighter leading-[0.85] italic text-black wrap-break-word">
                                 {product.title}<span className="text-(--primary) not-italic">.</span>
                             </h1>
 
-                            {/* Tags/Labels - Pill Style Brutalist */}
                             <div className="flex flex-wrap gap-2">
                                 {product.labels.map((label) => (
-                                    <span key={label} className="bg-black text-white px-3 py-1 text-[10px] font-black uppercase tracking-widest border-2 border-black">
+                                    <span key={label} className="bg-black text-white px-2 py-1 text-[9px] md:text-[10px] font-black uppercase tracking-widest border-2 border-black">
                                         {label}
                                     </span>
                                 ))}
                             </div>
 
-                            <p className="text-lg font-bold leading-tight text-black/70 font-mono">
+                            <p className="text-base md:text-lg font-bold leading-tight text-black/70 font-mono">
                                 {product.description}
                             </p>
 
-                            <div className="bg-(--primary)/5 p-5 border-l-8 border-(--primary) font-bold text-sm leading-relaxed">
+                            <div className="bg-(--primary)/5 p-4 md:p-5 border-l-4 md:border-l-8 border-(--primary) font-bold text-xs md:text-sm leading-relaxed">
                                 <span className="text-(--primary) font-black uppercase block mb-1">Architect Notes:</span>
                                 High-performance digital components optimized for modern development workflows.
                             </div>
@@ -72,30 +73,33 @@ export default async function AssetDetailPage({ params }: { params: Promise<{ id
                     </div>
 
                     {/* Price & Action */}
-                    <div className="mt-12 pt-10 border-t-4 border-black space-y-8">
-                        <div className="flex items-center justify-between">
+                    <div className="mt-8 md:mt-12 pt-6 md:pt-10 border-t-4 border-black space-y-6 md:space-y-8">
+                        <div className="flex items-end justify-between">
                             <div className="flex flex-col">
-                                <span className="text-xs font-black uppercase text-black/40 tracking-widest mb-1">Current_Value</span>
-                                <p className="text-5xl font-black text-black tracking-tighter">
+                                <span className="text-[10px] font-black uppercase text-black/40 tracking-widest mb-1">Current_Value</span>
+                                <p className="text-4xl md:text-5xl font-black text-black tracking-tighter leading-none">
                                     {product.displayPrice || rupiahFormat(product.price)}
                                 </p>
                             </div>
-                            <div className="hidden sm:block rotate-12">
+                            {/* Di mobile kita sembunyikan atau perkecil agar tidak bertumpukan */}
+                            <div className="hidden md:block rotate-12">
                                 <div className="bg-green-400 border-4 border-black px-4 py-1 font-black text-xs uppercase [box-shadow:4px_4px_0px_0px_rgba(0,0,0,1)]">
                                     Verified_Secure
                                 </div>
                             </div>
                         </div>
 
-                        {/* Button Group - Layouted for impact */}
                         <div className="grid grid-cols-1 gap-4">
-                            <div>
+                            <div className="w-full">
                                 <CheckoutButton product={product} />
                             </div>
-                            <div className="flex gap-3 overflow-x-auto pb-2 no-scrollbar">
+                            {/* Flex-wrap agar tombol aksi tidak overflow ke samping di HP kecil */}
+                            <div className="flex flex-row gap-2 md:gap-3">
                                 <ShareButton product={product} />
                                 <CopyLinkButton product={product} />
-                                <ViewAllAssetsButton />
+                                <div className="hidden xs:block">
+                                    <ViewAllAssetsButton />
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -103,19 +107,19 @@ export default async function AssetDetailPage({ params }: { params: Promise<{ id
             </div>
 
             {/* 3. Content Section */}
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start px-5">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 md:gap-10 items-start">
 
                 {/* Documentation Block */}
-                <div className="lg:col-span-8 border-4 border-black bg-white p-10 [box-shadow:12px_12px_0px_0px_rgba(0,0,0,1)]">
-                    <div className="flex items-center gap-4 mb-10 border-b-8 border-black pb-6">
-                        <div className="bg-black p-2 text-white">
-                            <FileText className="w-8 h-8" />
+                <div className="lg:col-span-8 border-4 border-black bg-white p-6 md:p-10 [box-shadow:8px_8px_0px_0px_rgba(0,0,0,1)] lg:[box-shadow:12px_12px_0px_0px_rgba(0,0,0,1)]">
+                    <div className="flex items-center gap-4 mb-6 md:mb-10 border-b-4 md:border-b-8 border-black pb-4 md:pb-6">
+                        <div className="bg-black p-1.5 md:p-2 text-white">
+                            <FileText className="w-6 h-6 md:w-8 md:h-8" />
                         </div>
-                        <h2 className="text-3xl font-black uppercase tracking-tighter">Description</h2>
+                        <h2 className="text-2xl md:text-3xl font-black uppercase tracking-tighter">Description</h2>
                     </div>
 
                     <div
-                        className="prose prose-xl max-w-none font-bold
+                        className="prose prose-sm md:prose-xl max-w-none font-bold
                                    prose-headings:uppercase prose-headings:font-black prose-headings:tracking-tighter prose-headings:italic
                                    prose-strong:bg-(--secondary) prose-strong:px-1 prose-p:text-black/80 prose-li:text-black"
                         dangerouslySetInnerHTML={{ __html: product.rich_description }}
@@ -123,12 +127,12 @@ export default async function AssetDetailPage({ params }: { params: Promise<{ id
                 </div>
 
                 {/* Sidebar Accordions */}
-                <div className="lg:col-span-4 space-y-8 px-5">
+                <div className="lg:col-span-4 space-y-6 md:space-y-8">
                     <AccordionSection
-                        icon={<BoxIcon className="w-6 h-6" />}
+                        icon={<BoxIcon className="w-5 h-5 md:w-6 md:h-6" />}
                         title="Package_Contents"
                         headerColor="bg-(--secondary)"
-                        color="text-(--text-alt)"
+                        color="text-black" // Pastikan kontras tinggi
                         items={[
                             "High-resolution source files",
                             "Commercial & personal license",
@@ -138,10 +142,10 @@ export default async function AssetDetailPage({ params }: { params: Promise<{ id
                     />
 
                     <AccordionSection
-                        icon={<CreditCard className="w-6 h-6" />}
+                        icon={<CreditCard className="w-5 h-5 md:w-6 md:h-6" />}
                         title="Security_Layer"
                         headerColor="bg-(--primary)"
-                        color="text-(--text-alt)"
+                        color="text-white"
                         items={[
                             "256-bit SSL protection",
                             "Automatic invoice",
@@ -153,7 +157,6 @@ export default async function AssetDetailPage({ params }: { params: Promise<{ id
         </section>
     );
 }
-
 function AccordionSection({ title, items, icon, color, headerColor }: { title: string; items: string[]; icon: React.ReactNode; color: string; headerColor: string }) {
     return (
         <div className="border-4 border-black bg-white [box-shadow:8px_8px_0px_0px_var(--border-color)]">

@@ -11,7 +11,7 @@ interface CheckoutButtonProps {
 export default function CheckoutButton({ product }: CheckoutButtonProps) {
     // Siapkan URL-nya
     const variantId = product.variantId || product.id
-    const checkoutUrl = `https://zetta.myscalev.com/c/checkout?variant_ids=${variantId}&qty=1`
+    const checkoutUrl = `https://zettaproject.myscalev.com/c/checkout?variant_ids=${variantId}&qty=1`
 
     return (
         <Link

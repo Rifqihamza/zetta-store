@@ -121,7 +121,6 @@ const WhyIsZetta = () => {
 export default function AboutSection() {
     return (
         <main className="relative bg-linear-to-t from-(--background) via-(--background) to-(--primary) overflow-hidden pb-20">
-            {/* Star Tiled Background - Dibuat lebih subtle agar tidak balapan dengan teks */}
             <div
                 className="absolute inset-0 pointer-events-none mix-blend-multiply opacity-10"
                 style={{

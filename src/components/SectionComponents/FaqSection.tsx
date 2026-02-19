@@ -21,7 +21,7 @@ export default function FAQSection() {
     ];
 
     return (
-        <div className="w-full max-w-4xl mx-auto space-y-6 px-4 py-32">
+        <div className="w-full max-w-5xl mx-auto space-y-6 px-4 py-32">
             <FreesetsReveal>
                 <div className="flex flex-col items-center mb-20 space-y-6">
                     {/* Badge FAQ */}
@@ -48,9 +48,9 @@ export default function FAQSection() {
                                 <input type="radio" name="FaqSection" />
 
                                 {/* Judul / Pertanyaan */}
-                                <div className="collapse-title flex items-center gap-4 text-xl md:text-2xl font-black text-black p-8 uppercase tracking-tighter group-hover:bg-(--background)/10 transition-colors">
-                                    <span className="text-(--primary) font-mono italic">0{index + 1}.</span>
-                                    <span className="flex-1">{faq.question}</span>
+                                <div className="collapse-title flex items-center gap-4 text-xl md:text-2xl font-black text-black p-8 uppercase tracking-tighter bg-(--primary) group-hover:bg-(--primary)/70 transition-colors">
+                                    <span className="text-(--text-alt) font-mono italic">0{index + 1}.</span>
+                                    <span className="flex-1 text-(--text-alt)">{faq.question}</span>
                                 </div>
 
                                 {/* Isi / Jawaban */}
