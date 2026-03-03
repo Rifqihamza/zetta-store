@@ -5,8 +5,8 @@ export default function StepProcessPage() {
         <>
             <section id="how-it-works" className="bg-linear-to-b from-(--background) via-(--background) to-(--primary)">
                 <FreesetsReveal>
-                    <div className="py-32 px-2 space-y-10 relative w-full max-w-7xl mx-auto overflow-hidden ">
-                        <div className="flex flex-col items-center justify-center space-y-4 mb-16">
+                    <div className="py-26 px-2 space-y-10 relative w-full max-w-7xl mx-auto overflow-hidden ">
+                        <div className="flex flex-col items-center justify-center space-y-4 mb-10">
                             {/* Badge Kecil di Atas Judul */}
                             <div className="bg-black text-white px-4 py-1 border-2 border-black font-black uppercase text-[10px] tracking-[0.3em] [box-shadow:4px_4px_0px_0px_rgba(251,107,162,1)] mb-2">
                                 Execution_Protocol

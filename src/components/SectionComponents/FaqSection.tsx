@@ -21,7 +21,7 @@ export default function FAQSection() {
     ];
 
     return (
-        <div className="w-full max-w-5xl mx-auto space-y-6 px-4 py-32">
+        <div className="w-full max-w-5xl mx-auto space-y-6 px-4 py-26">
             <FreesetsReveal>
                 <div className="flex flex-col items-center mb-20 space-y-6">
                     {/* Badge FAQ */}
@@ -29,7 +29,7 @@ export default function FAQSection() {
                         Support_Center v2.0
                     </div>
 
-                    <h2 className="text-5xl md:text-7xl font-black text-black uppercase tracking-tighter text-center leading-none italic">
+                    <h2 className="text-4xl md:text-6xl font-black text-black uppercase tracking-tighter text-center leading-none italic">
                         Any <span className="text-(--secondary) not-italic">Questions?</span>
                     </h2>
 
@@ -39,23 +39,23 @@ export default function FAQSection() {
                 </div>
             </FreesetsReveal>
 
-            <div className="space-y-8">
+            <div className="space-y-4">
                 {faqData.map((faq, index) => (
                     <FreesetsReveal key={index}>
                         {/* Card FAQ dengan Hover Effect */}
-                        <div className="group border-4 border-black bg-white [box-shadow:8px_8px_0px_0px_rgba(0,0,0,1)] hover:[box-shadow:0px_0px_0px_0px_rgba(0,0,0,1)] hover:translate-x-1 hover:translate-y-1 transition-all duration-200">
+                        <div className="group rounded-2xl overflow-hidden bg-white">
                             <div className="collapse collapse-arrow rounded-none">
                                 <input type="radio" name="FaqSection" />
 
                                 {/* Judul / Pertanyaan */}
-                                <div className="collapse-title flex items-center gap-4 text-xl md:text-2xl font-black text-black p-8 uppercase tracking-tighter bg-(--primary) group-hover:bg-(--primary)/70 transition-colors">
+                                <div className="collapse-title flex items-center gap-4 text-lg md:text-xl font-black text-black p-4 uppercase tracking-tighter bg-(--primary) group-hover:bg-(--primary)/70 transition-colors">
                                     <span className="text-(--text-alt) font-mono italic">0{index + 1}.</span>
                                     <span className="flex-1 text-(--text-alt)">{faq.question}</span>
                                 </div>
 
                                 {/* Isi / Jawaban */}
-                                <div className="collapse-content px-8 pb-8">
-                                    <div className="pt-6 border-t-4 border-black/10">
+                                <div className="collapse-content px-8">
+                                    <div className="pt-4">
                                         <p className="text-black/80 font-bold leading-relaxed md:text-xl font-mono lowercase tracking-tight">
                                             {/* Efek ala terminal untuk jawaban */}
                                             <span className="text-(--secondary) mr-2 font-black">{">"}</span>
@@ -71,7 +71,7 @@ export default function FAQSection() {
 
             {/* Support Footer */}
             <div className="mt-16 text-center">
-                <p className="text-xs font-black uppercase tracking-widest text-black/40">
+                <p className="text-xs font-black uppercase tracking-widest text-black/70">
                     Still confused? contact our neural network at zettaproject30@gmail.com
                 </p>
             </div>

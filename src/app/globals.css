@@ -10,38 +10,6 @@
   src: url("/assets/BrickSans-Bold.otf");
 }
 
-html {
-  scroll-behavior: smooth;
-}
-:root {
-  /* 1. Warna Identitas (Vibrant Pink) */
-  /* Diambil dari gradasi pink kamu agar sinkron */
-  --primary: #fb6ba2;
-
-  /* 2. Warna Aksen (Retro Purple) */
-  /* Cocok untuk elemen hover atau tombol sekunder seperti di screenshot terakhir */
-  --secondary: #7e22ce;
-
-  /* 3. Background Utama (Cyber Yellow) */
-  --background: #f0cc4c;
-
-  /* 4. Warna Kontainer (Card & Sections) */
-  /* Putih bersih agar teks hitam di dalamnya maksimal keterbacaannya */
-  --card-bg: #ffffff;
-
-  /* 5. Warna Teks (Brutal Clarity) */
-  /* Wajib Hitam untuk elemen di atas kuning/putih */
-  --text-main: #000000;
-  /* Putih untuk teks di atas tombol pink/ungu */
-  --text-alt: #ffffff;
-  /* Abu-abu gelap untuk sub-text agar tidak terlalu kontras */
-  --text-muted: #374151;
-
-  /* 6. Border & Shadow (The "Brutal" Soul) */
-  --border-color: #000000;
-  --shadow-color: #000000;
-}
-
 ::-webkit-scrollbar {
   display: none;
 }
@@ -51,14 +19,45 @@ html {
   text-transform: uppercase;
 }
 
+:root {
+  /* 1. Warna Identitas (Vibrant Pink) */
+  --primary: #fb6ba2;
+  --primary-light: #ffc2d1;
+  --primary-tint: #ffe3ec; /* Sangat terang untuk hover/bg kecil */
+
+  /* 2. Warna Sekunder (Retro Plum/Grape) */
+  /* Pengganti Indigo: Lebih selaras dengan Pink daripada biru standar */
+  --secondary: #90216b;
+  --secondary-light: #bc4e9c;
+
+  /* 3. Background Utama (Cyber Yellow) */
+  --background: #f0cc4c;
+
+  /* 4. Warna Kontainer & Permukaan */
+  --card-bg: #ffffff;
+  --card-bg-alt: #fcfcfc;
+
+  /* 5. Warna Teks (Brutal Clarity) */
+  --text-main: #000000;
+  --text-alt: #ffffff;
+  --text-muted: #4b5563; /* Sedikit lebih terang dari hitam untuk hierarki */
+
+  /* 6. Border & Shadow (The "Brutal" Soul) */
+  --border-width: 4px; /* Standar ketebalan retro */
+  --border-color: #000000;
+  --shadow-color: #000000;
+
+  /* 7. Accent (Opsional: Cyan untuk variasi retro) */
+  --accent-cyan: #22d3ee;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   background-color: var(--background);
   color: var(--text-main);
   /* Supaya transisi antar section gradasi halus */
   transition: background-color 0.3s ease;
-}
-
-.pixelated {
-  image-rendering: pixelated;
-  image-rendering: crisp-edges;
 }

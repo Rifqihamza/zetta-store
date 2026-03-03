@@ -1,12 +1,27 @@
 'use client'
 
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import Link from "next/link"
 import { Menu, X, Home, Info, ShoppingBag, HelpCircle, Zap } from "lucide-react"
 import { brand } from "@/config/brand"
 
 export default function Navbar() {
     const [open, setOpen] = useState(false)
+    const [visible, setVisible] = useState(false)
+
+    useEffect(() => {
+        const handleScroll = () => {
+            if (window.scrollY > 0) {
+                setVisible(true)
+            }
+            else {
+                setVisible(false)
+            }
+        }
+        window.addEventListener('scroll', handleScroll)
+        return () => window.removeEventListener('scroll', handleScroll)
+    }, [])
+
 
     const navLinks = [
         { title: "Home", href: "/", icon: <Home size={18} /> },
@@ -19,7 +34,7 @@ export default function Navbar() {
     return (
         <header className="fixed bottom-8 left-1/2 -translate-x-1/2 z-100 w-auto">
             {/* ===== THE DOCK CONTAINER ===== */}
-            <nav className="relative flex items-center gap-2 bg-(--primary) border-4 border-black p-2">
+            <nav className={`relative flex ${visible ? 'translate-y-0' : 'translate-y-125'} transition-all duration-500 items-center gap-2 bg-(--primary) border-4 border-black p-2`}>
 
                 {/* Brand / Logo (Mobile only or Icon) */}
                 <Link

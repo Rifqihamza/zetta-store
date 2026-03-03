@@ -3,7 +3,7 @@ import Stepper, { Step } from "../ui/Stepper";
 
 export default function StepSection() {
     return (
-        <section className="py-20 px-6">
+        <section className="py-6 px-4">
             <Stepper
                 initialStep={1}
                 onStepChange={(step) => console.log(step)}

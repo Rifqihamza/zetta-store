@@ -1,78 +1,42 @@
 'use client'
 
 import Link from "next/link"
-import Image from "next/image"
 import { brand } from "../../config/brand"
-
+import PixelBlast from '../ui/PixelBlast'
+import Image from "next/image"
 export default function HeroSection() {
     return (
         <>
+            <div className="absolute top-0 left-0 z-0 w-full h-auto">
+                <Image
+                    src={'/assets/mountain.svg'}
+                    alt="Mountain Top"
+                    width={1920}
+                    height={1080}
+                    className="w-full h-full scale-105" />
+                <PixelBlast
+                    variant="square"
+                    pixelSize={6}
+                    color="#fb6ba2"
+                    patternScale={8}
+                    patternDensity={2}
+                    pixelSizeJitter={4}
+                    enableRipples
+                    rippleSpeed={0.8}
+                    rippleThickness={0.20}
+                    rippleIntensityScale={1.5}
+                    liquid={false}
+                    liquidStrength={0.12}
+                    liquidRadius={1.5}
+                    liquidWobbleSpeed={5}
+                    speed={0.9}
+                    edgeFade={0.50}
+                    transparent
+                />
+            </div>
+
             {/* Gradient disesuaikan: Kuning ke Pink (Sunset) */}
-            <section className="bg-linear-to-b from-(--background) via-(--background) to-(--primary) relative w-full h-dvh overflow-hidden">
-                <div className="relative w-full h-full">
-
-                    {/* --- MOUNTAINS / CLOUD HEADER (TOP) --- */}
-                    <Image
-                        src='/assets/invert-mount.png'
-                        alt="Mountains"
-                        width={1920}
-                        height={1080}
-                        priority
-                        className="pixelated absolute top-0 left-0 w-full h-32 object-cover object-bottom z-10 opacity-90"
-                    />
-
-                    {/* --- BRICKS (FLOOR) --- */}
-                    <Image
-                        src='/assets/brick.png'
-                        alt="Bricks"
-                        width={1920}
-                        height={1080}
-                        className="pixelated absolute -bottom-10 left-0 w-full h-50 md:h-70 object-cover object-top z-10"
-                    />
-
-                    {/* --- STORE (LEFT) --- */}
-                    <Image
-                        src='/assets/store.png'
-                        alt="Store"
-                        width={500}
-                        height={500}
-                        className="pixelated absolute bottom-0 left-0 w-35 md:w-1/6 object-contain z-10"
-                    />
-
-                    {/* --- HALTE (RIGHT) --- */}
-                    <Image
-                        src='/assets/halte.png'
-                        alt="Halte"
-                        width={500}
-                        height={500}
-                        className="pixelated absolute bottom-0 right-0 w-30 md:w-1/6 object-contain z-10"
-                    />
-
-                    {/* --- DECORATIONS --- */}
-                    <Image
-                        src='/assets/stars.png'
-                        alt="Stars"
-                        width={125}
-                        height={125}
-                        className="absolute top-1/2 -translate-y-1/2 left-1/2 -translate-x-1/2 w-80 md:w-125 opacity-40 mix-blend-overlay object-cover"
-                    />
-
-                    <Image
-                        src='/assets/cloud-1.png'
-                        alt="Cloud"
-                        width={125}
-                        height={125}
-                        className="pixelated absolute top-1/4 left-5 md:left-40 animate-pulse w-16 md:w-24 object-contain"
-                    />
-                    <Image
-                        src='/assets/cloud-1.png'
-                        alt="Cloud"
-                        width={125}
-                        height={125}
-                        className="pixelated absolute bottom-1/3 right-5 md:right-30 animate-pulse w-16 md:w-24 object-contain"
-                    />
-                </div>
-
+            <section className="w-full z-1">
                 {/* --- TEXT CONTENT --- */}
                 <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-4 z-20">
                     {/* Teks Utama menggunakan Hitam agar terbaca di background kuning */}
@@ -91,7 +55,7 @@ export default function HeroSection() {
                         {/* Button Utama: Pink (Primary) */}
                         <Link
                             href="#assetPage"
-                            className="flex items-center justify-center px-3 py-2 md:px-4 md:py-3 font-black uppercase text-xs tracking-tighter bg-(--primary) text-white border-4 border-black [box-shadow:6px_6px_0px_0px_rgba(0,0,0,1)] hover:[box-shadow:2px_2px_0px_0px_rgba(0,0,0,1)] hover:translate-x-1 hover:translate-y-1 transition-all"
+                            className="flex items-center justify-center px-4 py-2 bg-(--primary) border-4 border-black text-sm md:text-base font-black text-white  uppercase shadow-[0_8px_0_0_#000] hover:shadow-[0_0px_0_0_#000] hover:translate-y-2 active:translate-y-2 translate-y-0"
                         >
                             Explore Assets
                         </Link>
@@ -99,7 +63,7 @@ export default function HeroSection() {
                         {/* Button Sekunder: Ungu (Secondary) sesuai screenshot terakhir kamu */}
                         <Link
                             href="#aboutPage"
-                            className="flex items-center justify-center px-3 py-2 md:px-4 md:py-3 font-black uppercase text-xs tracking-tighter bg-(--secondary) text-white border-4 border-black [box-shadow:6px_6px_0px_0px_rgba(0,0,0,1)] hover:[box-shadow:2px_2px_0px_0px_rgba(0,0,0,1)] hover:translate-x-1 hover:translate-y-1 transition-all"
+                            className="flex items-center justify-center px-4 py-2 bg-(--secondary) border-4 border-black text-sm md:text-base font-black text-white  uppercase shadow-[0_8px_0_0_#000] hover:shadow-[0_0px_0_0_#000] hover:translate-y-2 active:translate-y-2 translate-y-0"
                         >
                             About Zetta
                         </Link>

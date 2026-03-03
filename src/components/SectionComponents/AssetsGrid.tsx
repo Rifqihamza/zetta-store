@@ -2,7 +2,7 @@
 
 import { useProducts } from "@/hooks/useProduct";
 import { LoadingSpinner, EmptyState } from "@/components/ui/CommonStates";
-import { ChevronDown, Sparkles, Search, Filter } from "lucide-react";
+import { Sparkles, Search, Grid2X2 } from "lucide-react";
 import { brand } from "@/config/brand";
 import FreesetsReveal from "../ui/AnimationReveal";
 import ProductCard from "@/components/ui/ProductCard";
@@ -32,7 +32,7 @@ export default function AssetsGrid() {
                             {brand.name} Database v2.0
                         </div>
                         <h2 className="text-4xl md:text-6xl font-black uppercase leading-none tracking-tighter italic">
-                            The Assets Vault
+                            The Assets List
                         </h2>
                     </div>
                     <p className="text-sm md:text-right font-bold uppercase max-w-75 leading-tight opacity-70">
@@ -40,59 +40,51 @@ export default function AssetsGrid() {
                     </p>
                 </div>
 
-                {/* Filter Section - Bold Controls */}
-                <div className="flex flex-col md:flex-row gap-4 mb-12 px-4">
+                {/* Filter Section - Bold Badge Controls */}
+                <div className="flex flex-col gap-8 mb-12 px-4">
                     {/* Search Bar */}
-                    <div className="relative grow group">
+                    <div className="relative group w-full">
                         <div className="absolute left-4 top-1/2 -translate-y-1/2 z-10">
                             <Search size={20} className="text-black" />
                         </div>
                         <input
                             type="text"
                             placeholder="SEARCH_ASSETS..."
-                            className="w-full bg-white border-4 border-black px-12 py-3 font-black uppercase text-sm placeholder:text-black/30 outline-none focus:bg-(--primary) [box-shadow:4px_4px_0px_0px_rgba(0,0,0,1)]"
+                            className="w-full rounded-2xl bg-white border-4 border-(--primary) px-12 py-3 font-black uppercase text-sm placeholder:text-black/30 outline-none [box-shadow:0_6px_0px_0px_var(--primary)] transition-colors"
                             value={search}
                             onChange={(e) => setSearch(e.target.value)}
                         />
                     </div>
 
-                    {/* Category Dropdown */}
-                    <div className="dropdown dropdown-bottom dropdown-end md:w-72">
-                        <div
-                            tabIndex={0}
-                            role="button"
-                            className="w-full bg-white border-4 border-black px-6 py-3 flex items-center justify-between font-black uppercase text-sm [box-shadow:4px_4px_0px_0px_rgba(0,0,0,1)] hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-none transition-all cursor-pointer"
+                    {/* Category Badges - Horizontal Scrollable on Mobile */}
+                    <div className="flex overflow-scroll gap-3 py-2">
+                        {/* All Categories Badge */}
+                        <button
+                            onClick={() => setSelectedCategory("")}
+                            className={`flex items-center gap-2 px-4 py-2 rounded-xl font-black uppercase text-sm tracking-wider transition-all text-nowrap
+                ${!selectedCategory
+                                    ? "bg-(--primary) text-white [box-shadow:4px_4px_0px_0px_var(--primary-light)]"
+                                    : "bg-white text-black hover:bg-(--primary)"
+                                }`}
                         >
-                            <span className="flex items-center gap-2">
-                                <Filter size={18} />
-                                {selectedCategory || "All Categories"}
-                            </span>
-                            <ChevronDown size={20} className="group-hover:rotate-180 transition-transform" />
-                        </div>
+                            <Grid2X2 size={18} />
+                            All
+                        </button>
 
-                        <ul
-                            tabIndex={0}
-                            className="dropdown-content z-50 menu p-2 shadow-none bg-white border-4 border-black w-full mt-2 space-y-1"
-                        >
-                            <li>
-                                <button
-                                    onClick={() => setSelectedCategory("")}
-                                    className={`rounded-none px-4 py-2 text-left font-black uppercase text-xs ${!selectedCategory ? "bg-black text-white" : "hover:bg-(--background)"}`}
-                                >
-                                    [ ALL_CATEGORIES ]
-                                </button>
-                            </li>
-                            {categories.map((cat) => (
-                                <li key={cat}>
-                                    <button
-                                        onClick={() => setSelectedCategory(cat)}
-                                        className={`rounded-none px-4 py-2 text-left font-black uppercase text-xs ${selectedCategory === cat ? "bg-black text-white" : "hover:bg-(--background)"}`}
-                                    >
-                                        {cat}
-                                    </button>
-                                </li>
-                            ))}
-                        </ul>
+                        {/* Dynamic Category Badges */}
+                        {categories.map((cat) => (
+                            <button
+                                key={cat}
+                                onClick={() => setSelectedCategory(cat)}
+                                className={`px-4 py-2 rounded-xl font-black uppercase text-sm tracking-wider transition-all text-nowrap
+                    ${selectedCategory === cat
+                                        ? "bg-(--primary) text-white [box-shadow:4px_4px_0px_0px_var(--primary-light)]"
+                                        : "bg-white text-black hover:bg-(--primary)"
+                                    }`}
+                            >
+                                {cat.replace("_", " ")}
+                            </button>
+                        ))}
                     </div>
                 </div>
             </FreesetsReveal>
@@ -126,19 +118,14 @@ export default function AssetsGrid() {
                     <button
                         onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
                         disabled={currentPage === 1 || loading}
-                        className="group flex items-center justify-center px-6 py-3 bg-white border-4 border-black font-black uppercase tracking-tighter text-sm
-                       [box-shadow:6px_6px_0px_0px_rgba(0,0,0,1)] 
-                       hover:translate-x-1 hover:translate-y-1 hover:shadow-none
-                       disabled:opacity-30 disabled:cursor-not-allowed disabled:hover:translate-0 disabled:hover:shadow-[6px_6px_0px_0px_rgba(0,0,0,1)]
-                       transition-all"
+                        className="group flex items-center justify-center px-4 py-2 rounded-2xl text-white bg-(--secondary) border-2 border-(--text-muted) [box-shadow:0_6px_0px_0px_var(--secondary-light)] font-black uppercase tracking-tighter text-sm hover:opacity-70 cursor-pointer hover:shadow-none disabled:opacity-30 disabled:cursor-not-allowed transition-all"
                     >
                         ← PREV
                     </button>
 
                     {/* Page Indicator */}
                     <div className="flex flex-col items-center">
-                        <span className="text-[10px] font-black uppercase opacity-40 mb-1 tracking-widest">Page</span>
-                        <div className="bg-black text-(--background) border-4 border-black px-6 py-2 font-mono font-black text-xl [box-shadow:4px_4px_0px_0px_rgba(251,107,162,1)]">
+                        <div className="rounded-2xl bg-(--primary-light) border-4 border-(--primary) px-4 py-2 [box-shadow:0_6px_0px_0px_var(--primary)]">
                             {currentPage.toString().padStart(2, '0')}
                         </div>
                     </div>
@@ -147,11 +134,7 @@ export default function AssetsGrid() {
                     <button
                         onClick={() => setCurrentPage((prev) => prev + 1)}
                         disabled={!pagination.hasNext || loading}
-                        className="group flex items-center justify-center px-6 py-3 bg-(--primary) text-white border-4 border-black font-black uppercase tracking-tighter text-sm
-                       [box-shadow:6px_6px_0px_0px_rgba(0,0,0,1)] 
-                       hover:translate-x-1 hover:translate-y-1 hover:shadow-none
-                       disabled:opacity-30 disabled:cursor-not-allowed disabled:hover:translate-0 disabled:hover:shadow-[6px_6px_0px_0px_rgba(0,0,0,1)]
-                       transition-all"
+                        className="group flex items-center justify-center px-4 py-2 rounded-2xl text-white bg-(--primary) border-2 border-(--text-muted) [box-shadow:0_6px_0px_0px_var(--secondary-light)] font-black uppercase tracking-tighter text-sm hover:opacity-70 cursor-pointer hover:shadow-none disabled:opacity-30 disabled:cursor-not-allowed transition-all"
                     >
                         NEXT →
                     </button>
